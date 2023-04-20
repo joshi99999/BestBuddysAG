@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-org = cv2.imread(filename="image.jpg", flags=cv2.IMREAD_GRAYSCALE)
+org = cv2.imread(filename="Repository/image.jpg", flags=cv2.IMREAD_GRAYSCALE)
 org = cv2.resize(src=org, dsize=(960, 540))
 img = cv2.GaussianBlur(src=org, ksize=(5, 5), sigmaX=0)
 lsd = cv2.createLineSegmentDetector()
