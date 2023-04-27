@@ -27,9 +27,10 @@ for i in range(len(lines)):
 
     vectors = centers - centers[i]
     
-    near = indexes[np.hypot(vectors[:,0], vectors[:,1]) < lengths[i]]
+    near = np.hypot(vectors[:,0], vectors[:,1]) < lengths[i]
+    near[i] = False
 
-    for n in near:
+    for n in indexes[near]:
 
         vector1 = lines[i,1] - lines[i,0]
         vector2 = lines[n,1] - lines[n,0]
@@ -43,7 +44,7 @@ for i in range(len(lines)):
             parallel1 = lines[i] - vector3
             parallel2 = lines[i] + vector3
 
-        M = cv2.getPerspectiveTransform(np.concatenate((lines[i], (lines[n] if 0 < np.dot(vector1, vector2) else lines[n,[1,0]])), dtype=np.float32), np.concatenate((lines[i], parallel1), dtype=np.float32))
+        M = np.linalg.inv(cv2.getPerspectiveTransform(np.concatenate((lines[i], (lines[n] if 0 < np.dot(vector1, vector2) else lines[n,[1,0]])), dtype=np.float32), np.concatenate((lines[i], parallel1), dtype=np.float32)))
 
         parallel2homogen = np.insert(parallel2, 2, 1, axis=1)
 
@@ -55,4 +56,4 @@ for i in range(len(lines)):
         color = cv2.line(img=color, pt1=parallel1[0].astype(np.int32), pt2=parallel1[1].astype(np.int32), color=(0, 255, 255), thickness=1)
         color = cv2.line(img=color, pt1=parallel2warped[0].astype(np.int32), pt2=parallel2warped[1].astype(np.int32), color=(255,0,0), thickness=1)
         cv2.imshow("Bearbeitet", color)
-        cv2.waitKey(1)
+        cv2.waitKey(0)
