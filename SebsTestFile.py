@@ -69,9 +69,6 @@ color = cv2.cvtColor(src=warped, code=cv2.COLOR_GRAY2BGR)
 w = M @ [150,100,1]
 print(w[[0,1]]/w[2])
 
-
-
-
 for i in range(3):
     color = cv2.circle(img=color, center=y[i,0].astype(np.int32), radius=3, color=(0,0,255), thickness=-1)
     color = cv2.circle(img=color, center=(y[i,0]+y[i,1]).astype(np.int32), radius=3, color=(0,0,255), thickness=-1)
