@@ -20,7 +20,6 @@ centers = lines[:,0] + (lines[:,1] - lines[:,0]) / 2
 
 indexes = np.arange(0, len(lines), 1)
 
-
 for i in range(len(lines)):
     if img.shape[0] / 10 < lengths[i]:
         continue
