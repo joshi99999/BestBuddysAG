@@ -1,8 +1,15 @@
 import cv2
 import numpy as np
 
+
+def findIntersection(p1, p2, r1, r2):
+    if np.cross(r1, r2) < 0.1:
+        return None
+    s = (r2[0]*(p1[1]-p2[1])-r2[1]*(p1[0]-p2[0]))/(r1[0]*r2[1]-r1[1]*r2[0])
+    return p1 + s * r1
+
 org = cv2.imread(filename="Repository/image.jpg")
-org = cv2.resize(src=org, dsize=(960, 540))
+#org = cv2.resize(src=org, dsize=(960, 540))
 gray = cv2.cvtColor(src=org, code=cv2.COLOR_BGR2GRAY)
 img = cv2.GaussianBlur(src=gray, ksize=(5, 5), sigmaX=0)
 lsd = cv2.createLineSegmentDetector()
