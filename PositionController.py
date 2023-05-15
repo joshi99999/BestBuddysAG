@@ -7,14 +7,16 @@ class PositionController(Node):
     def __init__(self):
         super().__init__('Control Roboter Position')
 
-        #gain
+        #gain, could be even higher
         self.kp = 10
-        
-        self.max = 100
+        #boarders
+        self.max = 1000
         self.min = 1
 
         #later the Position[X,Y,Z]
         self.postionValue = [0,0,0]
+
+        self.gripper = False
 
         #https://docs.ros.org/en/foxy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html
         #create a subscriber to subscribe the roboter position for the thtee axis
@@ -30,6 +32,7 @@ class PositionController(Node):
     #https://ros2-industrial-workshop.readthedocs.io/en/latest/_source/basics/ROS2-Simple-Publisher-Subscriber.html    
     def robotPostion_callback(self, msg):
         #positionError has 3 possible positionErrors: X,Y,Z
+        # msg.data should be the latest position from the axis
         positionError = [self.postionValue[i] - msg.data[i] for i in range(2)]
 
         #if Error is to small, it should not coreccte anything, otherwise it could begin to swing
@@ -40,8 +43,14 @@ class PositionController(Node):
             positionError = self.max
 
         positionError = [self.kp * positionError[0], self.kp * positionError[1], self.kp * positionError[2]]
-
-        gripper = False
+        
+        #if msg.data[2] < 200:
+         #  self.gripper = True
+        #elif msg.data[0] == 500 & msg.data[1] == 500:
+         #   self.gripper = False
+        #elif msg.data[0] == 400 & msg.data[1] == 500:
+         #   self.gripper = False
+        
         #https://roboticsbackend.com/ros2-python-publisher-example/
         self.position_publisher_.publish(msg.RobotCmd(vel_x = positionError[0],vel_y =  positionError[1], vel_z =  positionError[2], activate_gripper = gripper))
 
@@ -58,3 +67,4 @@ class PositionController(Node):
 
     if __name__ == "__main__":
      main()
+
