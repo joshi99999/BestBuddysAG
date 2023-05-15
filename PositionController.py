@@ -19,7 +19,7 @@ class PositionController(Node):
         #https://docs.ros.org/en/foxy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html
         #create a subscriber to subscribe the roboter position for the thtee axis
         #float32 pos_x, float32 pos_y, float32 pos_z
-        self.subscription = self.create_subscription(msg.RobotPos, 'RobotPos', self.listener_callback, 10)
+        self.subscription = self.create_subscription(msg.RobotPos, 'RobotPos', self.robotPostion_callback, 10)
 
         #create a publisher to publish the positionError for the three axis
         #float32 vel_x, float32 vel_y, float32 vel_z, bool activate_gripper
