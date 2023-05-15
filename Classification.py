@@ -3,9 +3,6 @@ import numpy as np
 import xlsxwriter
 import os
 import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib.colors import ListedColormap
-from sklearn import svm, preprocessing
 from mlxtend.plotting import plot_decision_regions
 
 def datei_open(directory):
