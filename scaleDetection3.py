@@ -4,76 +4,65 @@ from math import cos, sin, pi, atan
 
 class ScaleDetector:
 
-    def __init__(self, img, a, b):
-        self.__img = img
-        self.__shape = (self.__img.shape[0]-1, self.__img.shape[1]-1)
-        self.__ratio = self.__shape[1]/self.__shape[0]
-        self.__gamma = atan(1/self.__ratio)
-        self.__a = a
-        self.__b = b
-        self.__ends = np.zeros(shape=(2,2), dtype=np.int16)
-        self.__alpha = -pi/2
-        self.__v = np.array([cos(self.__alpha), sin(self.__alpha)], dtype=np.float32)
-        self.__vo = self.__v[::-1] * [1,-1]
-        self.__n = int(np.hypot(self.__shape[0], self.__shape[1]) * cos(abs(self.__alpha)-self.__gamma) / self.__b)
-        self.__i = 0
-        self.__p = 0
+    def __init__(self):
+        self.__radius = 0           #Distance between the ankor and the coordinate origin
+        self.__delta = 10           #Radius step width
+        self.__maxRadius = 0
 
-    def calculateLineEnds(self):
+        self.__alpha = -pi/2        #Angle between the x-axis and a line through the coordinate origin and the ankor
+        self.__phi = 0.01           #Angle step width
+
+        self.__ankorDirectionVector = np.array([0,1], dtype=np.float32)             #Unity vector facing from the origin to the ankor
+        self.__lineDirectionVector = self.__ankorDirectionVector[::-1] * [1,-1]     #Unity vector orgthogonal to the ankorDirectionVector
+
+    def __nextLine(self, shape):
+        self.__radius += self.__delta
+        if self.__maxRadius < self.__radius:
+            self.__radius = self.__delta
+            self.__alpha += self.__phi
+            self.__ankorDirectionVector = np.array([cos(self.__alpha), sin(self.__alpha)], dtype=np.float32)
+            self.__lineDirectionVector = self.__ankorDirectionVector[::-1] * [1,-1]
+            self.__maxRadius = np.hypot(shape[0], shape[1]) * cos(abs(self.__alpha) - atan(shape[0]/shape[1]))
+
+    @staticmethod        
+    def calculateLineEnds(shape, ankor, vector):
         j = 0
+        ends = np.zeros(shape=(2,2), dtype=np.int16)
 
-        if self.__vo[1] != 0:
-            s = (self.__p[0]*self.__vo[1]-self.__p[1]*self.__vo[0])/self.__vo[1]
-            if 0 <= s < self.__shape[1]:
-                self.__ends[j] = [int(s), 0]
+        if vector[1] != 0:
+            s = (ankor[0]*vector[1]-ankor[1]*vector[0])/vector[1]
+            if 0 <= s < shape[1]:
+                ends[j] = [int(s), 0]
                 j += 1
 
-        if self.__vo[0] != 0:
-            s = (self.__p[1]*self.__vo[0]+(self.__shape[1]-self.__p[0])*self.__vo[1])/self.__vo[0]
-            if 0 <= s < self.__shape[0]:
-                self.__ends[j] = [self.__shape[1], int(s)]
+        if vector[0] != 0:
+            s = (ankor[1]*vector[0]+(shape[1]-ankor[0])*vector[1])/vector[0]
+            if 0 <= s < shape[0]:
+                ends[j] = [shape[1], int(s)]
                 j += 1
 
-        if j < 2 and self.__vo[1] != 0:
-            s = (self.__p[0]*self.__vo[1]-(self.__p[1]-self.__shape[0])*self.__vo[0])/self.__vo[1]
-            if 0 < s <= self.__shape[1]:
-                self.__ends[j] = [int(s), self.__shape[0]]
+        if j < 2 and vector[1] != 0:
+            s = (ankor[0]*vector[1]-(ankor[1]-shape[0])*vector[0])/vector[1]
+            if 0 < s <= shape[1]:
+                ends[j] = [int(s), shape[0]]
                 j += 1
 
-        if j < 2 and self.__vo[0] != 0:
-            s = (self.__p[1]*self.__vo[0]-self.__p[0]*self.__vo[1])/self.__vo[0]
-            if 0 < s <= self.__shape[0]:
-                self.__ends[j] = [0, int(s)]
-    
-    def nextLine(self):
-        if self.__i == self.__n:
-            self.__i = 1
-            self.__alpha += self.__a
-            self.__v = np.array([cos(self.__alpha), sin(self.__alpha)], dtype=np.float32)
-            self.__vo = self.__v[::-1] * [1,-1]
-            self.__n = int(np.hypot(self.__shape[0], self.__shape[1]) * cos(abs(self.__alpha)-self.__gamma) / self.__b)
-        else:
-            self.__i += 1
+        if j < 2 and vector[0] != 0:
+            s = (ankor[1]*vector[0]-ankor[0]*vector[1])/vector[0]
+            if 0 < s <= shape[0]:
+                ends[j] = [0, int(s)]
         
-        self.__p = self.__i * self.__b * self.__v
-        if self.__alpha < 0:
-            self.__p = self.__p + [0, self.__shape[0]]
+        return ends
 
-    def show(self):
-        snap = self.__img.copy()
-        cv2.circle(img=snap, center=self.__ends[0], radius=3, color=(255,0,0), thickness=-1)
-        cv2.circle(img=snap, center=self.__ends[1], radius=3, color=(255,0,0), thickness=-1)
-        cv2.circle(img=snap, center=self.__p.astype(np.int32), radius=3, color=(0,255,0), thickness=-1)
+    @staticmethod
+    def calculateLineIndices(ends):
+        lineVector = ends[0]-ends[1]
+        angle = np.arctan2(lineVector[1],lineVector[0])
+        length = np.ceil(np.linalg.norm(lineVector))
+        return ([cos(angle), sin(angle)] * np.reshape(np.arange(0, length+1, 1, dtype=np.int16), (-1,1)) + ends[1]).astype(np.uint16)
 
-        cv2.line(img=snap, pt1=self.__ends[0], pt2=self.__ends[1], color=(0,0,255), thickness=1)
-
-        line_vector = self.__ends[0]-self.__ends[1]
-        angle = np.arctan2(line_vector[1],line_vector[0])
-        length = np.ceil(np.linalg.norm(line_vector))
-        indices = ([cos(angle), sin(angle)] * np.reshape(np.arange(0, length+1, 1, dtype=np.int16), (-1,1)) + self.__ends[1]).astype(np.uint16)
-        otsu = cv2.threshold(src=org, thresh=150, maxval=255, type=cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
-        line = otsu[indices[:,1], indices[:,0]]
-
+    @staticmethod
+    def analyseLine(line):
         edges = np.arange(1, line.shape[0], 1)[line[1:] != line[0:-1]]
         if 20 < edges.shape[0]:
             distances = edges[1:] - edges[0:-1]
@@ -85,21 +74,42 @@ class ScaleDetector:
                 lengths = borders[1:] - borders[0:-1]
                 if 20 < max(lengths):
                     index = borders[np.argmax(lengths)]
-                    cv2.line(img=snap, pt1=indices[edges[index]], pt2=indices[edges[index+max(lengths)]], color=(0,255,0), thickness=1)
+                    return edges[index], edges[index+max(lengths)]
 
+    def __show(self):
+        self.__snap = self.__img.copy()
+        cv2.circle(img=self.__snap, center=self.__ends[0], radius=3, color=(255,0,0), thickness=-1)
+        cv2.circle(img=self.__snap, center=self.__ends[1], radius=3, color=(255,0,0), thickness=-1)
+        cv2.circle(img=self.__snap, center=self.__p.astype(np.int32), radius=3, color=(0,255,0), thickness=-1)
 
-        cv2.imshow('Otsu', otsu)
-        cv2.imshow('Image', snap)
-        cv2.imshow('Line', np.tile(line, (50,1)))
+        cv2.line(img=self.__snap, pt1=self.__ends[0], pt2=self.__ends[1], color=(0,0,255), thickness=1)
+
+        cv2.imshow('Image', self.__snap)
+        cv2.imshow('Line', np.tile(self.__line, (50,1)))
         cv2.waitKey(1)
 
+    def detectScale(self, img):
+        snap = img.copy()
+        #img = cv2.cvtColor(src=img, code=cv2.COLOR_GRAY2BGR)
+        while self.__alpha < pi/2:
+            #snap = img.copy()
+            self.__nextLine(shape=snap.shape)
+            ankor = self.__radius * self.__ankorDirectionVector
+            if self.__alpha < 0:
+                ankor = ankor + [0, snap.shape[0]]
+            ends = self.calculateLineEnds(shape=(snap.shape[0]-1,snap.shape[1]-1), ankor=ankor, vector=self.__lineDirectionVector)
+            indices = self.calculateLineIndices(ends=ends)
+            otsu = cv2.threshold(src=snap, thresh=150, maxval=255, type=cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
+            line = self.analyseLine(line=otsu[indices[:,1], indices[:,0]])
+            if line != None:
+                cv2.line(img=snap, pt1=indices[line[0]], pt2=indices[line[1]], color=(0,255,0), thickness=1)
+            #cv2.line(img=snap, pt1=ends[0], pt2=ends[1], color=(0,0,255), thickness=1)
+            cv2.imshow("Image", snap)
+            cv2.waitKey(0)
 
-org = cv2.imread(filename='Repository/Images/image1.jpg', flags=cv2.IMREAD_GRAYSCALE)
-org = cv2.resize(src=org, dsize=(480,270))
-org = cv2.GaussianBlur(src=org, ksize=(5,5), sigmaX=0)
-detector = ScaleDetector(img=org, a=0.05, b=20)
+img = cv2.imread(filename='Repository/Images/image1.jpg', flags=cv2.IMREAD_GRAYSCALE)
+img = cv2.resize(src=img, dsize=(480,270))
+img = cv2.GaussianBlur(src=img, ksize=(5,5), sigmaX=0)
+detector = ScaleDetector()
 
-while True:
-    detector.nextLine()
-    detector.calculateLineEnds()
-    detector.show()
+detector.detectScale(img=img)
