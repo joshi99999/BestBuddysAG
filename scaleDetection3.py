@@ -24,36 +24,60 @@ class ScaleDetector:
             self.__lineDirectionVector = self.__ankorDirectionVector[::-1] * [1,-1]
             self.__maxRadius = np.hypot(shape[0], shape[1]) * cos(abs(self.__alpha) - atan(shape[0]/shape[1]))
 
-    def __rotateLine(self, phi):
-        self.__lineDirectionVector = np.array([cos(self.__alpha-pi/2+phi), sin(self.__alpha-pi/2+phi)], dtype=np.float32)
+    @staticmethod
+    def scanArea(img, ankor, alpha, delta, phi):
+        angles = np.linspace(alpha-phi, alpha+phi, 5)
+        unityVectors = np.stack((np.cos(angles), np.sin(angles)), axis=-1)
+        vectors = unityVectors[:,::-1]*[1,-1]
+        ankors = ankor + np.reshape(np.outer(np.linspace(-delta, delta, 10), unityVectors), (-1,2))
+        ends = ScaleDetector.calculateLineEnds(shape=(img.shape[0]-1,img.shape[1]-1), anchor=ankors, vector=np.tile(vectors, (10,1)))
+        line = None
+        for e in ends:
+            indices = ScaleDetector.calculateLineIndices(ends=e)
+            edges = ScaleDetector.analyseLine(line=img[indices[:,1], indices[:,0]])
+            if edges is not None and (line is None or min(indices[list(edges)][:,0]) < min(line[:,0])):
+                line = indices[list(edges)]
+        return line
+    
+    @staticmethod
+    def calculateLineEnds(shape, anchor, vector):
+        j = np.zeros(anchor.shape[0], dtype=np.uint8)
+        ends = np.zeros(shape=(anchor.shape[0],2,2), dtype=np.int16)
 
-    @staticmethod        
-    def calculateLineEnds(shape, ankor, vector):
-        j = 0
-        ends = np.zeros(shape=(2,2), dtype=np.int16)
+        i = np.arange(0,vector.shape[0],1)[vector[:,1] != 0]
+        if 0 < i.shape[0]:
+            s = (anchor[i,0]*vector[i,1]-anchor[i,1]*vector[i,0])/vector[i,1]
+            i = i[np.logical_and(0<=s, s<shape[1])]
+            if 0 < i.shape[0]:
+                ends[i,j[i],0] = s[i].astype(np.uint16)
+                ends[i,j[i],1] = 0
+                j[i] += 1
 
-        if vector[1] != 0:
-            s = (ankor[0]*vector[1]-ankor[1]*vector[0])/vector[1]
-            if 0 <= s < shape[1]:
-                ends[j] = [int(s), 0]
-                j += 1
+        i = np.arange(0,vector.shape[0],1)[vector[:,0] != 0]
+        if 0 < i.shape[0]:
+            s = (anchor[i,1]*vector[i,0]+(shape[1]-anchor[i,0])*vector[i,1])/vector[i,0]
+            i = i[np.logical_and(0<=s, s<shape[0])]
+            if 0 < i.shape[0]:
+                ends[i,j[i],0] = shape[1]
+                ends[i,j[i],1] = s[i].astype(np.uint16)
+                j[i] += 1
 
-        if vector[0] != 0:
-            s = (ankor[1]*vector[0]+(shape[1]-ankor[0])*vector[1])/vector[0]
-            if 0 <= s < shape[0]:
-                ends[j] = [shape[1], int(s)]
-                j += 1
+        i = np.arange(0,vector.shape[0],1)[np.logical_and(vector[:,1] != 0, j < 2)]
+        if 0 < i.shape[0]:
+            s = (anchor[i,0]*vector[i,1]-(anchor[i,1]-shape[0])*vector[i,0])/vector[i,1]
+            i = i[np.logical_and(0<s, s<=shape[1])]
+            if 0 < i.shape[0]:
+                ends[i,j[i],0] = s[i].astype(np.uint16)
+                ends[i,j[i],1] = shape[0]
+                j[i] += 1
 
-        if j < 2 and vector[1] != 0:
-            s = (ankor[0]*vector[1]-(ankor[1]-shape[0])*vector[0])/vector[1]
-            if 0 < s <= shape[1]:
-                ends[j] = [int(s), shape[0]]
-                j += 1
-
-        if j < 2 and vector[0] != 0:
-            s = (ankor[1]*vector[0]-ankor[0]*vector[1])/vector[0]
-            if 0 < s <= shape[0]:
-                ends[j] = [0, int(s)]
+        i = np.arange(0,vector.shape[0],1)[np.logical_and(vector[:,0] != 0, j < 2)]
+        if 0 < i.shape[0]:
+            s = (anchor[i,1]*vector[i,0]-anchor[i,0]*vector[i,1])/vector[i,0]
+            i = i[np.logical_and(0<s, s<=shape[0])]
+            if 0 < i.shape[0]:
+                ends[i,j[i],0] = 0
+                ends[i,j[i],1] = s[i].astype(np.uint16)
         
         return ends
 
@@ -89,26 +113,17 @@ class ScaleDetector:
             ankor = self.__radius * self.__ankorDirectionVector
             if self.__alpha < 0:
                 ankor = ankor + [0, snap.shape[0]]
-            ends = self.calculateLineEnds(shape=(snap.shape[0]-1,snap.shape[1]-1), ankor=ankor, vector=self.__lineDirectionVector)
+            ends = self.calculateLineEnds(shape=(snap.shape[0]-1,snap.shape[1]-1), anchor=np.array([ankor]), vector=np.array([self.__lineDirectionVector]))[0]
             indices = self.calculateLineIndices(ends=ends)
             line = self.analyseLine(line=otsu[indices[:,1], indices[:,0]])
             cv2.line(img=snap, pt1=ends[0], pt2=ends[1], color=(0,0,255), thickness=1)
             cv2.circle(img=snap, center=ends[0], radius=3, color=(255,0,0), thickness=-1)
             cv2.circle(img=snap, center=ends[1], radius=3, color=(255,0,0), thickness=-1)
             cv2.circle(img=snap, center=ankor.astype(np.int32), radius=3, color=(0,255,0), thickness=-1)
-            if line != None and False:
-                pt1, pt2  = indices[line[0]], indices[line[1]]
-                cv2.line(img=snap, pt1=pt1, pt2=pt2, color=(0,255,0), thickness=3)
-                if pt1[0] < pt2[0]:
-                    self.__radius = np.hypot(pt2[0], pt2[1])
-
-                else:
-                    pt2
-
-                cv2.imshow("Image", snap)
-                cv2.imshow("Otsu", otsu)
-                cv2.imshow("Line", np.tile(otsu[indices[:,1], indices[:,0]], (50,1)))
-                cv2.waitKey(0)
+            if line != None:
+                left = ScaleDetector.scanArea(img=otsu, ankor=ends[0]+(ends[1]-ends[0])//2, alpha=self.__alpha, delta=10, phi=pi/50)
+                if left is not None:
+                    cv2.line(img=snap, pt1=left[0], pt2=left[1], color=(0,255,255), thickness=1)
 
             cv2.imshow("Image", snap)
             cv2.imshow("Otsu", otsu)
