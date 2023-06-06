@@ -1,6 +1,6 @@
 import rclpy
 from rclpy.node import Node
-import ro45_portalrobot_interface.msg as msg
+from ro45_portalrobot_interfaces.msg import RobotPos, RobotCmd
 
 class PositionController(Node):
     
@@ -8,7 +8,7 @@ class PositionController(Node):
         super().__init__('Control Roboter Position')
 
         #gain, could be even higher
-        self.kp = 10
+        self.kp = 3
         #boarders
         self.max = 1000
         self.min = 1
@@ -21,11 +21,13 @@ class PositionController(Node):
         #https://docs.ros.org/en/foxy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html
         #create a subscriber to subscribe the roboter position for the thtee axis
         #float32 pos_x, float32 pos_y, float32 pos_z
-        self.subscription = self.create_subscription(msg.RobotPos, 'RobotPos', self.robotPostion_callback, 10)
+        self.subscription = self.create_subscription(RobotPos, 'RobotPos', self.robotPostion_callback, 10)
+        
+        #self.subscription = self.create_subsciption(, , ,10)
 
         #create a publisher to publish the positionError for the three axis
         #float32 vel_x, float32 vel_y, float32 vel_z, bool activate_gripper
-        self.publisher = self.create_publisher(msg.RobotCmd, 'RobotCmd', 10) 
+        self.publisher = self.create_publisher(RobotCmd, 'RobotCmd', 10) 
 
        
 
