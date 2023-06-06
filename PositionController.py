@@ -1,5 +1,5 @@
 import rclpy
-import rclpy.node as Node
+from rclpy.node import Node
 import ro45_portalrobot_interface.msg as msg
 
 class PositionController(Node):
