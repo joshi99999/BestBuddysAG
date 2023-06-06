@@ -166,7 +166,7 @@ class ScaleDetector:
                         corners[i] = edges[self.__count if i<2 else 0] if edges[0,0] < edges[-1,0] else edges[-self.__count-1 if i<2 else -1]
                         continue
                 break
-        return corners
+        return corners.astype(np.float32)
 
     def detectScale(self, img):
         self.__img = img
@@ -194,6 +194,8 @@ class ScaleDetector:
         print(value2 - value1)
         return threshold < value2 - value1
     
+
+'''
 for i in range(12):
     org = cv2.imread("Repository/Images/Image" + str(i+1) + ".jpg")
     img = cv2.cvtColor(src=org, code=cv2.COLOR_BGR2GRAY)
@@ -214,3 +216,4 @@ for i in range(12):
     cv2.imshow("Belt", belt)
     print(ScaleDetector.checkScale(belt, count=20, threshold=0))
     cv2.waitKey(0)
+'''
