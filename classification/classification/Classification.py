@@ -7,7 +7,7 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
-from portal_robot_interfaces.msg import IdSample, IdClassVec
+from ro45_portalrobot_interfaces.msg import IdSample, IdClassVec
 from std_msgs.msg import Int32 
 import joblib
 

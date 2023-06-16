@@ -3,10 +3,7 @@ import rclpy
 from rclpy.node import Node
 
 from std_msgs.msg import Int32
-from portal_robot_interfaces.msg import IdClassVec
-from portal_robot_interfaces.msg import IdPosVelTime
-from portal_robot_interfaces.msg import PosVelClass
-
+from ro45_portalrobot_interfaces.msg import IdClassVec, IdPosVelTime, PosVelClass
 
 class SynchBlock(Node):
     def __init__(self):
