@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-             'gruppe=gruppierung.modellierung:main', 
+             'gruppe = gruppierung.modellierung:main', 
         ],
     },
 )

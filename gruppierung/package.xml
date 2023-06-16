@@ -13,7 +13,7 @@
   <test_depend>python3-pytest</test_depend>
   <exec_depend>rclpy</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>
-  <exec_depend>portal_robot_interfaces.msg</exec_depend>
+  <exec_depend>ro45_portalrobot_interfaces.msg</exec_depend>
 
   <export>
     <build_type>ament_python</build_type>

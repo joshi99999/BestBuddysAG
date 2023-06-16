@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'code=classification.Classification:main',
+            'classifier=classification.Classification:main',
         ],
     },
 )
