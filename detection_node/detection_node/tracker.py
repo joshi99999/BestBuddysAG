@@ -5,8 +5,7 @@ import cv2
 
 from sensor_msgs.msg import Image
 from std_msgs.msg import Int32
-from portal_robot_interfaces.msg import IdSample
-from portal_robot_interfaces.msg import IdPosTime
+from ro45_portalrobot_interfaces.msg import IdSample, IdPosTime
 
 from cv_bridge import CvBridge
 
@@ -78,7 +77,7 @@ class EuclideanDistTracker:
         return objects_bbs_ids
 
     
-    def getSample(self, frame, cx, id, time):
+    def getSample(self, frame, cx, id):
         """
         This function creates an slice of an image at a certain position if the x coordinate of an object is there
 
@@ -90,7 +89,6 @@ class EuclideanDistTracker:
         if (frame is not None) and (len(frame)>0):
             id_img = IdSample()
             num1 = Int32()
-            num2 = Int32()
 
             publish = False
             if (cx>=320 and cx<=325) and (id != self.id_prev):
@@ -101,8 +99,6 @@ class EuclideanDistTracker:
                 # Set all the data for message
                 num1.data = id
                 id_img.id = num1
-                num2.data = time
-                id_img.time = num2
                 ros_image = self.cv_bridge.cv2_to_imgmsg(sample, encoding='8UC1')
                 id_img.image = ros_image
                 return publish, id_img

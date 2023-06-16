@@ -30,7 +30,7 @@ class ObjectClassification(Node):
         """
         super().__init__('ObjectClassification')
         self.subscription = self.create_subscription(IdSample, 'id_sample', self.image_callback, 10)
-        self.publisher = self.create_publisher(IdClassVec, 'IdClassVec', 10)
+        self.publisher = self.create_publisher(IdClassVec, 'id_class_vec', 10)
         self.bridge = CvBridge()
 
         model_path = 'src/classification/classification/svm_model.pkl'
@@ -44,7 +44,8 @@ class ObjectClassification(Node):
         Parameters:
             Image: ROS image.
         """
-        cv_image = self.bridge.imgmsg_to_cv2(IdSample.image, desired_encoding='bgr8')
+        image = IdSample.image.data
+        cv_image = self.bridge.imgmsg_to_cv2(image, desired_encoding='bgr8')
         features ,gripping_point , gravity = feature_extract(cv_image)
         vector = find_gripping_point_vector(gripping_point, gravity)
         class_result = pred(features, self.svm_model)

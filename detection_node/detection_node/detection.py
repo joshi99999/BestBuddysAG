@@ -89,7 +89,7 @@ class ObjektDetektion(Node):
             self.id_pos_publisher.publish(IdPos)
             
             # 3. Create Image of Object
-            publish, id_img = tracker.getSample(cv_image, cx, id, time)
+            publish, id_img = tracker.getSample(cv_image, cx, id)
             if publish:
                 self.id_sample_publisher.publish(id_img)
         
