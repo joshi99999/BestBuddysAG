@@ -249,7 +249,7 @@ for i in range(12):
     org = cv2.imread("Repository/Images/Image" + str(i+1) + ".jpg")
     img = cv2.cvtColor(src=org, code=cv2.COLOR_BGR2GRAY)
 
-    detector = ScaleDetector(delta1=20, delta2=5, n=5, phi1=pi/100, phi2=pi/200, m=5, count=20, accuracy=0.5)
+    detector = ScaleDetector(delta1=20, delta2=5, n=5, phi1=pi/100, phi2=pi/200, m=5, count=20, accuracy=0.6)
     otsu = cv2.threshold(src=img, thresh=150, maxval=255, type=cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
     corners = detector.detectScale(img=otsu)
     corners[0] += 9*(corners[0]-corners[1])//2
