@@ -11,14 +11,19 @@
   <test_depend>ament_flake8</test_depend>
   <test_depend>ament_pep257</test_depend>
   <test_depend>python3-pytest</test_depend>
-  <exec_depend>rclpy</exec_depend>
+
+  <depend>rclpy</depend>
+  <depend>ro45_portalrobot_interfaces</depend>
+
   <exec_depend>pandas</exec_depend>
   <exec_depend>sklearn</exec_depend>
-  <exec_depend>cv_bridge</exec_depend>
-  <exec_depend>numpy</exec_depend>
-  <exec_depend>sensor_msgs</exec_depend>
-  <exec_depend>portal_robot_interfaces.msg</exec_depend>
   <exec_depend>joblib</exec_depend>
+  <exec_depend>numpy</exec_depend>
+
+  <exec_depend>cv_bridge</exec_depend>
+  
+  <exec_depend>sensor_msgs</exec_depend>
+  
 
 
   <export>
