@@ -1,0 +1,9 @@
+[submodule "ro45_ros2_pickrobot_serial"]
+	path = ro45_ros2_pickrobot_serial
+	url = https://github.com/matl-hsk/ro45_ros2_pickrobot_serial.git
+[submodule "PickRobotRosSerial"]
+	path = PickRobotRosSerial
+	url = https://github.com/matl-hsk/PickRobotRosSerial.git
+[submodule "PlotbotEncoderRosSerial"]
+	path = PlotbotEncoderRosSerial
+	url = https://github.com/matl-hsk/PlotbotEncoderRosSerial.git
