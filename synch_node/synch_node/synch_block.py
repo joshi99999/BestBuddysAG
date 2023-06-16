@@ -11,7 +11,7 @@ from portal_robot_interfaces.msg import PosVelClass
 class SynchBlock(Node):
     def __init__(self):
         super().__init__('synchroniser')
-        self.class_subscriber = self.create_subscription(IdClass, 'id_class_vec', self.class_callback, 10)
+        self.class_subscriber = self.create_subscription(IdClassVec, 'id_class_vec', self.class_callback, 10)
         self.pos_subscriber = self.create_subscription(IdPosVelTime, 'id_pos_vel_time', self.pos_callback, 10)
         self.pos_vel_class_publisher = self.create_publisher(PosVelClass, 'pos_vel_class', 10)
 
@@ -30,7 +30,7 @@ class SynchBlock(Node):
             None
         """
         id = msg.id.data
-        cl = msg.classification.data
+        cl = msg.result.data
         # TODO: vector in message mit aufnehemn
 
         print("recieved object with id: "+str(id)+" and class: "+str(cl))
@@ -110,7 +110,7 @@ class SynchBlock(Node):
         msg.pos_x = num1
         msg.pos_y = num2
         msg.vel_x = num3
-        msg.classification = num4
+        msg.result = num4
         msg.time = num5
 
 

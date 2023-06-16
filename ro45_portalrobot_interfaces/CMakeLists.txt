@@ -12,10 +12,13 @@ find_package(sensor_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-  "msg/IdSample.msg"
+  "msg/IdClassVec.msg"
   "msg/IdPosTime.msg"
   "msg/IdPosVelTime.msg"
-  "msg/IdClassVec.msg"
+  "msg/IdSample.msg"
+  "msg/PosVelClass.msg"
+  "msg/RobotCmd.msg"
+  "msg/RobotPos.msg"
   DEPENDENCIES std_msgs
   DEPENDENCIES sensor_msgs
 )
