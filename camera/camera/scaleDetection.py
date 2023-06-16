@@ -242,8 +242,7 @@ class ScaleDetector:
         print(value2 - value1)
         return threshold < value2 - value1
     
-
-            
+          
 '''
 for i in range(12):
     org = cv2.imread("Repository/Images/Image" + str(i+1) + ".jpg")
