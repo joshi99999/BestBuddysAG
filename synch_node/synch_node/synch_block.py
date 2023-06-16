@@ -3,16 +3,16 @@ import rclpy
 from rclpy.node import Node
 
 from std_msgs.msg import Int32
-from portal_robot_interfaces.msg import IdClass
-from portal_robot_interfaces.msg import IdPosVel
+from portal_robot_interfaces.msg import IdClassVec
+from portal_robot_interfaces.msg import IdPosVelTime
 from portal_robot_interfaces.msg import PosVelClass
 
 
 class SynchBlock(Node):
     def __init__(self):
         super().__init__('synchroniser')
-        self.class_subscriber = self.create_subscription(IdClass, 'id_class', self.class_callback, 10)
-        self.pos_subscriber = self.create_subscription(IdPosVel, 'IdPosVel', self.pos_callback, 10)
+        self.class_subscriber = self.create_subscription(IdClass, 'id_class_vec', self.class_callback, 10)
+        self.pos_subscriber = self.create_subscription(IdPosVelTime, 'id_pos_vel_time', self.pos_callback, 10)
         self.pos_vel_class_publisher = self.create_publisher(PosVelClass, 'pos_vel_class', 10)
 
         self.id_classes = []

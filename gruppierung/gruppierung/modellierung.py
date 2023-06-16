@@ -12,8 +12,8 @@ class PositionGruppierung(Node):
 
         """
         super().__init__('PositionGruppierung')
-        self.subscriber= self.create_subscription(IdPosTime, 'IdPosTime', self.function_callback, 10)
-        self.publisher = self.create_publisher(IdPosVelTime, 'IdPosVelTime', 10)
+        self.subscriber= self.create_subscription(IdPosTime, 'id_pos_time', self.function_callback, 10)
+        self.publisher = self.create_publisher(IdPosVelTime, 'id_pos_vel_time', 10)
             
     def function_callback(self, IdPosTime):
         """

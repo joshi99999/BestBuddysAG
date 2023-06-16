@@ -51,9 +51,9 @@ def convertToRos(IdPosTime, id, posx, posy, time):
 class ObjektDetektion(Node):
     def __init__(self):
         super().__init__('detector')
-        self.image_subscriber = self.create_subscription(Image, 'frame', self.image_callback, 10)
+        self.image_subscriber = self.create_subscription(Image, 'camera_stream', self.image_callback, 10)
         self.id_sample_publisher = self.create_publisher(IdSample, 'id_sample', 10)
-        self.id_pos_publisher = self.create_publisher(IdPosTime, 'IdPosTime', 10)
+        self.id_pos_publisher = self.create_publisher(IdPosTime, 'id_pos_time', 10)
         self.cv_bridge = CvBridge()
 
     def image_callback(self, msg):

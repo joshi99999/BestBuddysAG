@@ -29,7 +29,7 @@ class ObjectClassification(Node):
 
         """
         super().__init__('ObjectClassification')
-        self.subscription = self.create_subscription(IdSample, 'IdSample', self.image_callback, 10)
+        self.subscription = self.create_subscription(IdSample, 'id_sample', self.image_callback, 10)
         self.publisher = self.create_publisher(IdClassVec, 'IdClassVec', 10)
         self.bridge = CvBridge()
 
