@@ -75,6 +75,8 @@ class ObjektDetektion(Node):
         for box_id in boxes_ids:
             x, y, w, h, id = box_id
 
+            center = (x + x + w) // 2
+
             # Create image of Object
             image_object = cv_image[y:(y+h), x:(x+w)]
             # Find coordinates of center of mass from objekt
@@ -89,7 +91,7 @@ class ObjektDetektion(Node):
             self.id_pos_publisher.publish(IdPos)
             
             # 3. Create Image of Object
-            publish, id_img = tracker.getSample(cv_image, cx, id)
+            publish, id_img = tracker.getSample(cv_image, center, id)
             if publish:
                 self.get_logger().info('publishing sample with id: '+str(id))
                 self.id_sample_publisher.publish(id_img)
