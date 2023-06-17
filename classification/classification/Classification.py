@@ -9,10 +9,14 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 from ro45_portalrobot_interfaces.msg import IdSample, IdClassVec
 from std_msgs.msg import Int32 
+<<<<<<< HEAD
 import joblib
 from . import classifier
 
 #classification = classifier.Classifier()
+=======
+from joblib import dump , load
+>>>>>>> 46e4783 (commit 23:09)
 
 class ObjectClassification(Node):
     """
@@ -36,9 +40,8 @@ class ObjectClassification(Node):
         self.publisher = self.create_publisher(IdClassVec, 'id_class_vec', 10)
         self.bridge = CvBridge()
 
-        
-        model_path = 'src/classification/classification/svm_model.pkl'
-        self.svm_model = joblib.load(model_path)
+        model_file = 'src/classification/classification/svm_model.joblib'
+        self.svm_model = load(model_file)
         
         
 
@@ -54,7 +57,7 @@ class ObjectClassification(Node):
         features ,gripping_point , gravity = feature_extract(cv_image)
         vector = find_gripping_point_vector(gripping_point, gravity)
         class_result = pred(features, self.svm_model)
-        print(class_result[0])
+        print(class_result)
         print(IdSample.id.data)
         msg = IdClassVec()
         
