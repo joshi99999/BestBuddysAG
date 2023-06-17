@@ -9,14 +9,10 @@ from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 from ro45_portalrobot_interfaces.msg import IdSample, IdClassVec
 from std_msgs.msg import Int32 
-<<<<<<< HEAD
 import joblib
 from . import classifier
-
-#classification = classifier.Classifier()
-=======
 from joblib import dump , load
->>>>>>> 46e4783 (commit 23:09)
+
 
 class ObjectClassification(Node):
     """
