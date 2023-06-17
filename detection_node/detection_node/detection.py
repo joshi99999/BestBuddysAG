@@ -91,7 +91,7 @@ class ObjektDetektion(Node):
             # 3. Create Image of Object
             publish, id_img = tracker.getSample(cv_image, cx, id)
             if publish:
-                self.get_logger().info('publishing sample')
+                self.get_logger().info('publishing sample with id: '+str(id))
                 self.id_sample_publisher.publish(id_img)
         
         cv2.imshow("bild", cv_image)

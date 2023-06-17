@@ -91,7 +91,7 @@ class EuclideanDistTracker:
             num1 = Int32()
 
             publish = False
-            if (cx>=320 and cx<=330) and (id != self.id_prev):
+            if (cx>=320 and cx<=325) and (id != self.id_prev) and (id > self.id_prev):
                 # Create sample
                 sample = frame[0:300, cx-100:cx+100]
                 self.id_prev = id

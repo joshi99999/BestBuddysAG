@@ -10,6 +10,9 @@ from cv_bridge import CvBridge
 from ro45_portalrobot_interfaces.msg import IdSample, IdClassVec
 from std_msgs.msg import Int32 
 import joblib
+from . import classifier
+
+#classification = classifier.Classifier()
 
 class ObjectClassification(Node):
     """
@@ -33,8 +36,10 @@ class ObjectClassification(Node):
         self.publisher = self.create_publisher(IdClassVec, 'id_class_vec', 10)
         self.bridge = CvBridge()
 
+        
         model_path = 'src/classification/classification/svm_model.pkl'
         self.svm_model = joblib.load(model_path)
+        
         
 
     def image_callback(self, IdSample):
@@ -45,6 +50,7 @@ class ObjectClassification(Node):
             Image: ROS image.
         """
         cv_image = self.bridge.imgmsg_to_cv2(IdSample.image, desired_encoding='8UC1')
+        type(cv_image)
         features ,gripping_point , gravity = feature_extract(cv_image)
         vector = find_gripping_point_vector(gripping_point, gravity)
         class_result = pred(features, self.svm_model)
@@ -88,7 +94,7 @@ def main(args=None):
 if __name__ == '__main__':
     main()
 
-    
+   
 def find_gripping_point_vector(gripping_point, center_point):
 
     vector = (gripping_point[0] - center_point[0], gripping_point[1] - center_point[1])
