@@ -86,12 +86,12 @@ class EuclideanDistTracker:
         Returns:
             image (Numpy Array), id of object (int)
         """
-        if (frame is not None) and (len(frame)>0):
+        if (frame is not None):
             id_img = IdSample()
             num1 = Int32()
 
             publish = False
-            if (cx>=320 and cx<=325) and (id != self.id_prev):
+            if (cx>=320 and cx<=330) and (id != self.id_prev):
                 # Create sample
                 sample = frame[0:300, cx-100:cx+100]
                 self.id_prev = id
@@ -101,6 +101,7 @@ class EuclideanDistTracker:
                 id_img.id = num1
                 ros_image = self.cv_bridge.cv2_to_imgmsg(sample, encoding='8UC1')
                 id_img.image = ros_image
+                publish = True
                 return publish, id_img
             
             else: 

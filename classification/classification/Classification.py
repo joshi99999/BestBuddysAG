@@ -44,29 +44,32 @@ class ObjectClassification(Node):
         Parameters:
             Image: ROS image.
         """
-        image = IdSample.image.data
-        cv_image = self.bridge.imgmsg_to_cv2(image, desired_encoding='bgr8')
+        cv_image = self.bridge.imgmsg_to_cv2(IdSample.image, desired_encoding='8UC1')
         features ,gripping_point , gravity = feature_extract(cv_image)
         vector = find_gripping_point_vector(gripping_point, gravity)
         class_result = pred(features, self.svm_model)
+        print(class_result[0])
+        print(IdSample.id.data)
         msg = IdClassVec()
         
         id_msg = Int32()
-        id_msg.data = IdSample.id
+        id_msg.data = IdSample.id.data
         
         class_result_msg = Int32()
-        class_result_msg.data = class_result
+        class_result_msg.data = int(class_result)
         
         vector_x_msg = Int32()
-        vector_x_msg.data = vector[0]
+        vector_x_msg.data = int(vector[0])
         
         vector_y_msg = Int32()
-        vector_y_msg.data = vector[1]
+        vector_y_msg.data = int(vector[1])
         
-        msg.id = id_msg.msg
-        msg.reslut = class_result_msg
+        msg.id = id_msg
+        msg.result = class_result_msg
         msg.vector_x = vector_x_msg
         msg.vector_y = vector_y_msg 
+
+        self.get_logger().info('Publishing: "%s"' % msg)
         
         self.publisher.publish(msg)
 
@@ -87,10 +90,8 @@ if __name__ == '__main__':
 
     
 def find_gripping_point_vector(gripping_point, center_point):
-    
-    vector = []
-    vector[0] = gripping_point[0] - center_point[0]
-    vector[1] = gripping_point[1] - center_point[1]
+
+    vector = (gripping_point[0] - center_point[0], gripping_point[1] - center_point[1])
 
     return vector
 
@@ -180,33 +181,28 @@ def feature_extract(image):
         
     """
     try:
-        bild = cv2.imread(image)
-        binary_img = cv2.imread(image, cv2.IMREAD_GRAYSCALE)
-        gray = cv2.cvtColor(bild, cv2.COLOR_BGR2GRAY)
-        brightest_pixel = np.unravel_index(np.argmax(gray), gray.shape)
+        brightest_pixel = np.unravel_index(np.argmax(image), image.shape)
         gripping_point = (brightest_pixel[1], brightest_pixel[0])
-        _, binary_img = cv2.threshold(binary_img, 0, 1, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
-        blur = cv2.GaussianBlur(gray, (5, 5), 0)
+        blur = cv2.GaussianBlur(image, (5, 5), 0)
         edges = cv2.Canny(blur, 300, 525)
         num_edges = cv2.countNonZero(edges)
-        dst = cv2.cornerHarris(gray, 2, 3, 0.04)
+        dst = cv2.cornerHarris(image, 2, 3, 0.04)
         threshold = 0.02 * dst.max()
         corners = []
         for i in range(dst.shape[0]):
             for j in range(dst.shape[1]):
                 if dst[i, j] > threshold:
                     corners.append((i, j))
-        gravity_y, gravity_x = center_of_gravity(binary_img)
+        gravity_y, gravity_x = center_of_gravity(image)
         gravity =[gravity_x, gravity_y]
         cv2.circle(edges, (int(gravity_x + 0.5), int(gravity_y + 0.5)), 5, (0, 0, 255), -1)
-        e_vals, _ = np.linalg.eig(inertia_tensor(binary_img))
+        e_vals, _ = np.linalg.eig(inertia_tensor(image))
         try:
             I_x, I_y = Hauptmoment(e_vals)
         except TypeError:
             print("Der e_vals-Parameter ist kein gültiges ndarray")
-        cv2.imshow('Einhorn', edges)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        cv2.imshow('Prediction', edges)
+        cv2.waitKey(1)
         features = [num_edges, I_x, I_y, len(corners)]
         return features , gripping_point, gravity
     except cv2.error as e:
