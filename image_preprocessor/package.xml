@@ -1,17 +1,11 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>camera</name>
+  <name>image_preprocessor</name>
   <version>1.0.0</version>
-  <description>Captures images from the camera.</description>
-  <maintainer email="seb@bestbuddy.de">seb</maintainer>
+  <description>Converts the images to black and white images, detects the scale, transforms the perspective and cuts out the conveyor beld area.</description>
+  <maintainer email="seb@bestbuddys.de">seb</maintainer>
   <license>MIT License</license>
-
-  <exec_depend>rclpy</exec_depend>
-  <exec_depend>sensor_msgs</exec_depend>
-  <exec_depend>cv2</exec_depend>
-  <exec_depend>cv_bridge</exec_depend>
-  <exec_depend>time</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

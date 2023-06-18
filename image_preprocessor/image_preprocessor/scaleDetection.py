@@ -179,7 +179,7 @@ class ScaleDetector:
                 break
         return corners.astype(np.float32)
 
-    def adaptBorders(self, left, right, org):
+    def adaptBorders(self, left, right):
         angle = np.arctan2(right[1]-left[1], right[0]-left[0])
         angles = np.array([angle, angle], dtype=np.float32)
         corners = np.array([left, left, right, right], dtype=np.float32)
@@ -204,16 +204,9 @@ class ScaleDetector:
             else:
                 stepWidths[i] /= 2
                 stepWidths[(i + 2) % 4] = -stepWidths[i]
-        snap = org.copy()
-        cv2.line(img=snap, pt1=corners[1].astype(np.int16), pt2=corners[3].astype(np.int16), color=(0,0,255), thickness=1)
-        cv2.line(img=snap, pt1=corners[0].astype(np.int16), pt2=corners[2].astype(np.int16), color=(0,0,255), thickness=1)
-        cv2.circle(img=snap, center=corners[0].astype(np.int16), radius=5, color=(0,255,0), thickness=-1)
-        cv2.imshow("Snap", snap)
-        cv2.imshow("Image", self.__img)
-        cv2.waitKey(1)
         return corners.astype(np.float32)
 
-    def detectScale(self, img, org):
+    def detectScale(self, img):
         self.__img = img
         self.__min = img.shape[1] / self.__count / 2.5
         while self.__nextLine():
@@ -223,11 +216,9 @@ class ScaleDetector:
             ends = ScaleDetector.calculateLineEnds(shape=img.shape, anchors=np.array([anchor]), vectors=np.array([[sin(self.__alpha), -cos(self.__alpha)]], dtype=np.float32))[0]
             line = self.analyseLine(ends=ends, anchor=anchor)
             if line is not None:
-                previous = time()
                 left = self.scanArea(center=line[0]+(line[self.__count]-line[0])//2 if line[0,0] < line[-1,0] else line[-1]+(line[-self.__count-1]-line[-1])//2)
                 if left is not None:
-                    result = self.adaptBorders(left=left[0 if left[0,0] < left[-1,0] else -1], right=left[self.__count if left[0,0] < left[-1,0] else -self.__count-1], org=org)
-                    print("time: " + str(time() - previous))
+                    result = self.adaptBorders(left=left[0 if left[0,0] < left[-1,0] else -1], right=left[self.__count if left[0,0] < left[-1,0] else -self.__count-1])
                     return result
     
     @staticmethod        

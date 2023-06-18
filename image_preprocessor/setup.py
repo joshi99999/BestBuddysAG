@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'camera'
+package_name = 'image_preprocessor'
 
 setup(
     name=package_name,
@@ -15,12 +15,12 @@ setup(
     zip_safe=True,
     maintainer='seb',
     maintainer_email='seb@bestbuddys.de',
-    description='Captures images from the camera.',
+    description='Converts the images to black and white images, detects the scale, transforms the perspective and cuts out the conveyor beld area.',
     license='MIT License',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'camera = camera.camera:main'
+            'preprocessor = image_preprocessor.preprocessing:main'
         ],
     },
 )
