@@ -65,6 +65,7 @@ class ObjektDetektion(Node):
             return
         
         time = msg.header.stamp.sec * 1000 + msg.header.stamp.nanosec // 1000000
+        edges = cv2.Canny(cv_image, 300, 525)
         #print(time)
 
         # 1. Object detection
@@ -96,7 +97,7 @@ class ObjektDetektion(Node):
                 self.get_logger().info('publishing sample with id: '+str(id))
                 self.id_sample_publisher.publish(id_img)
         
-        cv2.imshow("bild", cv_image)
+        cv2.imshow("bild", edges)
         cv2.waitKey(1)
     
 

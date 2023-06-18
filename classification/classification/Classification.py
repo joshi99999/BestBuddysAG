@@ -12,6 +12,7 @@ from std_msgs.msg import Int32
 import joblib
 from . import classifier 
 from joblib import dump , load
+from sklearn import svm
 
 
 class ObjectClassification(Node):
@@ -49,7 +50,6 @@ class ObjectClassification(Node):
             Image: ROS image.
         """
         cv_image = self.bridge.imgmsg_to_cv2(IdSample.image, desired_encoding='8UC1')
-        type(cv_image)
         features ,gripping_point , gravity = feature_extract(cv_image)
         vector = find_gripping_point_vector(gripping_point, gravity)
         class_result = pred(features, self.svm_model)
@@ -188,8 +188,8 @@ def feature_extract(image):
     try:
         brightest_pixel = np.unravel_index(np.argmax(image), image.shape)
         gripping_point = (brightest_pixel[1], brightest_pixel[0])
-        blur = cv2.GaussianBlur(image, (5, 5), 0)
-        edges = cv2.Canny(blur, 300, 525)
+        #blur = cv2.GaussianBlur(image, (5, 5), 0)
+        edges = cv2.Canny(image, 300, 525)
         num_edges = cv2.countNonZero(edges)
         dst = cv2.cornerHarris(image, 2, 3, 0.04)
         threshold = 0.02 * dst.max()
