@@ -34,7 +34,6 @@ class Camera(Node):
             
             m, n = 20, 5
             l = self.length/(m-n)
-
             self.M = cv2.getPerspectiveTransform(borders[[0,1,0,1],[n,n,-1,-1]], np.float32([[0, -l/2],[0, -3*l/2],[self.length, -l/2],[self.length, -3*l/2]]))
             
             area = np.linalg.inv(self.M) @ np.float32([[0,0,1],[self.length,0,1],[self.length,7*l/2,1],[0,7*l/2,1]]).T

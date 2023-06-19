@@ -225,17 +225,14 @@ class ScaleDetector:
     @staticmethod        
     def checkScale(img, borders, threshold):
         mask1 = np.zeros_like(img)
+        mask2 = np.zeros_like(img)
         black = (borders.shape[1]-1)//2
         white = borders.shape[1]-black-1
         for i in range(black):
-            cv2.fillPoly(img=mask1, pts=[borders[:,[i*2,i*2+1]]], color=1)
-        for i in range(1,black+1):
-            cv2.fillPoly(img=mask2, pts=[borders[:,[i*2,i*2+1]]], color=1)
-        mask2 = mask1.copy()
-        mask1[0,0::2] = 255
-        mask2[0,1::2] = 255
-        value1 = np.average(img[cv2.resize(mask1, img.shape[::-1], interpolation=cv2.INTER_AREA) == 255]) / 255
-        value2 = np.average(img[cv2.resize(mask2, img.shape[::-1], interpolation=cv2.INTER_AREA) == 255]) / 255
-        cv2.imshow("Mask", cv2.resize(mask1, img.shape[::-1], interpolation=cv2.INTER_AREA))
-        print(value2 - value1)
+            cv2.fillPoly(img=mask1, pts=[borders[[0,0,1,1],[i*2,i*2+1,i*2+1,i*2]]], color=255)
+        for i in range(1,white+1):
+            cv2.fillPoly(img=mask2, pts=[borders[[0,0,1,1],[i*2-1,i*2,i*2,i*2-1]]], color=255)
+
+        value1 = np.average(img[mask1 == 255]) / 255
+        value2 = np.average(img[mask2 == 255]) / 255
         return threshold < value2 - value1
