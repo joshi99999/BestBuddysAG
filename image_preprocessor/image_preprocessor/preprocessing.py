@@ -27,21 +27,21 @@ class Camera(Node):
         binary = cv2.threshold(src=gray, thresh=150, maxval=255, type=cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
 
         if self.M is None:
-            corners = self.detector.detectScale(img=binary)
-            if corners is None:
+            borders = self.detector.detectScale(img=binary)
+            if borders is None:
                 self.get_logger().error('Scale detection failed.')
                 return
             
-            m, n = 20, 4
+            m, n = 20, 5
             l = self.length/(m-n)
-            self.M = cv2.getPerspectiveTransform(corners, np.float32([[-n*l, -l/2],[-n*l, -3*l/2],[self.length, -l/2],[self.length, -3*l/2]]))
+
+            self.M = cv2.getPerspectiveTransform(borders[[0,1,0,1],[n,n,-1,-1]], np.float32([[0, -l/2],[0, -3*l/2],[self.length, -l/2],[self.length, -3*l/2]]))
             
             area = np.linalg.inv(self.M) @ np.float32([[0,0,1],[self.length,0,1],[self.length,7*l/2,1],[0,7*l/2,1]]).T
-            area = (area/area[2]).T[:,0:2].astype(np.int16)
-            cv2.line(img=image, pt1=area[0], pt2=area[1],color=(0,0,255), thickness=2)
-            cv2.line(img=image, pt1=area[1], pt2=area[2],color=(0,0,255), thickness=2)
-            cv2.line(img=image, pt1=area[2], pt2=area[3],color=(0,0,255), thickness=2)
-            cv2.line(img=image, pt1=area[3], pt2=area[0],color=(0,0,255), thickness=2)
+            area = (area/area[2]).T[:,0:2].astype(np.int32)
+            cv2.polylines(img=image, pts=[area], isClosed=True, color=(0,0,255), thickness=2)
+            cv2.polylines(img=image, pts=[borders[[0,1,1,0],[0,0,-1,-1]].astype(np.int32)], isClosed=True, color=(0,0,255), thickness=2)
+            image = cv2.resize(src=image, dsize=(image.shape[1]//2, image.shape[0]//2))
             cv2.imshow("Area", image)
             cv2.waitKey(1)
             if 'y' != input("Has the conveyor belt been correctly detected?"):

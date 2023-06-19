@@ -127,7 +127,6 @@ class ScaleDetector:
         points = ScaleDetector.calculateLine(ends=ends, anchor=anchor)
         indices = np.rint(points).astype(np.int16)
         line = self.__img[indices[:,1], indices[:,0]]
-        cv2.imshow("Line", np.tile(line, (50,1)))
         edges = np.arange(0, line.shape[0]-1, 1)[line[1:] != line[0:-1]]
         if self.__count < edges.shape[0]:
             distances = edges[1:] - edges[0:-1]
@@ -182,29 +181,31 @@ class ScaleDetector:
     def adaptBorders(self, left, right):
         angle = np.arctan2(right[1]-left[1], right[0]-left[0])
         angles = np.array([angle, angle], dtype=np.float32)
-        corners = np.array([left, left, right, right], dtype=np.float32)
+        borders = np.zeros((2,self.__count+1,2), dtype=np.float32)
+        borders[:,0], borders[:,-1] = left, right
         stepWidths = np.array([self.__sigma1, -self.__sigma1, -self.__sigma1, self.__sigma1], dtype=np.float32)
         i = -1
         while 0 < np.sum(abs(stepWidths)):
             i = (i + 1) % 4
+            j = [i%2,0 if i<2 else -1]
             if stepWidths[i] == 0:
                 continue
             angle = angles[i%2]+stepWidths[i]
             vector = np.array([[cos(angle), sin(angle)]], dtype=np.float32)
-            ends = ScaleDetector.calculateLineEnds(shape=self.__img.shape, anchors=corners[i:i+1], vectors=vector)[0]
-            edges = self.analyseLine(ends=ends, anchor=corners[i])
+            ends = ScaleDetector.calculateLineEnds(shape=self.__img.shape, anchors=borders[j[0],[j[1]]], vectors=vector)[0]
+            edges = self.analyseLine(ends=ends, anchor=borders[j[0],j[1]])
             if edges is not None:
-                edges = edges[corners[i,0]-1 <= edges[:,0] if i < 2 else edges[:,0] <= corners[i,0]+1]
-                if self.__count < edges.shape[0] and (np.linalg.norm(corners[i] - edges[0]) < 2 or np.linalg.norm(corners[i] - edges[-1]) < 2):
-                    corners[(i + 2) % 4] = edges[self.__count if i < 2 else 0] if edges[0,0] < edges[-1,0] else edges[-self.__count - 1 if i < 2 else -1]
-                    angles[i%2] = angle
+                edges = edges[borders[j[0],j[1],0]-1 <= edges[:,0] if i < 2 else edges[:,0] <= borders[j[0],j[1],0]+1]
+                if self.__count < edges.shape[0] and (np.linalg.norm(borders[j[0],j[1]] - edges[0]) < 2 or np.linalg.norm(borders[j[0],j[1]] - edges[-1]) < 2):
+                    borders[j[0]] = edges[0:self.__count+1] if edges[0,0] < edges[-1,0] else edges[-1:-self.__count-2:-1]
+                    angles[j[0]] = angle
                     continue
             if stepWidths[i] == -stepWidths[(i + 2) % 4] or abs(stepWidths[i] / 2) < self.__sigma2:
                 stepWidths[i] = 0
             else:
                 stepWidths[i] /= 2
                 stepWidths[(i + 2) % 4] = -stepWidths[i]
-        return corners.astype(np.float32)
+        return borders
 
     def detectScale(self, img):
         self.__img = img
