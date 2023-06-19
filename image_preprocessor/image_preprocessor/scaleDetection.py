@@ -223,8 +223,14 @@ class ScaleDetector:
                     return result
     
     @staticmethod        
-    def checkScale(img, count, threshold):
-        mask1 = np.zeros((img.shape[0]*count//img.shape[1], count), dtype=np.uint8)
+    def checkScale(img, borders, threshold):
+        mask1 = np.zeros_like(img)
+        black = (borders.shape[1]-1)//2
+        white = borders.shape[1]-black-1
+        for i in range(black):
+            cv2.fillPoly(img=mask1, pts=[borders[:,[i*2,i*2+1]]], color=1)
+        for i in range(1,black+1):
+            cv2.fillPoly(img=mask2, pts=[borders[:,[i*2,i*2+1]]], color=1)
         mask2 = mask1.copy()
         mask1[0,0::2] = 255
         mask2[0,1::2] = 255
@@ -233,27 +239,3 @@ class ScaleDetector:
         cv2.imshow("Mask", cv2.resize(mask1, img.shape[::-1], interpolation=cv2.INTER_AREA))
         print(value2 - value1)
         return threshold < value2 - value1
-    
-          
-'''
-for i in range(12):
-    org = cv2.imread("Repository/Images/Image" + str(i+1) + ".jpg")
-    img = cv2.cvtColor(src=org, code=cv2.COLOR_BGR2GRAY)
-
-    detector = ScaleDetector(delta1=20, delta2=5, n=5, phi1=pi/100, phi2=pi/200, m=5, count=20, accuracy=0.6)
-    otsu = cv2.threshold(src=img, thresh=150, maxval=255, type=cv2.THRESH_BINARY+cv2.THRESH_OTSU)[1]
-    corners = detector.detectScale(img=otsu)
-    corners[0] += 9*(corners[0]-corners[1])//2
-    corners[3] += 9*(corners[3]-corners[2])//2
-    cv2.line(img=org, pt1=corners[0], pt2=corners[1], color=(0,0,255), thickness=2)
-    cv2.line(img=org, pt1=corners[1], pt2=corners[2], color=(0,0,255), thickness=2)
-    cv2.line(img=org, pt1=corners[2], pt2=corners[3], color=(0,0,255), thickness=2)
-    cv2.line(img=org, pt1=corners[3], pt2=corners[0], color=(0,0,255), thickness=2)
-    cv2.imshow("Image", org)
-    height = 1000*4.5//20
-    M = cv2.getPerspectiveTransform(corners.astype(np.float32), np.float32([[1000,height],[1000,0],[0,0],[0,height]]))
-    belt = cv2.warpPerspective(otsu,M,(1000,int(height)))
-    cv2.imshow("Belt", belt)
-    print(ScaleDetector.checkScale(belt, count=20, threshold=0))
-    cv2.waitKey(0)
-'''
