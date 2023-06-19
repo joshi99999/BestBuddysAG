@@ -205,13 +205,13 @@ def feature_extract(image):
         try:
             I_x, I_y = Hauptmoment(e_vals)
         except TypeError:
-            print("Der e_vals-Parameter ist kein gültiges ndarray")
+            print("e_vals-Parameter is not a ndarray")
         cv2.imshow('Prediction', edges)
         cv2.waitKey(1)
         features = [num_edges, I_x, I_y, len(corners)]
         return features , gripping_point, gravity
     except cv2.error as e:
-        print("Fehler beim Lesen des Bildes:", str(e))
+        print("bild can not load:", str(e))
         return None
 
 
@@ -228,9 +228,10 @@ def pred(features, model):
 
     """
     try:
-        prediction = model.predict([features])
-        if( prediction !=0 and prediction !=1):
+        prediction = model.predict([features])[0]
+        if prediction not in [0, 1]:
             prediction = -1
         return prediction
     except ValueError as e:
-        print("Fehler bei der Vorhersage:", str(e))
+        print("Error during prediction:", str(e))
+        return -1
