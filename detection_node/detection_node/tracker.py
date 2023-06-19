@@ -69,7 +69,7 @@ class EuclideanDistTracker:
         return objects_bbs_ids
 
     
-    def getSample(self, frame, cx, cy, id):
+    def getSample(self, frame, center_x, cy, id):
         """
         This function creates an slice of an image at a certain position if the x coordinate of an object is there
 
@@ -83,13 +83,21 @@ class EuclideanDistTracker:
             id_img = IdSample()
             num1 = Int32()
 
-            
-            if (cx>=320 and cx<=330) and (id != self.id_prev):
+            minRange = 320
+            maxRange = 330
+
+            topBelt = 0
+            bottomBelt = 189
+            halfSampleResolution = 100
+
+
+            # Object is in Range and is diffrent from previous object
+            if (center_x >= minRange and center_x <= maxRange) and (id != self.id_prev):
                 # Create sample
-                sample = frame[0:189, cx-100:cx+100]
+                sample = frame[topBelt:bottomBelt, center_x-halfSampleResolution:center_x+halfSampleResolution]
                 self.id_prev = id
 
-                # Set all the data for message
+                # Set all the data for ros message
                 num1.data = id
                 id_img.id = num1
                 ros_image = self.cv_bridge.cv2_to_imgmsg(sample, encoding='8UC1')
@@ -132,7 +140,7 @@ class EuclideanDistTracker:
             detections (list): A list of detected object rectangles (x, y, w, h).
 
         Returns:
-            tuple: A tuple containing the ID of the tracked object, and its center coordinates (cx, cy).
+            tuple: A tuple containing the ID of the tracked object, and its center coordinates (center_x, cy).
 
         """
         if (detections is not None) and (len(detections)>0):
