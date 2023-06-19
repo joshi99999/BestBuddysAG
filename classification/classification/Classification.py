@@ -50,9 +50,9 @@ class ObjectClassification(Node):
             Image: ROS image.
         """
         cv_image = self.bridge.imgmsg_to_cv2(IdSample.image, desired_encoding='8UC1')
-        features ,gripping_point , gravity = feature_extract(cv_image)
+        features, vector = self.feature_extract(cv_image)
         print(features)
-        vector = find_gripping_point_vector(gripping_point, gravity)
+        print(vector)
         class_result = pred(features, self.svm_model)
         #print(class_result)
         #print(IdSample.id.data)
@@ -78,6 +78,90 @@ class ObjectClassification(Node):
         self.get_logger().info('Publishing: "%s"' % msg)
         
         self.publisher.publish(msg)
+    
+    def find_center_of_mass(self, image):
+        # Finden der Konturen der Objekte im binären Bild
+        contours, _ = cv2.findContours(image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+        # Falls keine Konturen gefunden wurden, gibt es keine Objekte
+        if len(contours) == 0:
+            return None
+
+        # Finden des größten Objekts basierend auf der Konturfläche
+        largest_contour = max(contours, key=cv2.contourArea)
+
+        # Berechnung der Momente des größten Objekts
+        moments = cv2.moments(largest_contour)
+
+        # Berechnung des Schwerpunkts (Centroid) des größten Objekts
+        centroid_x = int(moments['m10'] / moments['m00'])
+        centroid_y = int(moments['m01'] / moments['m00'])
+        cx = centroid_x 
+        cy = centroid_y 
+
+        # Rückgabe des Schwerpunkts (Centroid)
+        return cx, cy
+    
+    def find_gripping_point_vector(self, gripping_point, center_point):
+
+        vector = (gripping_point[0] - center_point[0], gripping_point[1] - center_point[1])
+
+        return vector
+
+    def feature_extract(self, image):
+        """
+        Classifies an image as a cat or unicorn.
+
+        Parameters:
+            image (str): Path to the image.
+
+        Returns:
+            features (list): List of extracted features of the image.
+            gripping_point : A tuple containing the gripping point as (x, y) coordinates.
+            gravity : List containing the gravity_x and the gravity_y
+            
+        """
+        try:
+            # Gripping Point
+            brightest_pixel = np.unravel_index(np.argmax(image), image.shape)
+            gripping_point = (brightest_pixel[1], brightest_pixel[0])
+
+            # Center of Mass
+            cx, cy = self.find_center_of_mass(image)
+            gravity =[cx, cy]
+
+            # Vector
+            vector = self.find_gripping_point_vector(gripping_point, gravity)
+
+            _,binary_img = cv2.threshold(image, 0, 1, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+            edges = cv2.Canny(image, 300, 525)
+            num_edges = cv2.countNonZero(edges)
+            dst = cv2.cornerHarris(image, 2, 3, 0.04)
+            threshold = 0.02 * dst.max()
+            corners = []
+            for i in range(dst.shape[0]):
+                for j in range(dst.shape[1]):
+                    if dst[i, j] > threshold:
+                        corners.append((i, j))
+            ''''
+            gravity_y, gravity_x = center_of_gravity(binary_img)
+            gravity =[gravity_x, gravity_y]
+            cv2.circle(edges, (int(gravity_x + 0.5), int(gravity_y + 0.5)), 5, (0, 0, 255), -1)
+            '''
+            e_vals, _ = np.linalg.eig(inertia_tensor(binary_img))
+            try:
+                I_x, I_y = Hauptmoment(e_vals)
+            except TypeError:
+                print("e_vals-Parameter is not a ndarray")
+            cv2.imshow('Prediction', edges)
+            cv2.waitKey(1)
+            features = [num_edges, I_x, I_y, len(corners)]
+            return features , vector
+        except cv2.error as e:
+            print("bild can not load:", str(e))
+            return None
+
+
 
 
 def main(args=None):
@@ -95,11 +179,6 @@ if __name__ == '__main__':
     main()
 
    
-def find_gripping_point_vector(gripping_point, center_point):
-
-    vector = (gripping_point[0] - center_point[0], gripping_point[1] - center_point[1])
-
-    return vector
 
     
 def center_of_gravity(img):
@@ -172,48 +251,6 @@ def Hauptmoment(e_vals):
     except TypeError:
         print("Invalid input. The 'e_vals' parameter must be a valid ndarray.")
         return None, None
-
-def feature_extract(image):
-    """
-    Classifies an image as a cat or unicorn.
-
-    Parameters:
-        image (str): Path to the image.
-
-    Returns:
-        features (list): List of extracted features of the image.
-        gripping_point : A tuple containing the gripping point as (x, y) coordinates.
-        gravity : List containing the gravity_x and the gravity_y
-        
-    """
-    try:
-        brightest_pixel = np.unravel_index(np.argmax(image), image.shape)
-        gripping_point = (brightest_pixel[1], brightest_pixel[0])
-        _,binary_img = cv2.threshold(image, 0, 1, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
-        edges = cv2.Canny(image, 300, 525)
-        num_edges = cv2.countNonZero(edges)
-        dst = cv2.cornerHarris(image, 2, 3, 0.04)
-        threshold = 0.02 * dst.max()
-        corners = []
-        for i in range(dst.shape[0]):
-            for j in range(dst.shape[1]):
-                if dst[i, j] > threshold:
-                    corners.append((i, j))
-        gravity_y, gravity_x = center_of_gravity(binary_img)
-        gravity =[gravity_x, gravity_y]
-        cv2.circle(edges, (int(gravity_x + 0.5), int(gravity_y + 0.5)), 5, (0, 0, 255), -1)
-        e_vals, _ = np.linalg.eig(inertia_tensor(binary_img))
-        try:
-            I_x, I_y = Hauptmoment(e_vals)
-        except TypeError:
-            print("e_vals-Parameter is not a ndarray")
-        cv2.imshow('Prediction', edges)
-        cv2.waitKey(1)
-        features = [num_edges, I_x, I_y, len(corners)]
-        return features , gripping_point, gravity
-    except cv2.error as e:
-        print("bild can not load:", str(e))
-        return None
 
 
 def pred(features, model):

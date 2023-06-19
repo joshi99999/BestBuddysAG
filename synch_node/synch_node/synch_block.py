@@ -79,7 +79,7 @@ class SynchBlock(Node):
                     self.publish_synch(pos_x, pos_y, velocity, classification, time)
 
                     self.id_classes.remove(id_class)
-                    
+
 
     def publish_synch(self, pos_x, pos_y, vel, cl, time):
         """
@@ -121,10 +121,10 @@ class SynchBlock(Node):
 
         self.pos_vel_class_publisher.publish(msg)
          
-    def calculatePoint(self, x1, y1, x2, y2):
+    def calculatePoint(self, x1, y1, vector_x, vector_y):
 
-        new_x = x1 + x2
-        new_y = y1 + y2
+        new_x = x1 + vector_x
+        new_y = y1 + vector_y
 
         return new_x, new_y
 
