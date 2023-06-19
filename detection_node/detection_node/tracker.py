@@ -69,7 +69,7 @@ class EuclideanDistTracker:
         return objects_bbs_ids
 
     
-    def getSample(self, frame, cx, id):
+    def getSample(self, frame, cx, cy, id):
         """
         This function creates an slice of an image at a certain position if the x coordinate of an object is there
 
@@ -84,9 +84,9 @@ class EuclideanDistTracker:
             num1 = Int32()
 
             
-            if (cx>=320 and cx<=325) and (id != self.id_prev):
+            if (cx>=320 and cx<=330) and (id != self.id_prev):
                 # Create sample
-                sample = frame[0:300, cx-100:cx+100]
+                sample = frame[0:189, cx-100:cx+100]
                 self.id_prev = id
 
                 # Set all the data for message

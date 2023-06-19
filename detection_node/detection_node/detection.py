@@ -51,7 +51,7 @@ def convertToRos(IdPosTime, id, posx, posy, time):
 class ObjektDetektion(Node):
     def __init__(self):
         super().__init__('detector')
-        self.image_subscriber = self.create_subscription(Image, 'camera_stream', self.image_callback, 10)
+        self.image_subscriber = self.create_subscription(Image, 'camera_stream', self.image_callback, 5)
         self.id_sample_publisher = self.create_publisher(IdSample, 'id_sample', 10)
         self.id_pos_publisher = self.create_publisher(IdPosTime, 'id_pos_time', 10)
         self.cv_bridge = CvBridge()
@@ -65,7 +65,6 @@ class ObjektDetektion(Node):
             return
         
         time = msg.header.stamp.sec * 1000 + msg.header.stamp.nanosec // 1000000
-        edges = cv2.Canny(cv_image, 300, 525)
         #print(time)
 
         # 1. Object detection
@@ -76,7 +75,8 @@ class ObjektDetektion(Node):
         for box_id in boxes_ids:
             x, y, w, h, id = box_id
 
-            center = (x + x + w) // 2
+            center_x = (x + x + w) // 2
+            center_y = (y + y + h) // 2
 
             # Create image of Object
             image_object = cv_image[y:(y+h), x:(x+w)]
@@ -92,13 +92,13 @@ class ObjektDetektion(Node):
             self.id_pos_publisher.publish(IdPos)
             
             # 3. Create Image of Object
-            publish, id_img = tracker.getSample(cv_image, center, id)
+            publish, id_img = tracker.getSample(cv_image, center_x, center_y, id)
             if publish:
                 self.get_logger().info('publishing sample with id: '+str(id))
                 self.id_sample_publisher.publish(id_img)
         
-        cv2.imshow("bild", edges)
-        cv2.waitKey(1)
+        cv2.imshow("bild", cv_image)
+        cv2.waitKey(25)
     
 
 

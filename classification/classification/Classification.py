@@ -51,10 +51,11 @@ class ObjectClassification(Node):
         """
         cv_image = self.bridge.imgmsg_to_cv2(IdSample.image, desired_encoding='8UC1')
         features ,gripping_point , gravity = feature_extract(cv_image)
+        print(features)
         vector = find_gripping_point_vector(gripping_point, gravity)
         class_result = pred(features, self.svm_model)
-        print(class_result)
-        print(IdSample.id.data)
+        #print(class_result)
+        #print(IdSample.id.data)
         msg = IdClassVec()
         
         id_msg = Int32()
@@ -188,7 +189,7 @@ def feature_extract(image):
     try:
         brightest_pixel = np.unravel_index(np.argmax(image), image.shape)
         gripping_point = (brightest_pixel[1], brightest_pixel[0])
-        #blur = cv2.GaussianBlur(image, (5, 5), 0)
+        _,binary_img = cv2.threshold(image, 0, 1, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
         edges = cv2.Canny(image, 300, 525)
         num_edges = cv2.countNonZero(edges)
         dst = cv2.cornerHarris(image, 2, 3, 0.04)
@@ -198,10 +199,10 @@ def feature_extract(image):
             for j in range(dst.shape[1]):
                 if dst[i, j] > threshold:
                     corners.append((i, j))
-        gravity_y, gravity_x = center_of_gravity(image)
+        gravity_y, gravity_x = center_of_gravity(binary_img)
         gravity =[gravity_x, gravity_y]
         cv2.circle(edges, (int(gravity_x + 0.5), int(gravity_y + 0.5)), 5, (0, 0, 255), -1)
-        e_vals, _ = np.linalg.eig(inertia_tensor(image))
+        e_vals, _ = np.linalg.eig(inertia_tensor(binary_img))
         try:
             I_x, I_y = Hauptmoment(e_vals)
         except TypeError:
