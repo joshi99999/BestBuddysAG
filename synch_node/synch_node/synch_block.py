@@ -28,12 +28,13 @@ class SynchBlock(Node):
         """
         id = msg.id.data
         cl = msg.result.data
-        # TODO: vector in message mit aufnehemn
-
+        vector_x = msg.vector_x.data
+        vector_y = msg.vector_y.data
+        
         print("recieved object with id: "+str(id)+" and class: "+str(cl))
 
         if cl != -1:
-            id_classification = [id, cl]
+            id_classification = [id, cl, vector_x, vector_y]
             self.id_classes.append(id_classification)
         else:
             self.ids_to_ignore.append(id)
@@ -55,25 +56,30 @@ class SynchBlock(Node):
         id = msg.id.data
         pos_x = msg.pos_x.data
         pos_y = msg.pos_y.data
-        vel = msg.vel_x
-        time = msg.time
+        velocity = msg.vel_x
+        time = msg.time.data
 
-        print("recieved object with id: "+str(id)+" and position: "+str(pos_x)+" / "+str(pos_y)+" and speed: "+str(vel))
+        print("recieved object with id: "+str(id)+" and position: "+str(pos_x)+" / "+str(pos_y)+" and speed: "+str(velocity))
 
         for ids in reversed(self.ids_to_ignore):
             if ids == id:
                 self.ids_to_ignore.remove(id)
                 ignore = True
-                print("ignored object with id: "+str(id))
+                #print("ignored object with id: "+str(id))
                 break
         if not ignore:
             for id_class in self.id_classes:
                 if id_class[0] == id:
-                    # remove id_class form list
-                    # TODO: vector über id_class auf position addieren
-                    print([id,id_class[0], pos_x, pos_y, vel, id_class[1]])
-                    self.publish_synch(pos_x, pos_y, vel, id_class[1], time)
+
+                    vector_x = id_class[2]
+                    vector_y = id_class[3]
+                    classification = id_class[1]
+                    pos_x, pos_y = self.calculatePoint(pos_x, pos_y, vector_x, vector_y)
+                    
+                    self.publish_synch(pos_x, pos_y, velocity, classification, time)
+
                     self.id_classes.remove(id_class)
+                    
 
     def publish_synch(self, pos_x, pos_y, vel, cl, time):
         """
@@ -90,31 +96,37 @@ class SynchBlock(Node):
         """
         # change to ros type
         msg = PosVelClass()
-        num1 = Int32()
-        num2 = Int32()
-        num3 = float()
-        num4 = Int32()
-        num5 = Int32()
+        position_x = Int32()
+        position_y = Int32()
+        velocity = float()
+        classification = Int32()
+        timestemp = Int32()
 
 
-        num1.data = pos_x
-        num2.data = pos_y
-        num3 = vel
-        num4.data = cl
-        num5.data = time
+        position_x.data = pos_x
+        position_y.data = pos_y
+        velocity = vel
+        classification.data = cl
+        timestemp.data = time
 
 
-        msg.pos_x = num1
-        msg.pos_y = num2
-        msg.vel_x = num3
-        msg.result = num4
-        msg.time = num5
+        msg.pos_x = position_x
+        msg.pos_y = position_y
+        msg.vel_x = velocity
+        msg.result = classification
+        msg.time = timestemp
 
 
-        print("published object with position: "+str(pos_x)+" / "+str(pos_y)+" speed: "+str(vel)+" and class: "+str(cl))
+        self.get_logger().info('Publishing: "%s"' % msg)
 
         self.pos_vel_class_publisher.publish(msg)
          
+    def calculatePoint(self, x1, y1, x2, y2):
+
+        new_x = x1 + x2
+        new_y = y1 + y2
+
+        return new_x, new_y
 
 def main(args=None):
     rclpy.init(args=args)
