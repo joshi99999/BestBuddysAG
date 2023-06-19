@@ -28,37 +28,35 @@ class PositionGruppierung(Node):
         pos_x = IdPosTime.pos_x.data
         pos_y = IdPosTime.pos_y.data
         timestamp = IdPosTime.time.data
-        print(pos_x)
         ret, target_id = self.addlist(id, timestamp, pos_x, pos_y)
-        print("in range")
-        if(ret):
-            print("element out of region")
+        if ret:
             removed_elements=self.remove_elements_with_id(target_id)
-            id_value, pos_x_value, pos_y_value, speed_x_value, time_value = self.speed_determine(removed_elements) 
-            msg = IdPosVelTime()
-            id_msg = Int32()
-            id_msg.data = id_value
+            ret, id_value, pos_x_value, pos_y_value, speed_x_value, time_value = self.speed_determine(removed_elements) 
+            if ret:
+                print(speed_x_value)
+                
+                msg = IdPosVelTime()
+                id_msg = Int32()
+                id_msg.data = id_value
 
-            pos_x_msg = Int32()
-            pos_x_msg.data = pos_x_value
+                pos_x_msg = Int32()
+                pos_x_msg.data = pos_x_value
 
-            pos_y_msg = Int32()
-            pos_y_msg.data = pos_y_value
+                pos_y_msg = Int32()
+                pos_y_msg.data = pos_y_value
 
-            vel_x_msg = Float32()
-            vel_x_msg.data = speed_x_value
+                time_msg = Int32()
+                time_msg.data = time_value
+                
+                msg.id = id_msg
+                msg.pos_x = pos_x_msg
+                msg.pos_y = pos_y_msg
+                msg.vel_x = speed_x_value
+                msg.time = time_msg
 
-            time_msg = Int32()
-            time_msg.data = time_value
-            
-            msg.id = id_msg
-            msg.pos_x = pos_x_msg
-            msg.pos_y = pos_y_msg
-            msg.vel_x = vel_x_msg
-            msg.time = time_msg
+                self.get_logger().info('Publishing: "%s"' % msg)
+                self.publisher.publish(msg)
 
-            self.get_logger().info('Publishing: "%s"' % msg)
-            self.publisher.publish(msg)
     def speed_determine(self, list):
         """
         Calculates the speed based on position and time information in a list.
@@ -76,15 +74,15 @@ class PositionGruppierung(Node):
                 - Timestamp of the last element
         """
         if(len(list) < 2):
-            return 0
+            return False, list[-1][0], list[-1][2], list[-1][3], 0.0, list[-1][1]
         #start_time = list[0][1]
         #end_time = list[-1][1]
         start_time = 1
         end_time = 2
         start_pos_x = list[0][2]
         end_pos_x = list[-1][2]
-        speed_x = (end_pos_x - start_pos_x) / (end_time - start_time)
-        return list[-1][0], list[-1][2], list[-1][3], speed_x,list[-1][1] 
+        speed_x = float((end_pos_x - start_pos_x) / (end_time - start_time))
+        return True, list[-1][0], list[-1][2], list[-1][3], speed_x, list[-1][1] 
     
     def remove_elements_with_id(self, target_id):
         """
@@ -117,7 +115,7 @@ class PositionGruppierung(Node):
             
         """
         new_element = [id, timestamp, pos_x, pos_y]
-        max_pos_x= 700
+        max_pos_x= 1100
         
         isFull= False
         target_id = None
