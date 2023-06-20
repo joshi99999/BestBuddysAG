@@ -10,7 +10,7 @@ class PositionController(Node):
     def __init__(self):
         super().__init__('control_roboter_position')
         
-        self.k = np.array([3, 3, 3])
+        self.k = np.array([3, 3, 3], dtype=np.float64)
 
         self.max_vel = np.array([0.03, 0.04, 0.05], dtype=np.float64)
         self.max_acc = np.array([0.005, 0.005, 0.02], dtype=np.float64)
