@@ -44,7 +44,7 @@ class Camera(Node):
             cv2.polylines(img=image, pts=[self.borders[[0,1,1,0],[0,0,-1,-1]].astype(np.int32)], isClosed=True, color=(0,0,255), thickness=2)
             image = cv2.resize(src=image, dsize=(image.shape[1]//2, image.shape[0]//2))
             cv2.imshow("Area", image)
-            cv2.waitKey(1)
+            cv2.waitKey(100)
             if 'y' != input("Has the conveyor belt been correctly detected?"):
                 self.M = None
                 return
