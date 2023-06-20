@@ -26,7 +26,7 @@ class ScaleDetector:
     #  @param accuracy The maximum value the ratio between the distances from an edge to the previous edge and the next edge can deviate from one.
     #  @param min The minimum distance between two edges.
 
-    def __init__(self, delta1, delta2, n, phi1, phi2, sigma1, sigma2, m, count, accuracy):
+    def __init__(self, delta1, delta2, n, phi1, phi2, sigma1, sigma2, m, count, accuracy, threshold):
         self.__delta1 = delta1
         self.__delta2 = delta2
         self.__n = n
@@ -44,6 +44,9 @@ class ScaleDetector:
         self.__alpha = -pi/2                #Angle between the x-axis and a line through the coordinate origin and the anchor
 
         self.__img = None
+        self.__mask1 = None
+        self.__mask2 = None
+        self.__threshold = threshold
 
     def __nextLine(self):
         self.__radius += self.__delta1
@@ -219,20 +222,23 @@ class ScaleDetector:
             if line is not None:
                 left = self.scanArea(center=line[0]+(line[self.__count]-line[0])//2 if line[0,0] < line[-1,0] else line[-1]+(line[-self.__count-1]-line[-1])//2)
                 if left is not None:
-                    result = self.adaptBorders(left=left[0 if left[0,0] < left[-1,0] else -1], right=left[self.__count if left[0,0] < left[-1,0] else -self.__count-1])
-                    return result
-    
-    @staticmethod        
-    def checkScale(img, borders, threshold):
-        mask1 = np.zeros_like(img)
-        mask2 = np.zeros_like(img)
+                    borders = self.adaptBorders(left=left[0 if left[0,0] < left[-1,0] else -1], right=left[self.__count if left[0,0] < left[-1,0] else -self.__count-1])
+                    self.__generateMasks(borders)
+                    return borders
+
+    def __generateMasks(self, borders):
+        self.__mask1 = np.zeros(self.__img.shape, dtype=np.uint8)
+        self.__mask2 = self.__mask1.copy()
         black = (borders.shape[1]-1)//2
         white = borders.shape[1]-black-1
         for i in range(black):
-            cv2.fillPoly(img=mask1, pts=[borders[[0,0,1,1],[i*2,i*2+1,i*2+1,i*2]]], color=255)
+            cv2.fillPoly(img=self.__mask1, pts=[borders[[0,0,1,1],[i*2,i*2+1,i*2+1,i*2]].astype(np.int32)], color=255)
         for i in range(1,white+1):
-            cv2.fillPoly(img=mask2, pts=[borders[[0,0,1,1],[i*2-1,i*2,i*2,i*2-1]]], color=255)
-
-        value1 = np.average(img[mask1 == 255]) / 255
-        value2 = np.average(img[mask2 == 255]) / 255
-        return threshold < value2 - value1
+            cv2.fillPoly(img=self.__mask2, pts=[borders[[0,0,1,1],[i*2-1,i*2,i*2,i*2-1]].astype(np.int32)], color=255)
+        self.__mask1 = self.__mask1 == 255
+        self.__mask2 = self.__mask2 == 255
+      
+    def checkScale(self):
+        value1 = np.average(self.__img[self.__mask1]) / 255
+        value2 = np.average(self.__img[self.__mask2]) / 255
+        return self.__threshold < value2 - value1
