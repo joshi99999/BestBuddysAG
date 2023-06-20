@@ -12,7 +12,7 @@ import numpy as np
 class Camera(Node):
 
     def __init__(self, queue, length, m, n):
-        super().__init__('camera')
+        super().__init__('preprocessor')
         self.length = length
         self.input = self.create_subscription(Image, 'camera_stream', self.preprocess, queue)
         self.stream = self.create_publisher(Image, 'preprocessed_stream', queue)
