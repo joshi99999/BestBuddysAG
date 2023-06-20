@@ -4,6 +4,7 @@ import numpy as np
 from rclpy.node import Node
 from ro45_portalrobot_interfaces.msg import RobotPos, RobotCmd
 
+
 class PositionController(Node):
     
     def __init__(self):
@@ -11,12 +12,12 @@ class PositionController(Node):
         
         self.k = np.array([3, 3, 3])
 
-        self.max_vel = np.array([0.03, 0.04, 0.05], dtype=np.float32)
-        self.max_acc = np.array([0.005, 0.005, 0.02], dtype=np.float32)
+        self.max_vel = np.array([0.03, 0.04, 0.05], dtype=np.float64)
+        self.max_acc = np.array([0.005, 0.005, 0.02], dtype=np.float64)
 
-        self.desired_pos = np.zeros(3, dtype=np.float32)
-        self.current_pos = np.zeros(3, dtype=np.float32)
-        self.velocity = np.zeros(3, dtype=np.float32)
+        self.desired_pos = np.zeros(3, dtype=np.float64)
+        self.current_pos = np.zeros(3, dtype=np.float64)
+        self.velocity = np.zeros(3, dtype=np.float64)
 
         self.subscriptionCurrent = self.create_subscription(RobotPos, 'robot_position', self.robotPostion_callback, 10)
         self.subscriptionDesired = self.create_subscription(RobotPos, 'robot_reference_position', self.desiredPosition_callback, 10)
@@ -26,6 +27,7 @@ class PositionController(Node):
 
     def desiredPosition_callback(self, msg):
         self.desired_pos[:] = msg.pos_x, msg.pos_y, msg.pos_z
+
     
     def robotPostion_callback(self, msg):
         self.current_pos[:] = msg.pos_x, msg.pos_y, msg.pos_z
@@ -53,7 +55,7 @@ class PositionController(Node):
         # create ros2 message
         robot_command = RobotCmd()
         robot_command.activate_gripper = False
-        robot_command.vel_x, robot_command.vel_y, robot_command.vel_z = self.velocity.astype(np.float64)
+        robot_command.vel_x, robot_command.vel_y, robot_command.vel_z = self.velocity
         return robot_command
 
     
