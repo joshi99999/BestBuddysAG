@@ -11,8 +11,8 @@ class PositionController(Node):
         
         self.k = np.array([3, 3, 3])
 
-        self.max_vel = np.array([0.019, 0.035, 0.06], dtype=np.float32)
-        self.max_acc = np.array([0.015, 0.022, 0.04], dtype=np.float32)
+        self.max_vel = np.array([0.03, 0.04, 0.05], dtype=np.float32)
+        self.max_acc = np.array([0.005, 0.005, 0.02], dtype=np.float32)
 
         self.desired_pos = np.zeros(3, dtype=np.float32)
         self.current_pos = np.zeros(3, dtype=np.float32)
@@ -53,7 +53,7 @@ class PositionController(Node):
         # create ros2 message
         robot_command = RobotCmd()
         robot_command.activate_gripper = False
-        robot_command.vel_x, robot_command.vel_y, robot_command.vel_z = self.velocity
+        robot_command.vel_x, robot_command.vel_y, robot_command.vel_z = self.velocity.astype(np.float64)
         return robot_command
 
     

@@ -11,7 +11,7 @@ class Camera(Node):
         super().__init__('camera')
         self.stream = self.create_publisher(Image, 'camera_stream', queue)
         self.timer = self.create_timer(1/framerate, self.capture)
-        self.camera = VideoCapture("src/camera/camera/test.mp4")
+        self.camera = VideoCapture(5)
         self.bridge = CvBridge()
 
     def capture(self):
