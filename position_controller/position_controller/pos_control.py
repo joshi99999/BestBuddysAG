@@ -42,14 +42,13 @@ class PositionController(Node):
         new_velocity = self.k * (self.desired_pos - self.current_pos)
 
         # set velocity to maximum when velocity is to high  
-        new_velocity[new_velocity > self.max_vel] = self.max_vel
-        new_velocity[new_velocity < -self.max_vel] = -self.max_vel
+        new_velocity[new_velocity > self.max_vel] = self.max_vel[new_velocity > self.max_vel]
+        new_velocity[new_velocity < -self.max_vel] = -self.max_vel[new_velocity < -self.max_vel]
        
         #check if the velocity jump is to high
-        self.velocity[new_velocity - self.velocity > self.max_acc] += self.max_acc
-        self.velocity[self.velocity - new_velocity > self.max_acc] -= self.max_acc
-        ok = abs(new_velocity - self.velocity) <= self.max_acc
-        self.velocity[ok] = new_velocity[ok]   
+        self.velocity[new_velocity - self.velocity > self.max_acc] += self.max_acc[new_velocity - self.velocity > self.max_acc]
+        self.velocity[self.velocity - new_velocity > self.max_acc] -= self.max_acc[self.velocity - new_velocity > self.max_acc]
+        self.velocity[abs(new_velocity - self.velocity) <= self.max_acc] = new_velocity[abs(new_velocity - self.velocity) <= self.max_acc]   
 
         # create ros2 message
         robot_command = RobotCmd()
