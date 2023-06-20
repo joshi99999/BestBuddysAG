@@ -47,8 +47,8 @@ class Camera(Node):
             cv2.waitKey(1)
             if 'y' != input("Has the conveyor belt been correctly detected?"):
                 self.M = None
-                cv2.destroyAllWindows()
                 return
+            cv2.destroyAllWindows()
 
         if not self.detector.checkScale():
             self.errors += 1
@@ -63,7 +63,7 @@ class Camera(Node):
         belt = cv2.threshold(src=belt, thresh=200, maxval=255, type=cv2.THRESH_BINARY)[1]
         cv2.imshow("Belt", belt)
         cv2.waitKey(1)
-        output_msg = self.bridge.cv2_to_imgmsg(belt)
+        output_msg = self.bridge.cv2_to_imgmsg(belt, '8UC1')
         output_msg.header.stamp = input_msg.header.stamp
         self.stream.publish(output_msg)
         self.get_logger().info('Image published.')
