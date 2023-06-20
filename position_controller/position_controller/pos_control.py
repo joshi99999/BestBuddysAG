@@ -8,26 +8,21 @@ class PositionController(Node):
     
     def __init__(self):
         super().__init__('control_roboter_position')
+        
+        self.k = np.array([3, 3, 3])
 
-        #gain, could be even higher
-        #self.kp = 3
-        self.k = np.array([0.5, 1, 1])
-        #max und min velocity
-        self.min_vel = 0.01
-        self.max_vel = 0.03
-
-        self.accuracy = 0.002
+        self.max_vel = np.array([0.019, 0.035, 0.06], dtype=np.float32)
+        self.max_acc = np.array([0.015, 0.022, 0.04], dtype=np.float32)
 
         self.desired_pos = np.zeros(3, dtype=np.float32)
         self.current_pos = np.zeros(3, dtype=np.float32)
-        self.difference_pos = np.zeros(3, dtype=np.float32)
         self.velocity = np.zeros(3, dtype=np.float32)
 
-        queue = 10
-        self.subscriptionCurrent = self.create_subscription(RobotPos, 'robot_position', self.robotPostion_callback, queue)
-        self.subscriptionDesired = self.create_subscription(RobotPos, 'robot_reference_position', self.desiredPosition_callback, queue)
+        self.subscriptionCurrent = self.create_subscription(RobotPos, 'robot_position', self.robotPostion_callback, 10)
+        self.subscriptionDesired = self.create_subscription(RobotPos, 'robot_reference_position', self.desiredPosition_callback, 10)
 
-        self.publisher = self.create_publisher(RobotCmd, 'robot_command', queue)         
+        self.publisher = self.create_publisher(RobotCmd, 'robot_command', 10)
+
 
     def desiredPosition_callback(self, msg):
         self.desired_pos[:] = msg.pos_x, msg.pos_y, msg.pos_z
@@ -35,37 +30,33 @@ class PositionController(Node):
     def robotPostion_callback(self, msg):
         self.current_pos[:] = msg.pos_x, msg.pos_y, msg.pos_z
 
-        self.difference_pos[:] = self.desired_pos - self.current_pos
-
-
-        #https://roboticsbackend.com/ros2-python-publisher-example/
         cmd = self.calculate_control_signal()
         self.publisher.publish(cmd)
-        # self.position_publisher.publish(msg.RobotCmd(vel_x = positionError[0],vel_y =  positionError[1], vel_z =  positionError[2], activate_gripper = gripper))
 
-        # Display the message on the console
-        # TODO: nur publishen wenn vel != 0 ist!!!
-        self.get_logger().info('Publishing: "%s"' % cmd)
-
+        self.get_logger().info('Publishing velocities: ' + str(cmd))
 
 
     def calculate_control_signal(self):
+
         # velocity depends on difference
-        self.velocity = self.k * self.difference_pos
-        
-        # set velocity to minimum when velocity is to low
-        self.velocity[self.velocity.any() > 0 and self.velocity.any() < self.min_vel] = self.min_vel
-        self.velocity[self.velocity.any() < 0 and self.velocity.any() > -1 * self.min_vel] = -1 * self.min_vel
-        # set velocity to macimum when velocity is to high
-        self.velocity[self.velocity > self.max_vel] = self.max_vel
-        self.velocity[self.velocity < -1 * self.max_vel] = -1 * self.max_vel
-        # set velocity to zero when accuracy is reached
-        self.velocity[abs(self.difference_pos) < self.accuracy] = 0.0
+        new_velocity = self.k * (self.desired_pos - self.current_pos)
+
+        # set velocity to maximum when velocity is to high  
+        new_velocity[new_velocity > self.max_vel] = self.max_vel
+        new_velocity[new_velocity < -self.max_vel] = -self.max_vel
+       
+        #check if the velocity jump is to high
+        self.velocity[new_velocity - self.velocity > self.max_acc] += self.max_acc
+        self.velocity[self.velocity - new_velocity > self.max_acc] -= self.max_acc
+        ok = abs(new_velocity - self.velocity) <= self.max_acc
+        self.velocity[ok] = new_velocity[ok]   
+
         # create ros2 message
         robot_command = RobotCmd()
         robot_command.activate_gripper = False
         robot_command.vel_x, robot_command.vel_y, robot_command.vel_z = self.velocity
         return robot_command
+
     
 def main(args=None):
     rclpy.init(args=args)
