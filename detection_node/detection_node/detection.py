@@ -31,27 +31,27 @@ def convertToRos(IdPosTime, id, posx, posy, time):
         IdPosTime: The populated ROS message object.
 
     """
-    num1 = Int32()
-    num2 = Int32()
-    num3 = Int32()
-    num4 = Int32()
+    id_msg = Int32()
+    position_x = Int32()
+    position_y = Int32()
+    time_msg = Int32()
 
-    num1.data = id
-    num2.data = posx
-    num3.data = posy
-    num4.data = time
+    id_msg.data = id
+    position_x.data = posx
+    position_y.data = posy
+    time_msg.data = time
 
-    IdPosTime.id = num1
-    IdPosTime.pos_x = num2
-    IdPosTime.pos_y = num3
-    IdPosTime.time = num4
+    IdPosTime.id = id_msg
+    IdPosTime.pos_x = position_x
+    IdPosTime.pos_y = position_y
+    IdPosTime.time = time_msg
 
     return IdPosTime
 
 class ObjektDetektion(Node):
     def __init__(self):
         super().__init__('detector')
-        self.image_subscriber = self.create_subscription(Image, 'camera_stream', self.image_callback, 5)
+        self.image_subscriber = self.create_subscription(Image, 'camera_stream', self.image_callback, 10)
         self.id_sample_publisher = self.create_publisher(IdSample, 'id_sample', 10)
         self.id_pos_publisher = self.create_publisher(IdPosTime, 'id_pos_time', 10)
         self.cv_bridge = CvBridge()
