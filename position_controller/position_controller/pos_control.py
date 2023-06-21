@@ -39,12 +39,11 @@ class PositionController(Node):
     def initialize_reference_pos(self):
         if self.init_time is None:
             self.init_time = time()
-            
+
         if time() - self.init_time < self.init_duration:
             self.desired_pos[:] = self.current_pos - 1
         else:
-            self.desired_pos[:] = 0
-            self.reference_pos[:] = self.current_pos
+            self.desired_pos[:] = self.reference_pos[:] = self.current_pos
             self.init = False
 
 
