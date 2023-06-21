@@ -16,16 +16,6 @@ from sklearn import svm
 
 
 class ObjectClassification(Node):
-    """
-    Class for object classification.
-
-    Attributes:
-        subscription: ROS subscription for the input image.
-        publisher: ROS publisher for the classification result.
-        bridge: OpenCV bridge for converting ROS images.
-        svm_model: SVM model for classification.
-
-    """
 
     def __init__(self):
         """
@@ -179,8 +169,6 @@ if __name__ == '__main__':
     main()
 
    
-
-    
 def center_of_gravity(img):
     """
     Calculates the centroid of a binary image.

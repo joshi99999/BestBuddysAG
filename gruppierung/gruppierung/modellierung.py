@@ -75,10 +75,8 @@ class PositionGruppierung(Node):
         """
         if(len(list) < 2):
             return False, list[-1][0], list[-1][2], list[-1][3], 0.0, list[-1][1]
-        #start_time = list[0][1]
-        #end_time = list[-1][1]
-        start_time = 1
-        end_time = 2
+        start_time = list[0][1]
+        end_time = list[-1][1]
         start_pos_x = list[0][2]
         end_pos_x = list[-1][2]
         speed_x = float((end_pos_x - start_pos_x) / (end_time - start_time))
