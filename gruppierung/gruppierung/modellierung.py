@@ -3,7 +3,7 @@ import rclpy
 from rclpy.node import Node
 from ro45_portalrobot_interfaces.msg import IdPosVelTime, IdPosTime
 import math
-from std_msgs.msg import Int32, Float32
+from std_msgs.msg import Int32, Float32, Int64
     
 class PositionGruppierung(Node):
     def __init__(self):
@@ -45,7 +45,7 @@ class PositionGruppierung(Node):
                 pos_y_msg = Int32()
                 pos_y_msg.data = pos_y_value
 
-                time_msg = Int32()
+                time_msg = Int64()
                 time_msg.data = time_value
                 
                 msg.id = id_msg
