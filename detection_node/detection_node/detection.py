@@ -65,6 +65,9 @@ class ObjektDetektion(Node):
             return
         
         time = msg.header.stamp.sec * 1000 + msg.header.stamp.nanosec // 1000000
+
+        print(cv_image.shape[0])
+        print(cv_image.shape[1])
     
         #print(time)
 

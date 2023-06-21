@@ -3,7 +3,7 @@ import tracker
 import cv2
 
 from std_msgs.msg import Int32
-from portal_robot_interfaces.msg import IdClass, IdPosVel, IdPosTime
+from ro45_portalrobot_interfaces.msg import IdClass, IdPosVel, IdPosTime
 
 class TestDetection(unittest.TestCase):
 
