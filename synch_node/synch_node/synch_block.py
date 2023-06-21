@@ -2,7 +2,7 @@
 import rclpy
 from rclpy.node import Node
 
-from std_msgs.msg import Int32
+from std_msgs.msg import Int32, Int64
 from ro45_portalrobot_interfaces.msg import IdClassVec, IdPosVelTime, PosVelClass
 
 class SynchBlock(Node):
@@ -100,7 +100,7 @@ class SynchBlock(Node):
         position_y = Int32()
         velocity = float()
         classification = Int32()
-        timestemp = Int32()
+        timestemp = Int64()
 
 
         position_x.data = pos_x
