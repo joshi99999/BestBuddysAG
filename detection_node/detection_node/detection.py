@@ -4,7 +4,7 @@ from rclpy.node import Node
 
 from sensor_msgs.msg import Image
 from std_msgs.msg import Header
-from std_msgs.msg import Int32
+from std_msgs.msg import Int32, Int64
 
 from ro45_portalrobot_interfaces.msg import IdSample, IdPosTime
 
@@ -34,12 +34,12 @@ def convertToRos(IdPosTime, id, posx, posy, time):
     id_msg = Int32()
     position_x = Int32()
     position_y = Int32()
-    time_msg = Int32()
+    time_msg = Int64()
 
     id_msg.data = id
     position_x.data = posx
     position_y.data = posy
-    time_msg.data = time
+    time_msg.data = int(time)
 
     IdPosTime.id = id_msg
     IdPosTime.pos_x = position_x
@@ -51,7 +51,7 @@ def convertToRos(IdPosTime, id, posx, posy, time):
 class ObjektDetektion(Node):
     def __init__(self):
         super().__init__('detector')
-        self.image_subscriber = self.create_subscription(Image, 'camera_stream', self.image_callback, 10)
+        self.image_subscriber = self.create_subscription(Image, 'preprocessed_stream', self.image_callback, 10)
         self.id_sample_publisher = self.create_publisher(IdSample, 'id_sample', 10)
         self.id_pos_publisher = self.create_publisher(IdPosTime, 'id_pos_time', 10)
         self.cv_bridge = CvBridge()

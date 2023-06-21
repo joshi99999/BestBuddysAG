@@ -83,11 +83,11 @@ class EuclideanDistTracker:
             id_img = IdSample()
             num1 = Int32()
 
-            minRange = 320
-            maxRange = 330
+            minRange = 200
+            maxRange = 210
 
             topBelt = 0
-            bottomBelt = 189
+            bottomBelt = 175
             halfSampleResolution = 100
 
 
@@ -176,4 +176,5 @@ class EuclideanDistTracker:
 
         # Rückgabe des Schwerpunkts (Centroid)
         return cx, cy
+
 
