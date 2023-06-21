@@ -73,14 +73,26 @@ class PositionGruppierung(Node):
                 - Speed in the X-direction
                 - Timestamp of the last element
         """
-        if(len(list) < 2):
-            return False, list[-1][0], list[-1][2], list[-1][3], 0.0, list[-1][1]
-        start_time = list[0][1]
-        end_time = list[-1][1]
+        id = list[-1][0]
+
         start_pos_x = list[0][2]
         end_pos_x = list[-1][2]
-        speed_x = float((end_pos_x - start_pos_x) / (end_time - start_time))
-        return True, list[-1][0], list[-1][2], list[-1][3], speed_x, list[-1][1] 
+        end_pos_y = list[-1][3]
+
+        start_time = list[0][1]
+        end_time = list[-1][1]
+
+        if(len(list) < 2):
+            return False, id, end_pos_x, end_pos_y, 0.0, end_time
+        
+        # pixel per second
+        pixel_time = (end_pos_x - start_pos_x) / (end_time - start_time)
+        # 25 pixel are equal to 1cm
+        scale = 25
+        # cm per second
+        speed_x = float(pixel_time / scale)
+
+        return True, id, end_pos_x, end_pos_y, speed_x, end_time 
     
     def remove_elements_with_id(self, target_id):
         """
