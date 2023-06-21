@@ -3,6 +3,7 @@ import rclpy
 import numpy as np
 from rclpy.node import Node
 from ro45_portalrobot_interfaces.msg import RobotPos, RobotCmd
+from time import time
 
 
 class PositionController(Node):
@@ -17,6 +18,7 @@ class PositionController(Node):
 
         self.desired_pos = np.zeros(3, dtype=np.float64)
         self.current_pos = np.zeros(3, dtype=np.float64)
+        self.reference_pos = np.zeros(3, dtype=np.float64)
         self.velocity = np.zeros(3, dtype=np.float64)
 
         self.subscriptionCurrent = self.create_subscription(RobotPos, 'robot_position', self.robotPostion_callback, 10)
@@ -24,13 +26,33 @@ class PositionController(Node):
 
         self.publisher = self.create_publisher(RobotCmd, 'robot_command', 10)
 
+        self.init = True
+        self.init_time = None
+        self.init_duration = 10
+
 
     def desiredPosition_callback(self, msg):
-        self.desired_pos[:] = msg.pos_x, msg.pos_y, msg.pos_z
+        if not self.init:
+            self.desired_pos[:] = self.reference_pos + [msg.pos_x, msg.pos_y, msg.pos_z]
 
-    
+
+    def initialize_reference_pos(self):
+        if self.init_time is None:
+            self.init_time = time()
+            
+        if time() - self.init_time < self.init_duration:
+            self.desired_pos[:] = self.current_pos - 1
+        else:
+            self.desired_pos[:] = 0
+            self.reference_pos[:] = self.current_pos
+            self.init = False
+
+
     def robotPostion_callback(self, msg):
         self.current_pos[:] = msg.pos_x, msg.pos_y, msg.pos_z
+
+        if self.init:
+            self.initialize_reference_pos()
 
         cmd = self.calculate_control_signal()
         self.publisher.publish(cmd)
