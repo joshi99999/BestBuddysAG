@@ -18,13 +18,14 @@ class Controller(Node):
         self.publisher = self.create_publisher(RobotPos, 'robot_reference_position', 10)    
 
         self.locked = False
+        self.error = False
         self.position = np.zeros(2, dtype=np.float64)
         self.velocity = 0.0
         self.time = 0.0
         self.type = None    #id: 0= Katze, 1 = Einhorn
 
     def object_callback(self, msg):
-        if self.locked:
+        if self.locked or self.error:
             return
         self.locked = True
         self.position[:] = msg.pos_x, msg.pos_y
@@ -32,7 +33,10 @@ class Controller(Node):
         self.time = msg.time
         self.type = msg.result
     
-    def robotPosition_callback(self):
+    def robotPosition_callback(self, msg):
+        if self.error:
+            return
+        position = np.array(msg.pos_x, msg.pos_y, msg.pos_z, dtype=np.float64)
         
 
     def desiredPosition_callback(self, msg):
