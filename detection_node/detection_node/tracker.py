@@ -2,7 +2,6 @@ import numpy as np
 import math
 import time
 import cv2
-import os
 
 from sensor_msgs.msg import Image
 from std_msgs.msg import Int32
@@ -97,11 +96,6 @@ class EuclideanDistTracker:
                 # Create sample
                 sample = frame[topBelt:bottomBelt, center_x-halfSampleResolution:center_x+halfSampleResolution]
                 self.id_prev = id
-
-                # Samples Speichern
-                output_path = os.path("Samples/Einhorn/Einhorn_sample_"+str(id)+".jpg")
-                cv2.imwrite(output_path, frame)
-
 
                 # Set all the data for ros message
                 num1.data = id
