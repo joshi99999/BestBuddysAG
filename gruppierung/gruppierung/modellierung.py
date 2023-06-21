@@ -113,7 +113,7 @@ class PositionGruppierung(Node):
             
         """
         new_element = [id, timestamp, pos_x, pos_y]
-        max_pos_x= 1100
+        max_pos_x= 750
         
         isFull= False
         target_id = None

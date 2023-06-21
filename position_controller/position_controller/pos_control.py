@@ -41,7 +41,7 @@ class PositionController(Node):
             self.init_time = time()
 
         if time() - self.init_time < self.init_duration:
-            self.desired_pos[:] = self.current_pos - 1
+            self.desired_pos[:] = self.current_pos - 0.01
         else:
             self.desired_pos[:] = self.reference_pos[:] = self.current_pos
             self.init = False

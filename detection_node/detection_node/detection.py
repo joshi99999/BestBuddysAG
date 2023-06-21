@@ -66,10 +66,6 @@ class ObjektDetektion(Node):
         
         time = msg.header.stamp.sec * 1000 + msg.header.stamp.nanosec // 1000000
 
-        print(cv_image.shape[0])
-        print(cv_image.shape[1])
-    
-        #print(time)
 
         # 1. Object detection
         detections = tracker.detectObject(cv_image)
@@ -99,7 +95,7 @@ class ObjektDetektion(Node):
             publish, id_img = tracker.getSample(cv_image, center_x, center_y, id)
             if publish:
                 #self.get_logger().info('publishing sample with id: '+str(id))
-                print("center"+str(cx)+ " / "+str(cy)+" sample with id: "+str(id))
+                print(" sample with id: "+str(id))
                 self.id_sample_publisher.publish(id_img)
         
         cv2.imshow("bild", cv_image)

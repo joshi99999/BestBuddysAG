@@ -10,7 +10,6 @@ from cv_bridge import CvBridge
 from ro45_portalrobot_interfaces.msg import IdSample, IdClassVec
 from std_msgs.msg import Int32
 import joblib
-from . import classifier 
 from joblib import dump , load
 from sklearn import svm
 
