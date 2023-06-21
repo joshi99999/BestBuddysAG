@@ -196,7 +196,7 @@ def center_of_gravity(img):
         yind, xind = np.where(img)
         return np.array((np.mean(yind), np.mean(xind)))
     except Exception as e:
-        print("Fehler beim Berechnen des Schwerpunkts:", str(e))
+        print("gracity can not calculated:", str(e))
         return None
 
 
@@ -224,7 +224,7 @@ def inertia_tensor(binary_img):
         matrix_inertia_tensor[1, 0] = matrix_inertia_tensor[0, 1]
         return matrix_inertia_tensor
     except Exception as e:
-        print("Fehler beim Berechnen des Trägheitstensors:", str(e))
+        print("inertia_tensor can not calculated:", str(e))
         return None
   
    
