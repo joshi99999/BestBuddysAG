@@ -2,7 +2,7 @@
 import rclpy
 import numpy as np
 from rclpy.node import Node
-from ro45_portalrobot_interfaces.msg import RobotPos, RobotCmd
+from ro45_portalrobot_interfaces.msg import RobotPos, RobotCmd, ConCmd
 from time import time
 
 
@@ -18,40 +18,23 @@ class PositionController(Node):
 
         self.desired_pos = np.zeros(3, dtype=np.float64)
         self.current_pos = np.zeros(3, dtype=np.float64)
-        self.reference_pos = np.zeros(3, dtype=np.float64)
         self.velocity = np.zeros(3, dtype=np.float64)
+        
+        self.vel_x_offset = 0.0
+        self.grip = False
 
         self.subscriptionCurrent = self.create_subscription(RobotPos, 'robot_position', self.robotPostion_callback, 10)
-        self.subscriptionDesired = self.create_subscription(RobotPos, 'robot_reference_position', self.desiredPosition_callback, 10)
+        self.subscriptionDesired = self.create_subscription(ConCmd, 'controller_command', self.controllerCommand_callback, 10)
 
         self.publisher = self.create_publisher(RobotCmd, 'robot_command', 10)
 
-        self.init = True
-        self.init_time = None
-        self.init_duration = 10
 
-
-    def desiredPosition_callback(self, msg):
-        if not self.init:
-            self.desired_pos[:] = self.reference_pos + [msg.pos_x, msg.pos_y, msg.pos_z]
-
-
-    def initialize_reference_pos(self):
-        if self.init_time is None:
-            self.init_time = time()
-
-        if time() - self.init_time < self.init_duration:
-            self.desired_pos[:] = self.current_pos - 0.01
-        else:
-            self.desired_pos[:] = self.reference_pos[:] = self.current_pos
-            self.init = False
-
+    def controllerCommand_callback(self, msg):
+        self.desired_pos[:] = [msg.pos_x, msg.pos_y, msg.pos_z]
+        self.vel_x_offset, self.grip = msg.vel_x, msg.grip
 
     def robotPostion_callback(self, msg):
         self.current_pos[:] = msg.pos_x, msg.pos_y, msg.pos_z
-
-        if self.init:
-            self.initialize_reference_pos()
 
         cmd = self.calculate_control_signal()
         self.publisher.publish(cmd)
@@ -63,6 +46,7 @@ class PositionController(Node):
 
         # velocity depends on difference
         new_velocity = self.k * (self.desired_pos - self.current_pos)
+        new_velocity[0] += self.vel_x_offset
 
         # set velocity to maximum when velocity is to high  
         new_velocity[new_velocity > self.max_vel] = self.max_vel[new_velocity > self.max_vel]
@@ -75,7 +59,7 @@ class PositionController(Node):
 
         # create ros2 message
         robot_command = RobotCmd()
-        robot_command.activate_gripper = False
+        robot_command.activate_gripper = self.grip
         robot_command.vel_x, robot_command.vel_y, robot_command.vel_z = self.velocity
         return robot_command
 
