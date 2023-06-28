@@ -1,7 +1,7 @@
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
-from cv2 import VideoCapture
+import cv2
 from cv_bridge import CvBridge
 from time import time, sleep
 
@@ -11,7 +11,9 @@ class Camera(Node):
         super().__init__('camera')
         self.stream = self.create_publisher(Image, 'camera_stream', queue)
         self.timer = self.create_timer(1/framerate, self.capture)
-        self.camera = VideoCapture(5)
+        self.camera = cv2.VideoCapture(5, cv2.CAP_V4L2)
+        self.camera.set(cv2.CAP_PROP_FRAME_WIDTH, 1080)
+        self.camera.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
         self.bridge = CvBridge()
 
     def capture(self):
