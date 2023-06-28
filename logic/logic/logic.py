@@ -5,10 +5,13 @@ from rclpy.node import Node
 from ro45_portalrobot_interfaces.msg import PosVelClass, RobotPos, ConCmd
 from time import time
 
-POS_BOX_CAT = []
-POS_BOX_UNICORN = []
+POS_BOX_CAT = 0.04
+POS_BOX_UNICORN = 0.09
+BOX_Y = 0.1
 POS_ERROR = [0, 0, 0]
 POS_WAIT = []
+HEIGHT_PICKUP = 0.07
+HEIGHT_Y_ENABLED = 0.03
 
 class Controller(Node):
     def __init__(self):
@@ -86,22 +89,56 @@ class Controller(Node):
                     self.state = 'fetch'
             
             case 'fetch_yz':
-                x = self.position[0] + (time() - self.time) * self.msg_out.vel_x
-                if 0.001 < np.linalg.norm(x - [self.msg_out.pos_x, self.msg_out.pos_y, self.msg_out.pos_z]):
-                    self.msg_out.pos_x, self.msg_out.pos_y = x
-                    self.msg_out.pos_z = POS_WAIT[2]
-                    self.publisher.publish(self.msg_out)
-                    self.msg_in.pos_y = 
-                else:
+                self.msg_out.pos_y, self.msg_out.pos_z = self.position[1], POS_WAIT[2]
+                self.state = 'fetch_x'
 
             case 'fetch_x':
+                self.msg_out.pos_x = self.position[0] + (time() - self.time) * self.msg_out.vel_x
+                if np.linalg.norm([msg_in.pos_x - self.msg_out.pos_x, msg_in.pos_y - self.msg_out.pos_y, msg_in.pos_z - self.msg_out.pos_z]) < 0.001 and self.msg_out.pos_z < HEIGHT_PICKUP:
+                    self.msg_out.pos_z, self.msg_out.pos_y = HEIGHT_PICKUP, msg_in.pos_y
+                else:
+                    self.msg_out.grip = True
+                    self.state = 'object_yz'
+                self.publisher.publish(self.msg_out)
 
-            case 'object_yz':
-                
             case 'object':
+                self.msg_out.pos_x, self.msg_out.pos_z = msg_in.pos_x, POS_WAIT[2]
+                self.publisher.publish(self.msg_out)
+                self.state = 'lifting'
+
+            case 'lifting':
+                if msg_in.pos_z - POS_WAIT[2] < 0.001:
+                    self.state = 'lifted'
+
             case 'lifted':
+                self.msg_out.pos_x = POS_BOX_CAT if self.type == 0 else POS_BOX_UNICORN
+                self.msg_out.pos_z = HEIGHT_Y_ENABLED
+                self.publisher.publish(self.msg_out)
+                self.state = 'y_enabling'
+
+            case 'y_enabling':
+                if msg_in.pos_z - HEIGHT_Y_ENABLED < 0.001:
+                    self.state = 'y_enabled'
+
             case 'y_enabled':
+                self.msg_out.pos_y, self.msg_out.pos_z = BOX_Y, msg_in.pos_z
+                self.publisher.publish(self.msg_out)
+                self.state = 'xy_moving'
+
+            case 'xy_moving':
+                if np.linalg.norm([msg_in.pos_x - self.msg_out.pos_x, msg_in.pos_y - self.msg_out.pos_y]) < 0.001:
+                    self.msg_out.grip, self.msg_out.pos_x, self.msg_out.pos_y = False, msg_in.pos_x, msg_in.pos_y
+                    self.publisher.publish(self.msg_out)
+                    self.state = 'box'
+
             case 'box':
+                self.msg_out.pos_x, self.msg_out.pos_y = POS_WAIT[0], POS_WAIT[1]
+                self.publisher.publish(self.msg_out)
+                self.state = 'y_disabling'
+
+            case 'y_disabling':
+                if msg_in.pos_z 
+
             case 'wait_xy':
 
                 
