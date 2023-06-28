@@ -18,8 +18,8 @@ class Controller(Node):
         self.y_enabled_z = 0.03
 
         self.subscriber = self.create_subscription(PosVelClass, 'pos_vel_class', self.object_callback, 10)
-        self.subscriptionCurrent = self.create_subscription(RobotPos, 'robot_position', self.robotPostion_callback, 10)
-        self.publisher = self.create_publisher(RobotPos, 'robot_reference_position', 10)    
+        self.subscriptionCurrent = self.create_subscription(RobotPos, 'robot_position', self.robotPosition_callback, 10)
+        self.publisher = self.create_publisher(RobotPos, 'controller_command', 10)    
 
         self.error = False
 
