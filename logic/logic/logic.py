@@ -80,8 +80,6 @@ class Controller(Node):
                     self.wait[1] += msg_in.pos_y
                     self.msg_out.pos_x, self.msg_out.pos_y, self.msg_out.pos_z = self.wait
                     self.publisher.publish(self.msg_out)
-                    self.get_logger().info('Publishing wait: ' + str(self.msg_out))
-
                     self.state = 'wait'
 
             case 'wait':
@@ -91,7 +89,10 @@ class Controller(Node):
 
             case 'fetch_x':
                 self.msg_out.pos_x = self.position[0] + (time() - self.time) * self.msg_out.vel_x
-                if np.linalg.norm([msg_in.pos_x - self.msg_out.pos_x, msg_in.pos_y - self.msg_out.pos_y, msg_in.pos_z - self.msg_out.pos_z]) < 0.001:   
+                if self.msg_out.pos_x < 0:
+                    self.msg_out.pos_x, self.msg_out.pos_y = self.wait[0], self.wait[1]
+                    self.state = 'wait'
+                elif np.linalg.norm([msg_in.pos_x - self.msg_out.pos_x, msg_in.pos_y - self.msg_out.pos_y, msg_in.pos_z - self.msg_out.pos_z]) < 0.001:   
                     if self.msg_out.pos_z < self.pickup_z:
                         self.msg_out.pos_z, self.msg_out.pos_y = self.pickup_z, msg_in.pos_y
                     else:
