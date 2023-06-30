@@ -84,7 +84,7 @@ class EuclideanDistTracker:
             num1 = Int32()
 
             minRange = 200
-            maxRange = 210
+            maxRange = 250
 
             topBelt = 0
             bottomBelt = 175

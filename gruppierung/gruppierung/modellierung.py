@@ -90,7 +90,7 @@ class PositionGruppierung(Node):
         # 25 pixel are equal to 1cm
         scale = 25
         # m per second
-        speed_x = (pixel_time / scale) / 1000
+        speed_x = (pixel_time / scale) / 100
 
         return True, id, end_pos_x, end_pos_y, speed_x, end_time 
     
@@ -125,7 +125,7 @@ class PositionGruppierung(Node):
             
         """
         new_element = [id, timestamp, pos_x, pos_y]
-        max_pos_x= 750
+        max_pos_x= 710
         
         isFull= False
         target_id = None

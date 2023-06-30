@@ -26,7 +26,7 @@ class ObjectClassification(Node):
         self.publisher = self.create_publisher(IdClassVec, 'id_class_vec', 10)
         self.bridge = CvBridge()
 
-        model_file = 'src/classification/classification/svm_model.joblib'
+        model_file = 'src/classification/classification/bayes_model.joblib'
         self.svm_model = load(model_file)
         
         
@@ -64,11 +64,7 @@ class ObjectClassification(Node):
         msg.vector_x = vector_x_msg
         msg.vector_y = vector_y_msg 
 
-        #self.get_logger().info('Publishing: "%s"' % msg)
-        if class_result:
-            print("Einhorn"+str(id))
-        else:
-            print("Katze"+str(id))
+        self.get_logger().info('Publishing: "%s"' % msg)
         
         self.publisher.publish(msg)
     

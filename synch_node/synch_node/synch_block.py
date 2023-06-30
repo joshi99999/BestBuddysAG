@@ -74,7 +74,7 @@ class SynchBlock(Node):
                     vector_x = id_class[2]
                     vector_y = id_class[3]
                     classification = id_class[1]
-                    pos_x, pos_y = self.calculatePoint(pos_x, pos_y, vector_x, vector_y)
+                    #pos_x, pos_y = self.calculatePoint(pos_x, pos_y, vector_x, vector_y)
                     
                     self.publish_synch(pos_x, pos_y, velocity, classification, time)
 
@@ -96,15 +96,14 @@ class SynchBlock(Node):
         """
         # change to ros type
         msg = PosVelClass()
-        position_x = Int32()
-        position_y = Int32()
+        position_x = float()
+        position_y = float()
         velocity = float()
         classification = Int32()
         timestemp = Int64()
 
-
-        position_x.data = pos_x
-        position_y.data = pos_y
+        position_x = ((pos_x / 25)/100)
+        position_y = ((pos_y / 25)/100)
         velocity = vel
         classification.data = cl
         timestemp.data = time
