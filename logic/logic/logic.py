@@ -31,16 +31,17 @@ class Controller(Node):
         self.state = 'init'
 
         self.init_time = None
-        self.init_duration = 5
+        self.init_duration = 10
         self.position = np.zeros(2, dtype=np.float64)
+        self.reference = np.zeros(2, dtype=np.float64)
 
     def object_callback(self, msg):
-        if 0 < self.msg_out.vel_x or self.error:
+        if 0 < self.msg_out.vel_x or self.error or self.state == 'init' or self.state == 'reference_z':
             return
-        self.msg_out.vel_x = msg.vel_x
-        self.time = msg.time
-        self.type = msg.result
-        self.position[:] = msg.pos_x, msg.pos_y
+        self.msg_out.vel_x = -msg.vel_x
+        self.time = msg.time.data / 1000000
+        self.type = msg.result.data
+        self.position[:] = self.reference[0] + msg.pos_x, self.reference[1] + msg.pos_y
     
     def robotPosition_callback(self, msg_in):
         if self.error:
@@ -71,6 +72,7 @@ class Controller(Node):
                     self.msg_out.pos_x, self.msg_out.pos_y = msg_in.pos_x - 0.01, msg_in.pos_y - 0.01
                     self.publisher.publish(self.msg_out)
                 else:
+                    self.reference[:] = msg_in.pos_x, msg_in.pos_y
                     self.box_cat_x += msg_in.pos_x
                     self.box_unicorn_x += msg_in.pos_x
                     self.box_y += msg_in.pos_y
@@ -83,7 +85,7 @@ class Controller(Node):
                     self.state = 'wait'
 
             case 'wait':
-                if 0 < self.msg_out.vel_x:
+                if 0 != self.msg_out.vel_x:
                     self.msg_out.pos_y, self.msg_out.pos_z = self.position[1], self.wait[2]
                     self.state = 'fetch_x'
 
@@ -93,7 +95,7 @@ class Controller(Node):
                     if self.msg_out.pos_z < self.pickup_z:
                         self.msg_out.pos_z, self.msg_out.pos_y = self.pickup_z, msg_in.pos_y
                     else:
-                        self.msg_out.grip, self.msg_out.vel_x, self.msg_out.pos_x, self.msg_out.pos_z = True, 0, msg_in.pos_x, self.wait[2]
+                        self.msg_out.grip, self.msg_out.vel_x, self.msg_out.pos_x, self.msg_out.pos_z = False, 0.0, msg_in.pos_x, self.wait[2]
                         self.state = 'lifting'
                 self.publisher.publish(self.msg_out)
 
