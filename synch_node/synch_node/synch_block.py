@@ -102,8 +102,12 @@ class SynchBlock(Node):
         classification = Int32()
         timestemp = Int64()
 
+        # Change from pixle position to meter
         position_x = ((pos_x / 25)/100)
         position_y = ((pos_y / 25)/100)
+        # Change to relativ position from robot
+        position_x, position_y = self.calculateActualCoordinates(position_x, position_y)
+        
         velocity = vel
         classification.data = cl
         timestemp.data = time
@@ -126,6 +130,23 @@ class SynchBlock(Node):
         new_y = y1 + vector_y
 
         return new_x, new_y
+
+    def calculateActualCoordinates(self, x, y):
+        scale_image_width = 0.32
+        scale_image_height = 0.07
+        gap = 0.04
+        robot_x_axis = 0.10
+        robot_y_axis = 0.015
+
+        # distance from scale_image (32cm) + robot x-axis (10cm) + gap (4cm)
+        distance_x = scale_image_width + robot_x_axis + gap
+        # distance from scale_image_y (7cm) - robot_y zero_position (1,5 cm)
+        distance_y = scale_image_height - robot_y_axis
+
+        actual_pos_x = distance_x - x
+        actual_pos_y = distance_y - y
+
+        return actual_pos_x, actual_pos_y
 
 def main(args=None):
     rclpy.init(args=args)
