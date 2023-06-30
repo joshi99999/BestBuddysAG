@@ -86,11 +86,11 @@ class PositionGruppierung(Node):
             return False, id, end_pos_x, end_pos_y, 0.0, end_time
         
         # pixel per second
-        pixel_time = (end_pos_x - start_pos_x) / ((end_time - start_time)*1000)
+        pixel_time = (end_pos_x - start_pos_x) / ((end_time - start_time)/1000)
         # 25 pixel are equal to 1cm
         scale = 25
-        # cm per second
-        speed_x = float(pixel_time / scale)
+        # m per second
+        speed_x = (pixel_time / scale) / 1000
 
         return True, id, end_pos_x, end_pos_y, speed_x, end_time 
     

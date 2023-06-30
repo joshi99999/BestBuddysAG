@@ -82,10 +82,7 @@ class ObjektDetektion(Node):
             image_object = cv_image[y:(y+h), x:(x+w)]
             # Find coordinates of center of mass from objekt
             cx, cy = tracker.find_center_of_mass(image_object, x, y)
-            print("center"+str(cx)+ " / "+str(cy)+" sample with id: "+str(id))
-            
-            # Draw center point
-            #cv2.circle(cv_image, (cx, cy), 5, (0, 0, 255), -1)
+            print("center"+str(cx)+ " / "+str(cy)+" with id: "+str(id))
 
             IdPos = IdPosTime()
             IdPos = convertToRos(IdPos, id, int(cx), int(cy), time)
@@ -95,8 +92,10 @@ class ObjektDetektion(Node):
             publish, id_img = tracker.getSample(cv_image, center_x, center_y, id)
             if publish:
                 #self.get_logger().info('publishing sample with id: '+str(id))
-                print(" sample with id: "+str(id))
+                print("sample with id: "+str(id))
                 self.id_sample_publisher.publish(id_img)
+            # Draw center point
+            cv2.circle(cv_image, (cx, cy), 5, (0, 0, 255), -1)
         
         cv2.imshow("bild", cv_image)
         cv2.waitKey(25)

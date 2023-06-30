@@ -31,7 +31,7 @@ class SynchBlock(Node):
         vector_x = msg.vector_x.data
         vector_y = msg.vector_y.data
         
-        print("recieved object with id: "+str(id)+" and class: "+str(cl))
+        print("RECIEVED object with id: "+str(id)+" and class: "+str(cl))
 
         if cl != -1:
             id_classification = [id, cl, vector_x, vector_y]
@@ -59,7 +59,7 @@ class SynchBlock(Node):
         velocity = msg.vel_x
         time = msg.time.data
 
-        print("recieved object with id: "+str(id)+" and position: "+str(pos_x)+" / "+str(pos_y)+" and speed: "+str(velocity))
+        print("RECIEVED object with id: "+str(id)+" and position: "+str(pos_x)+" / "+str(pos_y)+" and speed: "+str(velocity))
 
         for ids in reversed(self.ids_to_ignore):
             if ids == id:

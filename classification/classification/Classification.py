@@ -40,8 +40,8 @@ class ObjectClassification(Node):
         """
         cv_image = self.bridge.imgmsg_to_cv2(IdSample.image, desired_encoding='8UC1')
         features, vector = self.feature_extract(cv_image)
-        print(features)
-        print(vector)
+        """print(features)
+        print(vector)"""
         class_result = pred(features, self.svm_model)
         #print(class_result)
         #print(IdSample.id.data)
@@ -64,7 +64,11 @@ class ObjectClassification(Node):
         msg.vector_x = vector_x_msg
         msg.vector_y = vector_y_msg 
 
-        self.get_logger().info('Publishing: "%s"' % msg)
+        #self.get_logger().info('Publishing: "%s"' % msg)
+        if class_result:
+            print("Einhorn"+str(id))
+        else:
+            print("Katze"+str(id))
         
         self.publisher.publish(msg)
     
