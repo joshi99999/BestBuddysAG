@@ -11,9 +11,12 @@ class Camera(Node):
         super().__init__('camera')
         self.stream = self.create_publisher(Image, 'camera_stream', queue)
         self.timer = self.create_timer(1/framerate, self.capture)
-        self.camera = cv2.VideoCapture(5, cv2.CAP_V4L2)
-        self.camera.set(cv2.CAP_PROP_FRAME_WIDTH, 1080)
-        self.camera.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+        self.camera = cv2.VideoCapture(4)
+        #self.camera.set(cv2.CAP_PROP_FRAME_WIDTH, 1080)
+        #self.camera.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+        cv2.imshow('camera', self.camera.read()[1])
+        cv2.waitKey(2000)
+        cv2.destroyAllWindows()
         self.bridge = CvBridge()
 
     def capture(self):

@@ -10,16 +10,16 @@ class Controller(Node):
     def __init__(self):
         super().__init__('logic')
 
-        self.box_cat_x = 0.04
-        self.box_unicorn_x = 0.09
+        self.box_cat_x = 0.0
+        self.box_unicorn_x = 0.1
         self.box_y = 0.1
-        self.wait = [0.06, 0.02, 0.06]
+        self.wait = [0.1, 0.02, 0.06]
         self.pickup_z = 0.07
-        self.y_enabled_z = 0.03
+        self.y_enabled_z = 0.04
 
         self.subscriber = self.create_subscription(PosVelClass, 'pos_vel_class', self.object_callback, 10)
         self.subscriptionCurrent = self.create_subscription(RobotPos, 'robot_position', self.robotPosition_callback, 10)
-        self.publisher = self.create_publisher(RobotPos, 'controller_command', 10)    
+        self.publisher = self.create_publisher(ConCmd, 'controller_command', 10)    
 
         self.error = False
 
@@ -74,10 +74,12 @@ class Controller(Node):
                     self.box_cat_x += msg_in.pos_x
                     self.box_unicorn_x += msg_in.pos_x
                     self.box_y += msg_in.pos_y
-                    self.wait[0] = msg_in.pos_x
-                    self.wait[1] = msg_in.pos_y
+                    self.wait[0] += msg_in.pos_x
+                    self.wait[1] += msg_in.pos_y
                     self.msg_out.pos_x, self.msg_out.pos_y, self.msg_out.pos_z = self.wait
                     self.publisher.publish(self.msg_out)
+                    self.get_logger().info('Publishing wait: ' + str(self.msg_out))
+
                     self.state = 'wait'
 
             case 'wait':
