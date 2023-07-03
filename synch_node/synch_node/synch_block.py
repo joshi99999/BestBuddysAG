@@ -134,11 +134,11 @@ class SynchBlock(Node):
     def calculateActualCoordinates(self, x, y):
         scale_image_width = 0.32
         scale_image_height = 0.07
-        gap = 0.04
+        gap = 0.1
         robot_x_axis = 0.10
         robot_y_axis = 0.015
 
-        # distance from scale_image (32cm) + robot x-axis (10cm) + gap (4cm)
+        # distance from scale_image (32cm) + robot x-axis (10cm) + gap (10cm)
         distance_x = scale_image_width + robot_x_axis + gap
         # distance from scale_image_y (7cm) - robot_y zero_position (1,5 cm)
         distance_y = scale_image_height - robot_y_axis
