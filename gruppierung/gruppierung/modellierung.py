@@ -135,21 +135,13 @@ class PositionGruppierung(Node):
             None
             
         """
-        new_element = [id, timestamp, pos_x, pos_y]
+
         max_pos_x= 710
+
+        if pos_x >= max_pos_x:
+            return True, id
         
-        isFull= False
-        target_id = None
-        self.list_for_element.append(new_element)
-        self.list_for_element.sort(key=lambda x: (x[0], x[1]))
-        
-        for i, element in enumerate(self.list_for_element):
-            # Checks if the object is still in the tracking area
-            if i < len(self.list_for_element) - 1 and element[0] != self.list_for_element[i + 1][0]:
-                if element[2] >= max_pos_x:
-                    isFull = True
-                    target_id = element[0]
-        return isFull , target_id
+        self.list_for_element.append([id, timestamp, pos_x, pos_y])
             
 def main(args=None):
     """

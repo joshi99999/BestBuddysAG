@@ -39,13 +39,14 @@ class Controller(Node):
         if 0 < self.msg_out.vel_x or self.error or self.state == 'init' or self.state == 'reference_z':
             return
         self.msg_out.vel_x = -msg.vel_x
-        self.time = msg.time.data / 1000000
+        self.time = msg.time.data / 1000
         self.type = msg.result.data
         self.position[:] = self.reference[0] + msg.pos_x, self.reference[1] + msg.pos_y
     
     def robotPosition_callback(self, msg_in):
         if self.error:
             return        
+        self.get_logger().error(self.state)
 
         match self.state:
             case 'init':
@@ -89,6 +90,7 @@ class Controller(Node):
 
             case 'fetch_x':
                 self.msg_out.pos_x = self.position[0] + (time() - self.time) * self.msg_out.vel_x
+                self.get_logger().info(str(time() - self.time))
                 if self.msg_out.pos_x < 0:
                     self.msg_out.pos_x, self.msg_out.pos_y = self.wait[0], self.wait[1]
                     self.state = 'wait'

@@ -76,7 +76,8 @@ class ScaleDetector:
             s = (anchors[i,0]*vectors[i,1]-anchors[i,1]*vectors[i,0])/vectors[i,1]
             i = i[np.logical_and(0<=s, s<shape[1]-1)]
             if 0 < i.shape[0]:
-                ends[i,j[i],0] = s[i]
+                k = np.arange(0, s.shape[0], 1)[np.logical_and(0<=s, s<shape[1]-1)]
+                ends[i,j[i],0] = s[k]
                 ends[i,j[i],1] = 0
                 j[i] += 1
 
@@ -86,7 +87,8 @@ class ScaleDetector:
             i = i[np.logical_and(0<=s, s<shape[0]-1)]
             if 0 < i.shape[0]:
                 ends[i,j[i],0] = shape[1]-1
-                ends[i,j[i],1] = s[i]
+                k = np.arange(0, s.shape[0], 1)[np.logical_and(0<=s, s<shape[0]-1)]
+                ends[i,j[i],1] = s[k]
                 j[i] += 1
 
         i = np.arange(0,vectors.shape[0],1)[np.logical_and(vectors[:,1] != 0, j < 2)]
@@ -94,7 +96,8 @@ class ScaleDetector:
             s = (anchors[i,0]*vectors[i,1]-(anchors[i,1]-shape[0]+1)*vectors[i,0])/vectors[i,1]
             i = i[np.logical_and(0<s, s<=shape[1]-1)]
             if 0 < i.shape[0]:
-                ends[i,j[i],0] = s[i]
+                k = np.arange(0, s.shape[0], 1)[np.logical_and(0<s, s<=shape[1]-1)]
+                ends[i,j[i],0] = s[k]
                 ends[i,j[i],1] = shape[0]-1
                 j[i] += 1
 
@@ -104,7 +107,8 @@ class ScaleDetector:
             i = i[np.logical_and(0<s, s<=shape[0]-1)]
             if 0 < i.shape[0]:
                 ends[i,j[i],0] = 0
-                ends[i,j[i],1] = s[i]
+                k = np.arange(0, s.shape[0], 1)[np.logical_and(0<s, s<=shape[0]-1)]
+                ends[i,j[i],1] = s[k]
         
         return ends
 
