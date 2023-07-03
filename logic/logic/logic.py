@@ -2,7 +2,7 @@
 import rclpy
 import numpy as np
 from rclpy.node import Node
-from ro45_portalrobot_interfaces.msg import PosVelClass, RobotPos, ConCmd
+from ro45_portalrobot_interfaces.msg import PosVelClass, RobotPos, ConCmd, Error
 from time import time
 
 
@@ -17,8 +17,9 @@ class Controller(Node):
         self.pickup_z = 0.07
         self.y_enabled_z = 0.04
 
-        self.subscriber = self.create_subscription(PosVelClass, 'pos_vel_class', self.object_callback, 10)
-        self.subscriptionCurrent = self.create_subscription(RobotPos, 'robot_position', self.robotPosition_callback, 10)
+        self.error_subscriber = self.create_subscription(Error, 'error', self.error_callback, 10)
+        self.object_subscriber = self.create_subscription(PosVelClass, 'pos_vel_class', self.object_callback, 10)
+        self.position_subscriber = self.create_subscription(RobotPos, 'robot_position', self.robotPosition_callback, 10)
         self.publisher = self.create_publisher(ConCmd, 'controller_command', 10)    
 
         self.error = False
@@ -33,7 +34,14 @@ class Controller(Node):
         self.init_time = None
         self.init_duration = 10
         self.position = np.zeros(2, dtype=np.float64)
-        self.reference = np.zeros(2, dtype=np.float64)
+        self.reference = np.zeros(3, dtype=np.float64)
+
+    def error_callback(self, msg):
+        self.error = True
+        self.get_logger().error('An error occured: "%s"' % msg)
+        if self.state != 'init' and self.state != 'reference_z':
+            self.state = 'error_z'
+        
 
     def object_callback(self, msg):
         if 0 < self.msg_out.vel_x or self.error or self.state == 'init' or self.state == 'reference_z':
@@ -49,6 +57,7 @@ class Controller(Node):
         self.get_logger().error(self.state)
 
         match self.state:
+
             case 'init':
                 if self.init_time is None:
                     self.msg_out.pos_x, self.msg_out.pos_y = msg_in.pos_x, msg_in.pos_y
@@ -59,6 +68,7 @@ class Controller(Node):
                     self.publisher.publish(self.msg_out)
                 else:
                     self.init_time = None
+                    self.reference[2] = msg_in.pos_z
                     self.wait[2] += msg_in.pos_z
                     self.pickup_z += msg_in.pos_z
                     self.y_enabled_z += msg_in.pos_z
@@ -73,7 +83,7 @@ class Controller(Node):
                     self.msg_out.pos_x, self.msg_out.pos_y = msg_in.pos_x - 0.01, msg_in.pos_y - 0.01
                     self.publisher.publish(self.msg_out)
                 else:
-                    self.reference[:] = msg_in.pos_x, msg_in.pos_y
+                    self.reference[0:2] = msg_in.pos_x, msg_in.pos_y
                     self.box_cat_x += msg_in.pos_x
                     self.box_unicorn_x += msg_in.pos_x
                     self.box_y += msg_in.pos_y
@@ -81,7 +91,7 @@ class Controller(Node):
                     self.wait[1] += msg_in.pos_y
                     self.msg_out.pos_x, self.msg_out.pos_y, self.msg_out.pos_z = self.wait
                     self.publisher.publish(self.msg_out)
-                    self.state = 'wait'
+                    self.state = 'dead' if self.error else 'wait'
 
             case 'wait':
                 if 0 != self.msg_out.vel_x:
@@ -103,14 +113,14 @@ class Controller(Node):
                 self.publisher.publish(self.msg_out)
 
             case 'lifting':
-                if msg_in.pos_z - self.wait[2] < 0.001:
+                if abs(msg_in.pos_z - self.wait[2]) < 0.001:
                     self.msg_out.pos_x = self.box_cat_x if self.type == 0 else self.box_unicorn_x
                     self.msg_out.pos_z = self.y_enabled_z
                     self.publisher.publish(self.msg_out)
                     self.state = 'y_enabling'
 
             case 'y_enabling':
-                if msg_in.pos_z - self.y_enabled_z < 0.001:
+                if abs(msg_in.pos_z - self.y_enabled_z) < 0.001:
                     self.msg_out.pos_y, self.msg_out.pos_z = self.box_y, msg_in.pos_z
                     self.publisher.publish(self.msg_out)
                     self.state = 'xy_moving'
@@ -124,10 +134,32 @@ class Controller(Node):
                     self.state = 'y_disabling'
 
             case 'y_disabling':
-                if msg_in.pos_y - self.wait[1] < 0.001:
+                if abs(msg_in.pos_y - self.wait[1]) < 0.001:
                     self.msg_out.pos_z = self.wait[2]
                     self.publisher.publish(self.msg_out)
                     self.state = 'wait'
+
+            case 'error_z':
+                self.msg_out.pos_x, self.msg_out.pos_y, self.msg_out.pos_z = msg_in.pos_x, msg_in.pos_y, self.reference[2]
+                self.msg_out.vel_x, self.msg_out.grip = 0.0, False
+                self.publisher.publish(self.msg_out)
+                self.state = 'error_xy'
+            
+            case 'error_xy':
+                if abs(self.reference[2] - msg_in.pos_z) < 0.001:
+                    self.msg_out.pos_x, self.msg_out.pos_y = self.reference[0:2]
+                    self.msg_out.pos_z = msg_in.pos_z
+                    self.publisher.publish(self.msg_out)
+                    self.state = 'error'
+
+            case 'error':
+                if np.linalg.norm([self.reference[0] - msg_in.pos_x, self.reference[1] - msg_in.pos_y]) < 0.001:
+                    self.msg_out.pos_x, self.msg_out.pos_y = self.reference[0], self.reference[1]
+                    self.publisher.publish(self.msg_out)
+                    self.state = 'dead'
+
+            case 'dead':
+                pass
                 
 
 def main(args=None):

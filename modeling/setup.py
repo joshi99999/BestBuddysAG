@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'gruppierung'
+package_name = 'modeling'
 
 setup(
     name=package_name,
@@ -13,14 +13,14 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='fab',
+    maintainer='seb',
     maintainer_email='fabricecheteu332@gmail.com',
     description='TODO: Package description',
     license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-             'gruppe = gruppierung.modellierung:main', 
+            'modeler = modeling.modeling:main'
         ],
     },
 )

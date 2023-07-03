@@ -53,11 +53,11 @@ class SynchBlock(Node):
         """
         ignore = False
 
-        id = msg.id.data
-        pos_x = msg.pos_x.data
-        pos_y = msg.pos_y.data
+        id = msg.id
+        pos_x = msg.pos_x
+        pos_y = msg.pos_y
         velocity = msg.vel_x
-        time = msg.time.data
+        time = msg.time
 
         print("RECIEVED object with id: "+str(id)+" and position: "+str(pos_x)+" / "+str(pos_y)+" and speed: "+str(velocity))
 

@@ -1,5 +1,5 @@
-std_msgs/Int32 id
-std_msgs/Int32 pos_x
-std_msgs/Int32 pos_y
+uint8 id
+float32 pos_x
+float32 pos_y
 float32 vel_x
-std_msgs/Int64 time
+uint64 time

@@ -20,6 +20,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/RobotCmd.msg"
   "msg/RobotPos.msg"
   "msg/ConCmd.msg"
+  "msg/Error.msg"
   DEPENDENCIES std_msgs
   DEPENDENCIES sensor_msgs
 )

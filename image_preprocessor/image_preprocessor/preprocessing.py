@@ -9,7 +9,7 @@ from scaleDetection import ScaleDetector
 import numpy as np
 
 
-class Camera(Node):
+class Preprocessor(Node):
 
     def __init__(self, queue, length, m, n):
         super().__init__('preprocessor')
@@ -70,9 +70,9 @@ class Camera(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    camera = Camera(3, 800, 20, 4)
-    rclpy.spin(camera)
-    camera.destroy_node()
+    preprocessor = Preprocessor(3, 800, 20, 4)
+    rclpy.spin(preprocessor)
+    preprocessor.destroy_node()
     rclpy.shutdown()
 
 if __name__ == '__main__':
