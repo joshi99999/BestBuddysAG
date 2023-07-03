@@ -4,6 +4,8 @@ from rclpy.node import Node
 from ro45_portalrobot_interfaces.msg import IdPosVelTime, IdPosTime
 import math
 from std_msgs.msg import Int32, Float32, Int64
+import numpy as np
+import cv2
     
 class PositionGruppierung(Node):
     def __init__(self):
@@ -56,6 +58,15 @@ class PositionGruppierung(Node):
 
                 self.get_logger().info('Publishing: "%s"' % msg)
                 self.publisher.publish(msg)
+
+    #Alternate function to speed_determine
+    def calculate_movement(list):
+        id = list[-1][0]
+        array = np.array(list, dtype=np.float32)
+        y = np.average(array[:,3])        
+        vx, vy, t, x = cv2.fitLine(array[:,1:3], distType=cv2.DIST_L2)
+        v = vy/vx
+        return True, id, x, y, v, t
 
     def speed_determine(self, list):
         """
