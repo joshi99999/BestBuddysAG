@@ -13,6 +13,7 @@ class Modeler(Node):
         """
         super().__init__('modeler')
 
+        
         self.id_list = []
         self.position_lists = []
 
@@ -30,7 +31,7 @@ class Modeler(Node):
         id = self.add_position(msg_in.id.data, msg_in.time.data, msg_in.pos_x.data, msg_in.pos_y.data)
         if id is not None:
             positions = self.get_positions_by_id(id)
-            ret = self.calculate_movement(positions)
+            ret = Modeler.calculate_movement(positions)
             if ret is not None:
                 msg_out = IdPosVelTime()
                 msg_out.id = id
@@ -39,15 +40,16 @@ class Modeler(Node):
                 self.publisher.publish(msg_out)
 
     #Alternate function to speed_determine
+    @staticmethod 
     def calculate_movement(list):
         if len(list) < 2:
             return
         array = np.array(list, dtype=np.float32)
-        y = np.average(array[:,2])        
-        vx, vy, t, x = cv2.fitLine(array[:,0:2], distType=cv2.DIST_L2)
+        y = np.average(array[:,2]).astype(np.float64)        
+        vx, vy, t, x = cv2.fitLine(array[:,0:2], distType=cv2.DIST_L2, param = 0, reps = 0.01, aeps = 0.01).flatten().astype(np.float64)
         scale = 0.0004
         v = vy/vx*scale
-        return x, y, v, t
+        return x, y, v, int(t)
 
     '''
     def speed_determine(self, list):
@@ -100,7 +102,7 @@ class Modeler(Node):
             list: A separate list containing the removed items.
 
         """
-
+        self.get_logger().info('id list: "%s"' % self.id_list.index(id))
         positions = self.position_lists.pop(self.id_list.index(id))
         self.id_list.remove(id)
         return positions
