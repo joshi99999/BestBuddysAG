@@ -22,7 +22,6 @@ class Preprocessor(Node):
         self.borders = None
         self.n = n
         self.l = length/(m-n)
-        self.errors = 0
 
     def preprocess(self, input_msg):
         image = self.bridge.imgmsg_to_cv2(input_msg)
@@ -49,15 +48,6 @@ class Preprocessor(Node):
                 self.M = None
                 return
             cv2.destroyAllWindows()
-
-        if not self.detector.checkScale():
-            self.errors += 1
-            self.get_logger().error('Image invalid.')
-            if 10 < self.errors:
-                self.destroy_node()
-                rclpy.shutdown()
-            return
-        self.errors = 0
 
         belt = cv2.warpPerspective(src=gray, M=self.M, dsize=(self.length, int(7*self.l/2)))
         belt = cv2.threshold(src=belt, thresh=200, maxval=255, type=cv2.THRESH_BINARY)[1]

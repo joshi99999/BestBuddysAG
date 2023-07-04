@@ -231,7 +231,6 @@ class ScaleDetector:
                 left = self.scanArea(center=line[0]+(line[self.__count]-line[0])//2 if line[0,0] < line[-1,0] else line[-1]+(line[-self.__count-1]-line[-1])//2)
                 if left is not None:
                     borders = self.adaptBorders(left=left[0 if left[0,0] < left[-1,0] else -1], right=left[self.__count if left[0,0] < left[-1,0] else -self.__count-1])
-                    self.__generateMasks(borders)
                     return borders
 
     def __generateMasks(self, borders):
@@ -249,6 +248,4 @@ class ScaleDetector:
     def checkScale(self):
         value1 = np.average(self.__img[self.__mask1]) / 255
         value2 = np.average(self.__img[self.__mask2]) / 255
-        print("Value1: "+ str(value1))
-        print("Value2: "+ str(value2))
         return self.__threshold < value2 - value1
