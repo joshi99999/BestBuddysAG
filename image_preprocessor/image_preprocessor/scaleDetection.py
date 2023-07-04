@@ -249,4 +249,6 @@ class ScaleDetector:
     def checkScale(self):
         value1 = np.average(self.__img[self.__mask1]) / 255
         value2 = np.average(self.__img[self.__mask2]) / 255
+        print("Value1: "+ str(value1))
+        print("Value2: "+ str(value2))
         return self.__threshold < value2 - value1

@@ -14,7 +14,7 @@ class Controller(Node):
         self.box_unicorn_x = 0.1
         self.box_y = 0.1
         self.wait = [0.1, 0.02, 0.06]
-        self.pickup_z = 0.07
+        self.pickup_z = 0.074
         self.y_enabled_z = 0.04
 
         self.error_subscriber = self.create_subscription(Error, 'error', self.error_callback, 10)
@@ -52,9 +52,7 @@ class Controller(Node):
         self.position[:] = self.reference[0] + msg.pos_x, self.reference[1] + msg.pos_y
     
     def robotPosition_callback(self, msg_in):
-        if self.error:
-            return        
-        self.get_logger().error(self.state)
+        self.get_logger().info(self.state)
 
         match self.state:
 
@@ -96,19 +94,21 @@ class Controller(Node):
             case 'wait':
                 if 0 != self.msg_out.vel_x:
                     self.msg_out.pos_y, self.msg_out.pos_z = self.position[1], self.wait[2]
+                    self.get_logger().info(str(self.position[1]))
                     self.state = 'fetch_x'
 
             case 'fetch_x':
                 self.msg_out.pos_x = self.position[0] + (time() - self.time) * self.msg_out.vel_x
-                self.get_logger().info(str(time() - self.time))
-                if self.msg_out.pos_x < 0:
-                    self.msg_out.pos_x, self.msg_out.pos_y = self.wait[0], self.wait[1]
+                if self.msg_out.pos_x < self.reference[0]:
+                    self.msg_out.pos_x, self.msg_out.pos_y, self.msg_out.pos_z = self.wait[0], self.wait[1], self.wait[2]
+                    self.msg_out.vel_x = 0.0
+                    self.publisher.publish(self.msg_out)
                     self.state = 'wait'
-                elif np.linalg.norm([msg_in.pos_x - self.msg_out.pos_x, msg_in.pos_y - self.msg_out.pos_y, msg_in.pos_z - self.msg_out.pos_z]) < 0.001:   
+                elif np.linalg.norm([msg_in.pos_x - self.msg_out.pos_x, msg_in.pos_y - self.msg_out.pos_y]) < 0.004 and abs(msg_in.pos_z - self.msg_out.pos_z) < 0.001:   
                     if self.msg_out.pos_z < self.pickup_z:
                         self.msg_out.pos_z, self.msg_out.pos_y = self.pickup_z, msg_in.pos_y
                     else:
-                        self.msg_out.grip, self.msg_out.vel_x, self.msg_out.pos_x, self.msg_out.pos_z = False, 0.0, msg_in.pos_x, self.wait[2]
+                        self.msg_out.grip, self.msg_out.vel_x, self.msg_out.pos_x, self.msg_out.pos_z = True, 0.0, msg_in.pos_x, self.wait[2]
                         self.state = 'lifting'
                 self.publisher.publish(self.msg_out)
 

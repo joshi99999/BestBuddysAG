@@ -26,7 +26,7 @@ class ObjectClassification(Node):
         self.publisher = self.create_publisher(IdClassVec, 'id_class_vec', 10)
         self.bridge = CvBridge()
 
-        model_file = 'src/classification/classification/bayes_model.joblib'
+        model_file = 'src/classification/classification/svm_model.joblib'
         self.svm_model = load(model_file)
         
         
@@ -112,8 +112,11 @@ class ObjectClassification(Node):
         """
         try:
             # Gripping Point
-            brightest_pixel = np.unravel_index(np.argmax(image), image.shape)
+            transformed = cv2.distanceTransform(image, cv2.DIST_L2, 3)
+            brightest_pixel = np.unravel_index(np.argmax(transformed), image.shape)
             gripping_point = (brightest_pixel[1], brightest_pixel[0])
+
+           
 
             # Center of Mass
             cx, cy = self.find_center_of_mass(image)
@@ -125,6 +128,7 @@ class ObjectClassification(Node):
             _,binary_img = cv2.threshold(image, 0, 1, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
             edges = cv2.Canny(image, 300, 525)
             num_edges = cv2.countNonZero(edges)
+            cv2.circle(edges, (gripping_point[0], gripping_point[1]), 5, 255, -1)
             dst = cv2.cornerHarris(image, 2, 3, 0.04)
             threshold = 0.02 * dst.max()
             corners = []

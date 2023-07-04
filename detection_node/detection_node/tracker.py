@@ -97,6 +97,8 @@ class EuclideanDistTracker:
                 sample = frame[topBelt:bottomBelt, center_x-halfSampleResolution:center_x+halfSampleResolution]
                 self.id_prev = id
 
+                #cv2.imwrite("src/Samples/Miau/Katze_sample_"+str(id+189)+".jpg", sample)
+
                 # Set all the data for ros message
                 num1.data = id
                 id_img.id = num1

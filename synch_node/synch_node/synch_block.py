@@ -71,10 +71,10 @@ class SynchBlock(Node):
             for id_class in self.id_classes:
                 if id_class[0] == id:
 
-                    vector_x = id_class[2]
-                    vector_y = id_class[3]
+                    vector_x = id_class[2]*0.0004
+                    vector_y = id_class[3]*0.0004
                     classification = id_class[1]
-                    #pos_x, pos_y = self.calculatePoint(pos_x, pos_y, vector_x, vector_y)
+                    pos_x, pos_y = self.calculatePoint(pos_x, pos_y, vector_x, vector_y)
                     
                     self.publish_synch(pos_x, pos_y, velocity, classification, time)
 
@@ -102,11 +102,8 @@ class SynchBlock(Node):
         classification = Int32()
         timestemp = Int64()
 
-        # Change from pixle position to meter
-        position_x = ((pos_x / 25)/100)
-        position_y = ((pos_y / 25)/100)
         # Change to relativ position from robot
-        position_x, position_y = self.calculateActualCoordinates(position_x, position_y)
+        position_x, position_y = self.calculateActualCoordinates(pos_x, pos_y)
         
         velocity = vel
         classification.data = cl
@@ -132,16 +129,8 @@ class SynchBlock(Node):
         return new_x, new_y
 
     def calculateActualCoordinates(self, x, y):
-        scale_image_width = 0.32
-        scale_image_height = 0.07
-        gap = 0.1
-        robot_x_axis = 0.10
-        robot_y_axis = 0.015
-
-        # distance from scale_image (32cm) + robot x-axis (10cm) + gap (10cm)
-        distance_x = scale_image_width + robot_x_axis + gap
-        # distance from scale_image_y (7cm) - robot_y zero_position (1,5 cm)
-        distance_y = scale_image_height - robot_y_axis
+        distance_x = 0.507
+        distance_y = 0.06
 
         actual_pos_x = distance_x - x
         actual_pos_y = distance_y - y

@@ -82,7 +82,9 @@ class ObjektDetektion(Node):
             image_object = cv_image[y:(y+h), x:(x+w)]
             # Find coordinates of center of mass from objekt
             cx, cy = tracker.find_center_of_mass(image_object, x, y)
-            print("center"+str(cx)+ " / "+str(cy)+" with id: "+str(id))
+            print("ID: "+str(id)+" Position: "+str(cx)+ " / "+str(cy))
+            print("")
+            print("")
 
             IdPos = IdPosTime()
             IdPos = convertToRos(IdPos, id, int(cx), int(cy), time)
