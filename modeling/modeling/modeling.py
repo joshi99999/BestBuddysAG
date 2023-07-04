@@ -13,7 +13,7 @@ class Modeler(Node):
         """
         super().__init__('modeler')
 
-        
+        self.old_ids = []        
         self.id_list = []
         self.position_lists = []
 
@@ -28,6 +28,9 @@ class Modeler(Node):
             IdPosTime: The received Id, Position  and Time.
 
         """
+        if msg_in.id.data in self.old_ids:
+            return
+        
         id = self.add_position(msg_in.id.data, msg_in.time.data, msg_in.pos_x.data, msg_in.pos_y.data)
         if id is not None:
             positions = self.get_positions_by_id(id)
@@ -105,6 +108,7 @@ class Modeler(Node):
         self.get_logger().info('id list: "%s"' % self.id_list.index(id))
         positions = self.position_lists.pop(self.id_list.index(id))
         self.id_list.remove(id)
+        self.old_ids.append(id)
         return positions
         
     def add_position(self, id , timestamp, pos_x, pos_y):
