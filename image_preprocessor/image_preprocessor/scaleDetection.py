@@ -26,7 +26,7 @@ class ScaleDetector:
     #  @param accuracy The maximum value the ratio between the distances from an edge to the previous edge and the next edge can deviate from one.
     #  @param min The minimum distance between two edges.
 
-    def __init__(self, delta1, delta2, n, phi1, phi2, sigma1, sigma2, m, count, accuracy, threshold):
+    def __init__(self, delta1, delta2, n, phi1, phi2, sigma1, sigma2, m, count, accuracy):
         self.__delta1 = delta1
         self.__delta2 = delta2
         self.__n = n
@@ -44,9 +44,6 @@ class ScaleDetector:
         self.__alpha = -pi/2                #Angle between the x-axis and a line through the coordinate origin and the anchor
 
         self.__img = None
-        self.__mask1 = None
-        self.__mask2 = None
-        self.__threshold = threshold
 
     def __nextLine(self):
         self.__radius += self.__delta1
@@ -166,28 +163,6 @@ class ScaleDetector:
             if edges is not None and (line is None or min(edges[:,0]) < min(line[:,0])):
                 line = edges
         return line
-    
-    ## Finds the Corners of an area consisting of <count> scale squares.
-    #  @param edges One point on each gray value edge at the ends of the area.
-    #  @return The corners of the area.
-    def findCorners(self, left, right):
-        angle = np.arctan2(left[1]-right[1], left[0]-right[0])
-        corners = np.array([right, right, left, left], dtype=np.float32)
-        for i in range(4):
-            phi = 0
-            while phi < pi/2:
-                phi = phi+pi/720 if i%2 == 0 else phi-pi/720
-                vector = np.array([[cos(angle+phi), sin(angle+phi)]], dtype=np.float32)
-                anchor = np.array([left], dtype=np.uint16) if i<2 else np.array([right], dtype=np.uint16)
-                ends = ScaleDetector.calculateLineEnds(shape=self.__img.shape, anchors=anchor, vectors=vector)[0]
-                edges = self.analyseLine(ends=ends, anchor=anchor)
-                if edges is not None:
-                    edges = edges[left[0] <= edges[:,0] if i < 2 else edges[:,0] <= right[0]]
-                    if self.__count < edges.shape[0]:
-                        corners[i] = edges[self.__count if i<2 else 0] if edges[0,0] < edges[-1,0] else edges[-self.__count-1 if i<2 else -1]
-                        continue
-                break
-        return corners.astype(np.float32)
 
     def adaptBorders(self, left, right):
         angle = np.arctan2(right[1]-left[1], right[0]-left[0])
@@ -232,20 +207,3 @@ class ScaleDetector:
                 if left is not None:
                     borders = self.adaptBorders(left=left[0 if left[0,0] < left[-1,0] else -1], right=left[self.__count if left[0,0] < left[-1,0] else -self.__count-1])
                     return borders
-
-    def __generateMasks(self, borders):
-        self.__mask1 = np.zeros(self.__img.shape, dtype=np.uint8)
-        self.__mask2 = self.__mask1.copy()
-        black = (borders.shape[1]-1)//2
-        white = borders.shape[1]-black-1
-        for i in range(black):
-            cv2.fillPoly(img=self.__mask1, pts=[borders[[0,0,1,1],[i*2,i*2+1,i*2+1,i*2]].astype(np.int32)], color=255)
-        for i in range(1,white+1):
-            cv2.fillPoly(img=self.__mask2, pts=[borders[[0,0,1,1],[i*2-1,i*2,i*2,i*2-1]].astype(np.int32)], color=255)
-        self.__mask1 = self.__mask1 == 255
-        self.__mask2 = self.__mask2 == 255
-      
-    def checkScale(self):
-        value1 = np.average(self.__img[self.__mask1]) / 255
-        value2 = np.average(self.__img[self.__mask2]) / 255
-        return self.__threshold < value2 - value1

@@ -1,0 +1,156 @@
+\hypertarget{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector}{}\doxysection{image\+\_\+preprocessor.\+scale\+Detection.\+Scale\+Detector Class Reference}
+\label{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector}\index{image\_preprocessor.scaleDetection.ScaleDetector@{image\_preprocessor.scaleDetection.ScaleDetector}}
+
+
+A \mbox{\hyperlink{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector}{Scale\+Detector}} instance is used to find a scale, consisting of n alternating black and white squares, in an image.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_a6957be2bec02812d82df9c7ddd41a8e4}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, delta1, delta2, n, phi1, phi2, sigma1, sigma2, m, count, accuracy)
+\begin{DoxyCompactList}\small\item\em Initializes a new \mbox{\hyperlink{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector}{Scale\+Detector}} instance. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_a68ac8843555c1a30076adf93376f07ec}{analyse\+Line}} (self, ends, anchor)
+\begin{DoxyCompactList}\small\item\em Calculates the positions of the edges between black and white in the binary gray values of a line and checks on basis of the distances between them, if a line is likely to go through $<$count$>$ squares of the scale. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_a675ad39fc47886157b555d8fdcdbd3c0}{scan\+Area}} (self, center)
+\begin{DoxyCompactList}\small\item\em Checks the nearby area of a valid line for another valid line, that is assumed to intersect an edge between a black and a white scale square further left in the image. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_a6dc4548f00d1eca8ebfaf624165fb33b}\label{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_a6dc4548f00d1eca8ebfaf624165fb33b}} 
+def {\bfseries adapt\+Borders} (self, left, right)
+\item 
+\mbox{\Hypertarget{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_aa22ec6af6c57a7fbd9204a3048321b56}\label{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_aa22ec6af6c57a7fbd9204a3048321b56}} 
+def {\bfseries detect\+Scale} (self, img)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_a9ec10f4584fcb9697296e19d60700b5b}{calculate\+Line\+Ends}} (shape, anchors, vectors)
+\begin{DoxyCompactList}\small\item\em Calculates the intersection points between some lines and the border of an image. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_aa22cc80fe558c9de32ba69512bc89062}{calculate\+Line}} (ends, anchor)
+\begin{DoxyCompactList}\small\item\em Calculates the indices of all pixels on a line between two end pixels. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A \mbox{\hyperlink{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector}{Scale\+Detector}} instance is used to find a scale, consisting of n alternating black and white squares, in an image. 
+
+To work properly the following conditions must be met.
+\begin{DoxyItemize}
+\item The beginning of the scale points to the left.
+\item One square of the scale in the image is wider than one fortieth of the image width.
+\item More than 20 squares, starting from the beginning of the scale are fully visible, without a gap. 
+\end{DoxyItemize}
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_a6957be2bec02812d82df9c7ddd41a8e4}\label{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_a6957be2bec02812d82df9c7ddd41a8e4}} 
+\index{image\_preprocessor.scaleDetection.ScaleDetector@{image\_preprocessor.scaleDetection.ScaleDetector}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!image\_preprocessor.scaleDetection.ScaleDetector@{image\_preprocessor.scaleDetection.ScaleDetector}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def image\+\_\+preprocessor.\+scale\+Detection.\+Scale\+Detector.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{delta1,  }\item[{}]{delta2,  }\item[{}]{n,  }\item[{}]{phi1,  }\item[{}]{phi2,  }\item[{}]{sigma1,  }\item[{}]{sigma2,  }\item[{}]{m,  }\item[{}]{count,  }\item[{}]{accuracy }\end{DoxyParamCaption})}
+
+
+
+Initializes a new \mbox{\hyperlink{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector}{Scale\+Detector}} instance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta1} & Radius step width while the whole image is scanned. \\
+\hline
+{\em delta2} & Orthogonal step width while the nearby area of a valid line is scanned. \\
+\hline
+{\em n} & Number of orthogonal steps done in each direction while scanning the nearby area. \\
+\hline
+{\em phi1} & Angle step width while the whole image is scanned. \\
+\hline
+{\em phi2} & Angle step width while the nearby area of a valid line is scanned. \\
+\hline
+{\em sigma1} & Start angle step witdh for the border adaption. \\
+\hline
+{\em sigma2} & Minimal angle step witdh for the border adaption. \\
+\hline
+{\em m} & Number of angle steps done in each direction while scanning the nearby area. \\
+\hline
+{\em count} & Number of gray value edges with minimum absolute distance and low varity in distance ratio in a row, the line must go trough so it is assumed to go through the scale. \\
+\hline
+{\em accuracy} & The maximum value the ratio between the distances from an edge to the previous edge and the next edge can deviate from one. \\
+\hline
+{\em min} & The minimum distance between two edges. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_a68ac8843555c1a30076adf93376f07ec}\label{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_a68ac8843555c1a30076adf93376f07ec}} 
+\index{image\_preprocessor.scaleDetection.ScaleDetector@{image\_preprocessor.scaleDetection.ScaleDetector}!analyseLine@{analyseLine}}
+\index{analyseLine@{analyseLine}!image\_preprocessor.scaleDetection.ScaleDetector@{image\_preprocessor.scaleDetection.ScaleDetector}}
+\doxysubsubsection{\texorpdfstring{analyseLine()}{analyseLine()}}
+{\footnotesize\ttfamily def image\+\_\+preprocessor.\+scale\+Detection.\+Scale\+Detector.\+analyse\+Line (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{ends,  }\item[{}]{anchor }\end{DoxyParamCaption})}
+
+
+
+Calculates the positions of the edges between black and white in the binary gray values of a line and checks on basis of the distances between them, if a line is likely to go through $<$count$>$ squares of the scale. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ends} & The end points of the line. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+If the check is positive, the positions where it was assumed that the line intersects the edges between white and black squares. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_aa22cc80fe558c9de32ba69512bc89062}\label{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_aa22cc80fe558c9de32ba69512bc89062}} 
+\index{image\_preprocessor.scaleDetection.ScaleDetector@{image\_preprocessor.scaleDetection.ScaleDetector}!calculateLine@{calculateLine}}
+\index{calculateLine@{calculateLine}!image\_preprocessor.scaleDetection.ScaleDetector@{image\_preprocessor.scaleDetection.ScaleDetector}}
+\doxysubsubsection{\texorpdfstring{calculateLine()}{calculateLine()}}
+{\footnotesize\ttfamily def image\+\_\+preprocessor.\+scale\+Detection.\+Scale\+Detector.\+calculate\+Line (\begin{DoxyParamCaption}\item[{}]{ends,  }\item[{}]{anchor }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Calculates the indices of all pixels on a line between two end pixels. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ends} & The end pixels of the line. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Array of pixel indices. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_a9ec10f4584fcb9697296e19d60700b5b}\label{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_a9ec10f4584fcb9697296e19d60700b5b}} 
+\index{image\_preprocessor.scaleDetection.ScaleDetector@{image\_preprocessor.scaleDetection.ScaleDetector}!calculateLineEnds@{calculateLineEnds}}
+\index{calculateLineEnds@{calculateLineEnds}!image\_preprocessor.scaleDetection.ScaleDetector@{image\_preprocessor.scaleDetection.ScaleDetector}}
+\doxysubsubsection{\texorpdfstring{calculateLineEnds()}{calculateLineEnds()}}
+{\footnotesize\ttfamily def image\+\_\+preprocessor.\+scale\+Detection.\+Scale\+Detector.\+calculate\+Line\+Ends (\begin{DoxyParamCaption}\item[{}]{shape,  }\item[{}]{anchors,  }\item[{}]{vectors }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Calculates the intersection points between some lines and the border of an image. 
+
+Each line is defined by an anchor point on the line and a vector of length one, giving the direction of the line. 
+\begin{DoxyParams}{Parameters}
+{\em shape} & The shape of the image. \\
+\hline
+{\em anchors} & Array of anchor points. \\
+\hline
+{\em vectors} & Array of line vectors. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Array of intersection points. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_a675ad39fc47886157b555d8fdcdbd3c0}\label{classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector_a675ad39fc47886157b555d8fdcdbd3c0}} 
+\index{image\_preprocessor.scaleDetection.ScaleDetector@{image\_preprocessor.scaleDetection.ScaleDetector}!scanArea@{scanArea}}
+\index{scanArea@{scanArea}!image\_preprocessor.scaleDetection.ScaleDetector@{image\_preprocessor.scaleDetection.ScaleDetector}}
+\doxysubsubsection{\texorpdfstring{scanArea()}{scanArea()}}
+{\footnotesize\ttfamily def image\+\_\+preprocessor.\+scale\+Detection.\+Scale\+Detector.\+scan\+Area (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{center }\end{DoxyParamCaption})}
+
+
+
+Checks the nearby area of a valid line for another valid line, that is assumed to intersect an edge between a black and a white scale square further left in the image. 
+
+\begin{DoxyReturn}{Returns}
+The positions where it was assumed that the line with the most left intersection, intersects the edges between white and black squares. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/seb/ros2\+\_\+ws/src/image\+\_\+preprocessor/image\+\_\+preprocessor/scale\+Detection.\+py\end{DoxyCompactItemize}
