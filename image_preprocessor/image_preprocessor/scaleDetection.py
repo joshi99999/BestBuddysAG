@@ -1,7 +1,5 @@
-import cv2
 import numpy as np
 from math import cos, sin, pi, atan
-from time import time
 
 ## A ScaleDetector instance is used to find a scale, consisting of n alternating black and white squares, in an image.
 #
@@ -24,7 +22,6 @@ class ScaleDetector:
     #  @param count Number of gray value edges with minimum absolute distance and low varity in distance ratio in a row, 
     #               the line must go trough so it is assumed to go through the scale.
     #  @param accuracy The maximum value the ratio between the distances from an edge to the previous edge and the next edge can deviate from one.
-    #  @param min The minimum distance between two edges.
 
     def __init__(self, delta1, delta2, n, phi1, phi2, sigma1, sigma2, m, count, accuracy):
         self.__delta1 = delta1
@@ -113,9 +110,10 @@ class ScaleDetector:
         
         return ends
 
-    ## Calculates the indices of all pixels on a line between two end pixels.
-    #  @param ends The end pixels of the line.
-    #  @return Array of pixel indices.
+    ## Calculates the positions of all pixels on a line between two end points.
+    #  @param ends The end points of the line.
+    #  @param anchor One determined position, that will be in the output. 
+    #  @return Array of pixel positions.
     @staticmethod
     def calculateLine(ends, anchor):
         lineVector = ends[0]-ends[1]
@@ -128,8 +126,9 @@ class ScaleDetector:
         return lineVector * np.reshape(np.arange(0, roundedDistances[0]-roundedDistances[1] + 1, 1, dtype=np.float32), (-1,1)) + ends[1] + lineVector * (roundedDistances[1] - distances[1])
 
     ## Calculates the positions of the edges between black and white in the binary gray values of a line and 
-    ## checks on basis of the distances between them, if a line is likely to go through <count> squares of the scale.
+    ## checks by the distances between them, if a line is likely to go through <count> squares of the scale.
     #  @param ends The end points of the line.
+    #  @param anchor One determined position on the line, to which the output will be aligned.
     #  @return If the check is positive, the positions where it was assumed that the line intersects the edges between white and black squares.
     def analyseLine(self, ends, anchor):
         points = ScaleDetector.calculateLine(ends=ends, anchor=anchor)
@@ -148,8 +147,9 @@ class ScaleDetector:
                     index = borders[np.argmax(lengths)]+1
                     return points[edges[index:index+max(lengths)]]
 
-    ## Checks the nearby area of a valid line for another valid line, that is assumed to intersect 
+    ## Checks the nearby area of the current valid line for another valid line, that is assumed to intersect 
     ## an edge between a black and a white scale square further left in the image.
+    #  @param The center point of the current valid line.
     #  @return The positions where it was assumed that the line with the most left intersection, intersects the edges between white and black squares.
     def scanArea(self, center):
         angles = np.linspace(self.__alpha-self.__m*self.__phi2, self.__alpha+self.__m*self.__phi2, 2*self.__m+1)
@@ -164,6 +164,10 @@ class ScaleDetector:
                 line = edges
         return line
 
+    ## Trys to find the upper and lower border of the scale by moving a valid line in small steps until it gets invalid.
+    # @param left The left point of the valid line.
+    # @param right The right point of the valid line.
+    # @return Array of shape (2,<count>+1,2) with the positions where it was assumed that the borders intersect the edges between white and black squares.
     def adaptBorders(self, left, right):
         angle = np.arctan2(right[1]-left[1], right[0]-left[0])
         angles = np.array([angle, angle], dtype=np.float32)
@@ -193,6 +197,9 @@ class ScaleDetector:
                 stepWidths[(i + 2) % 4] = -stepWidths[i]
         return borders
 
+    ## Trys to find the upper and lower border of a scale in the given image.
+    # @param img The image to search in.
+    # @return If a scale was detected, an array of shape (2,<count>+1,2) with the positions where it was assumed that the borders intersect the edges between white and black squares.
     def detectScale(self, img):
         self.__img = img
         self.__min = img.shape[1] / self.__count / 2.5
