@@ -14,7 +14,7 @@ from time import time, sleep
 class Camera(Node):
 
     ## Initializes a new Camera instance.
-    # @param framerate The rate at which images are published.
+    # @param framerate The rate at which images are captured and published.
     # @param queue The queue size of the image publishing.
 
     def __init__(self, framerate, queue):
