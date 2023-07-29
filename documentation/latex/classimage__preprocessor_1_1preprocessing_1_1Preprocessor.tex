@@ -1,0 +1,99 @@
+\hypertarget{classimage__preprocessor_1_1preprocessing_1_1Preprocessor}{}\doxysection{image\+\_\+preprocessor.\+preprocessing.\+Preprocessor Class Reference}
+\label{classimage__preprocessor_1_1preprocessing_1_1Preprocessor}\index{image\_preprocessor.preprocessing.Preprocessor@{image\_preprocessor.preprocessing.Preprocessor}}
+
+
+A \mbox{\hyperlink{classimage__preprocessor_1_1preprocessing_1_1Preprocessor}{Preprocessor}} instance is used to create a ROS2 node for image preprocessing.  
+
+
+
+
+Inheritance diagram for image\+\_\+preprocessor.\+preprocessing.\+Preprocessor\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=269pt]{classimage__preprocessor_1_1preprocessing_1_1Preprocessor__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for image\+\_\+preprocessor.\+preprocessing.\+Preprocessor\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=269pt]{classimage__preprocessor_1_1preprocessing_1_1Preprocessor__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classimage__preprocessor_1_1preprocessing_1_1Preprocessor_a742fd90eb66a27fdf7dabfa7e79ff58a}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, queue, length, m, n)
+\begin{DoxyCompactList}\small\item\em Initializes a new \mbox{\hyperlink{classimage__preprocessor_1_1preprocessing_1_1Preprocessor}{Preprocessor}} instance. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classimage__preprocessor_1_1preprocessing_1_1Preprocessor_a6578b3f27b5fce28f080fdc029d4cea9}{preprocess}} (self, input\+\_\+msg)
+\begin{DoxyCompactList}\small\item\em Preprocesses incoming images from the camera. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A \mbox{\hyperlink{classimage__preprocessor_1_1preprocessing_1_1Preprocessor}{Preprocessor}} instance is used to create a ROS2 node for image preprocessing. 
+
+The node subscribes the topic \char`\"{}camera\+\_\+stream\char`\"{}, preprocesses incoming images from that topic and publishes the preprocessed images on the topic \char`\"{}preprocessed\+\_\+stream\char`\"{}.
+
+The preprocessing includes\+:
+\begin{DoxyItemize}
+\item Cutting out the belt area.
+\item Transformation of the perspective.
+\item Conversion to a binary image. 
+\end{DoxyItemize}
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classimage__preprocessor_1_1preprocessing_1_1Preprocessor_a742fd90eb66a27fdf7dabfa7e79ff58a}\label{classimage__preprocessor_1_1preprocessing_1_1Preprocessor_a742fd90eb66a27fdf7dabfa7e79ff58a}} 
+\index{image\_preprocessor.preprocessing.Preprocessor@{image\_preprocessor.preprocessing.Preprocessor}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!image\_preprocessor.preprocessing.Preprocessor@{image\_preprocessor.preprocessing.Preprocessor}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def image\+\_\+preprocessor.\+preprocessing.\+Preprocessor.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{queue,  }\item[{}]{length,  }\item[{}]{m,  }\item[{}]{n }\end{DoxyParamCaption})}
+
+
+
+Initializes a new \mbox{\hyperlink{classimage__preprocessor_1_1preprocessing_1_1Preprocessor}{Preprocessor}} instance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em queue} & The queue size of the camera subscription and the publishing of preprocessed images. \\
+\hline
+{\em length} & The length (witdh) of the preprocessed images in pixels. \\
+\hline
+{\em m} & Number of scale squares to the end of the belt area of interest, counted from the start of the scale. \\
+\hline
+{\em n} & Number of scale squares to the beginning of the belt area of interest, counted from the start of the scale. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classimage__preprocessor_1_1preprocessing_1_1Preprocessor_a6578b3f27b5fce28f080fdc029d4cea9}\label{classimage__preprocessor_1_1preprocessing_1_1Preprocessor_a6578b3f27b5fce28f080fdc029d4cea9}} 
+\index{image\_preprocessor.preprocessing.Preprocessor@{image\_preprocessor.preprocessing.Preprocessor}!preprocess@{preprocess}}
+\index{preprocess@{preprocess}!image\_preprocessor.preprocessing.Preprocessor@{image\_preprocessor.preprocessing.Preprocessor}}
+\doxysubsubsection{\texorpdfstring{preprocess()}{preprocess()}}
+{\footnotesize\ttfamily def image\+\_\+preprocessor.\+preprocessing.\+Preprocessor.\+preprocess (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{input\+\_\+msg }\end{DoxyParamCaption})}
+
+
+
+Preprocesses incoming images from the camera. 
+
+
+\begin{DoxyItemize}
+\item Detects the scale once and asks whether the detection was successful. Repeats the detection, if the detected area was declined. For following images the detected area is kept.
+\item Cuts out the belt area and transforms it to a rectangle.
+\item Converts the transformed belt area to a binary image.
+\item Publishes the preprocessed image.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+msg} & Image to be preprocessed. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/seb/ros2\+\_\+ws/src/image\+\_\+preprocessor/image\+\_\+preprocessor/preprocessing.\+py\end{DoxyCompactItemize}

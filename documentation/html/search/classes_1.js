@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['objectclassification_18',['ObjectClassification',['../classclassification_1_1Classification_1_1ObjectClassification.html',1,'classification::Classification']]]
+  ['modeler_22',['Modeler',['../classmodeling_1_1modeling_1_1Modeler.html',1,'modeling::modeling']]]
 ];

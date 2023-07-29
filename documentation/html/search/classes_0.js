@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['modeler_17',['Modeler',['../classmodeling_1_1modeling_1_1Modeler.html',1,'modeling::modeling']]]
+  ['camera_21',['Camera',['../classcamera_1_1camera_1_1Camera.html',1,'camera::camera']]]
 ];

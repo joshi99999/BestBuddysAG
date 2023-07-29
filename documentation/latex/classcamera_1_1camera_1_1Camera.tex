@@ -1,0 +1,80 @@
+\hypertarget{classcamera_1_1camera_1_1Camera}{}\doxysection{camera.\+camera.\+Camera Class Reference}
+\label{classcamera_1_1camera_1_1Camera}\index{camera.camera.Camera@{camera.camera.Camera}}
+
+
+A \mbox{\hyperlink{classcamera_1_1camera_1_1Camera}{Camera}} instance is used to create a ROS2 node for image caprturing.  
+
+
+
+
+Inheritance diagram for camera.\+camera.\+Camera\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{classcamera_1_1camera_1_1Camera__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for camera.\+camera.\+Camera\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{classcamera_1_1camera_1_1Camera__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classcamera_1_1camera_1_1Camera_aa09c0187193c82f956a5a528d9c409ac}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, framerate, queue)
+\begin{DoxyCompactList}\small\item\em Initializes a new \mbox{\hyperlink{classcamera_1_1camera_1_1Camera}{Camera}} instance. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classcamera_1_1camera_1_1Camera_a768c20a1a9ad2f099807aee8b2890e75}\label{classcamera_1_1camera_1_1Camera_a768c20a1a9ad2f099807aee8b2890e75}} 
+def \mbox{\hyperlink{classcamera_1_1camera_1_1Camera_a768c20a1a9ad2f099807aee8b2890e75}{capture}} (self)
+\begin{DoxyCompactList}\small\item\em Captures an image from a video device, sets its timestamp and publishes it. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classcamera_1_1camera_1_1Camera_a5f41c361b3f2078574fb024b0db17014}\label{classcamera_1_1camera_1_1Camera_a5f41c361b3f2078574fb024b0db17014}} 
+{\bfseries stream}
+\item 
+\mbox{\Hypertarget{classcamera_1_1camera_1_1Camera_a471730b12856110a97fc0c8a960e77dc}\label{classcamera_1_1camera_1_1Camera_a471730b12856110a97fc0c8a960e77dc}} 
+{\bfseries timer}
+\item 
+\mbox{\Hypertarget{classcamera_1_1camera_1_1Camera_a90af990abd0e0b059ee4c4399518447f}\label{classcamera_1_1camera_1_1Camera_a90af990abd0e0b059ee4c4399518447f}} 
+{\bfseries camera}
+\item 
+\mbox{\Hypertarget{classcamera_1_1camera_1_1Camera_a5c718177f615e74ecf7bee71b4e5fd5d}\label{classcamera_1_1camera_1_1Camera_a5c718177f615e74ecf7bee71b4e5fd5d}} 
+{\bfseries bridge}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A \mbox{\hyperlink{classcamera_1_1camera_1_1Camera}{Camera}} instance is used to create a ROS2 node for image caprturing. 
+
+The node captures images from a video device and publishes them on the topic \char`\"{}camera\+\_\+stream\char`\"{}. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classcamera_1_1camera_1_1Camera_aa09c0187193c82f956a5a528d9c409ac}\label{classcamera_1_1camera_1_1Camera_aa09c0187193c82f956a5a528d9c409ac}} 
+\index{camera.camera.Camera@{camera.camera.Camera}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!camera.camera.Camera@{camera.camera.Camera}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def camera.\+camera.\+Camera.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{framerate,  }\item[{}]{queue }\end{DoxyParamCaption})}
+
+
+
+Initializes a new \mbox{\hyperlink{classcamera_1_1camera_1_1Camera}{Camera}} instance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em framerate} & The rate at which images are published. \\
+\hline
+{\em queue} & The queue size of the image publishing. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/seb/ros2\+\_\+ws/src/camera/camera/camera.\+py\end{DoxyCompactItemize}

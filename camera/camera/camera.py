@@ -5,7 +5,17 @@ import cv2
 from cv_bridge import CvBridge
 from time import time, sleep
 
+## @package camera
+# This package contains image capturing tools.
+
+## A Camera instance is used to create a ROS2 node for image caprturing.
+# The node captures images from a video device and publishes them on the topic "camera_stream".
+
 class Camera(Node):
+
+    ## Initializes a new Camera instance.
+    # @param framerate The rate at which images are published.
+    # @param queue The queue size of the image publishing.
 
     def __init__(self, framerate, queue):
         super().__init__('camera')
@@ -18,6 +28,8 @@ class Camera(Node):
         cv2.waitKey(2000)
         cv2.destroyAllWindows()
         self.bridge = CvBridge()
+
+    ## Captures an image from a video device, sets its timestamp and publishes it.
 
     def capture(self):
         ret, original = self.camera.read()
