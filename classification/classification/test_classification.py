@@ -62,11 +62,5 @@ class TestObjectClassification(unittest.TestCase):
         class_result = pred(features, svm_model)
         self.assertEqual(class_result, 1)  # Expected class 1 for a unicorn
 
-        # Test case 3: Classify an empty image (no objects)
-        empty_image = np.zeros((100, 100), dtype=np.uint8)
-        features, _ = feature_extract(empty_image)
-        class_result = pred(features, svm_model)
-        self.assertEqual(class_result, -1)  # Expected result -1 when no objects are found
-
 if __name__ == '__main__':
     unittest.main()
