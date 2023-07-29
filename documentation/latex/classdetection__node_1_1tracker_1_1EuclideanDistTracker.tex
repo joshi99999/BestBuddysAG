@@ -1,0 +1,147 @@
+\hypertarget{classdetection__node_1_1tracker_1_1EuclideanDistTracker}{}\doxysection{detection\+\_\+node.\+tracker.\+Euclidean\+Dist\+Tracker Class Reference}
+\label{classdetection__node_1_1tracker_1_1EuclideanDistTracker}\index{detection\_node.tracker.EuclideanDistTracker@{detection\_node.tracker.EuclideanDistTracker}}
+
+
+A \mbox{\hyperlink{classdetection__node_1_1tracker_1_1EuclideanDistTracker}{Euclidean\+Dist\+Tracker}} instance is used to track and detected Objects, in an image.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classdetection__node_1_1tracker_1_1EuclideanDistTracker_afdc6db666d587b7a66376e490e81ef41}\label{classdetection__node_1_1tracker_1_1EuclideanDistTracker_afdc6db666d587b7a66376e490e81ef41}} 
+def \mbox{\hyperlink{classdetection__node_1_1tracker_1_1EuclideanDistTracker_afdc6db666d587b7a66376e490e81ef41}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Initializes a new \mbox{\hyperlink{classdetection__node_1_1tracker_1_1EuclideanDistTracker}{Euclidean\+Dist\+Tracker}} instance. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdetection__node_1_1tracker_1_1EuclideanDistTracker_a9286ee046113c8f1b5240f0181c463b8}{update}} (self, objects\+\_\+rect)
+\begin{DoxyCompactList}\small\item\em Updates the euclideandisttracker to track objects. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdetection__node_1_1tracker_1_1EuclideanDistTracker_a2ebc5f31c84bbde0f4584199e1819f42}{get\+Sample}} (self, frame, center\+\_\+x, id)
+\begin{DoxyCompactList}\small\item\em Creates an image of an object if it is in a certain range. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdetection__node_1_1tracker_1_1EuclideanDistTracker_aa70be0c710ae31fb63e413621bcba64c}{detect\+Object}} (self, frame)
+\begin{DoxyCompactList}\small\item\em Detects objects in a given image. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdetection__node_1_1tracker_1_1EuclideanDistTracker_af5cd5ca683e404783dfcd454b8136d62}{track\+Object}} (self, detections)
+\begin{DoxyCompactList}\small\item\em Tracks objects by using update function. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classdetection__node_1_1tracker_1_1EuclideanDistTracker_a22c7dc65e04f5f1363913c2d6f1614c2}{find\+\_\+center\+\_\+of\+\_\+mass}} (self, image, x, y)
+\begin{DoxyCompactList}\small\item\em Calculates the center of mass of an image. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A \mbox{\hyperlink{classdetection__node_1_1tracker_1_1EuclideanDistTracker}{Euclidean\+Dist\+Tracker}} instance is used to track and detected Objects, in an image. 
+
+To work properly the following conditions must be met.
+\begin{DoxyItemize}
+\item The given image must be a binary image.
+\item Objects need to be big enough.
+\item Objects need to be bright enough.
+\item Objects should not contact each other to detect an track them properly 
+\end{DoxyItemize}
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classdetection__node_1_1tracker_1_1EuclideanDistTracker_aa70be0c710ae31fb63e413621bcba64c}\label{classdetection__node_1_1tracker_1_1EuclideanDistTracker_aa70be0c710ae31fb63e413621bcba64c}} 
+\index{detection\_node.tracker.EuclideanDistTracker@{detection\_node.tracker.EuclideanDistTracker}!detectObject@{detectObject}}
+\index{detectObject@{detectObject}!detection\_node.tracker.EuclideanDistTracker@{detection\_node.tracker.EuclideanDistTracker}}
+\doxysubsubsection{\texorpdfstring{detectObject()}{detectObject()}}
+{\footnotesize\ttfamily def detection\+\_\+node.\+tracker.\+Euclidean\+Dist\+Tracker.\+detect\+Object (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{frame }\end{DoxyParamCaption})}
+
+
+
+Detects objects in a given image. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frame} & The input image \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+detections A list which contains the x and y coordinates and the width and heigth of the bounding boxes 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classdetection__node_1_1tracker_1_1EuclideanDistTracker_a22c7dc65e04f5f1363913c2d6f1614c2}\label{classdetection__node_1_1tracker_1_1EuclideanDistTracker_a22c7dc65e04f5f1363913c2d6f1614c2}} 
+\index{detection\_node.tracker.EuclideanDistTracker@{detection\_node.tracker.EuclideanDistTracker}!find\_center\_of\_mass@{find\_center\_of\_mass}}
+\index{find\_center\_of\_mass@{find\_center\_of\_mass}!detection\_node.tracker.EuclideanDistTracker@{detection\_node.tracker.EuclideanDistTracker}}
+\doxysubsubsection{\texorpdfstring{find\_center\_of\_mass()}{find\_center\_of\_mass()}}
+{\footnotesize\ttfamily def detection\+\_\+node.\+tracker.\+Euclidean\+Dist\+Tracker.\+find\+\_\+center\+\_\+of\+\_\+mass (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{image,  }\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})}
+
+
+
+Calculates the center of mass of an image. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em image} & The image \\
+\hline
+{\em x} & The offset in x direction \\
+\hline
+{\em y} & The offset in y direction \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classdetection__node_1_1tracker_1_1EuclideanDistTracker_a2ebc5f31c84bbde0f4584199e1819f42}\label{classdetection__node_1_1tracker_1_1EuclideanDistTracker_a2ebc5f31c84bbde0f4584199e1819f42}} 
+\index{detection\_node.tracker.EuclideanDistTracker@{detection\_node.tracker.EuclideanDistTracker}!getSample@{getSample}}
+\index{getSample@{getSample}!detection\_node.tracker.EuclideanDistTracker@{detection\_node.tracker.EuclideanDistTracker}}
+\doxysubsubsection{\texorpdfstring{getSample()}{getSample()}}
+{\footnotesize\ttfamily def detection\+\_\+node.\+tracker.\+Euclidean\+Dist\+Tracker.\+get\+Sample (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{frame,  }\item[{}]{center\+\_\+x,  }\item[{}]{id }\end{DoxyParamCaption})}
+
+
+
+Creates an image of an object if it is in a certain range. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em frame} & The image with objects of which samples should be taken \\
+\hline
+{\em center\+\_\+x} & The x-\/coordinate of the object center point \\
+\hline
+{\em id} & The id of the object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+publish A boolean value that is true if a sample was taken and false if not 
+
+id\+\_\+img A ros2 msg which contains the id of the object and the taken sample of the object 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classdetection__node_1_1tracker_1_1EuclideanDistTracker_af5cd5ca683e404783dfcd454b8136d62}\label{classdetection__node_1_1tracker_1_1EuclideanDistTracker_af5cd5ca683e404783dfcd454b8136d62}} 
+\index{detection\_node.tracker.EuclideanDistTracker@{detection\_node.tracker.EuclideanDistTracker}!trackObject@{trackObject}}
+\index{trackObject@{trackObject}!detection\_node.tracker.EuclideanDistTracker@{detection\_node.tracker.EuclideanDistTracker}}
+\doxysubsubsection{\texorpdfstring{trackObject()}{trackObject()}}
+{\footnotesize\ttfamily def detection\+\_\+node.\+tracker.\+Euclidean\+Dist\+Tracker.\+track\+Object (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{detections }\end{DoxyParamCaption})}
+
+
+
+Tracks objects by using update function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em detections} & A list which contains the x and y coordinates and the width and heigth of the bounding boxes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+id The id of the tracked object 
+
+cx The x-\/coordinate of the object center point 
+
+cy the y-\/coordinate of the object center point 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classdetection__node_1_1tracker_1_1EuclideanDistTracker_a9286ee046113c8f1b5240f0181c463b8}\label{classdetection__node_1_1tracker_1_1EuclideanDistTracker_a9286ee046113c8f1b5240f0181c463b8}} 
+\index{detection\_node.tracker.EuclideanDistTracker@{detection\_node.tracker.EuclideanDistTracker}!update@{update}}
+\index{update@{update}!detection\_node.tracker.EuclideanDistTracker@{detection\_node.tracker.EuclideanDistTracker}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily def detection\+\_\+node.\+tracker.\+Euclidean\+Dist\+Tracker.\+update (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{objects\+\_\+rect }\end{DoxyParamCaption})}
+
+
+
+Updates the euclideandisttracker to track objects. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em objects\+\_\+rect} & A list which contains the x and y coordinates and the width and heigth of the bounding boxes \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+obcets\+\_\+bbs\+\_\+ids A list which contains the ids and the boundings boxes of the tracked objects
+\end{DoxyReturn}
+Updates the object tracking based on the given object rectangles.
+
+Args\+: objects\+\_\+rect (list)\+: A list of rectangles (x, y, w, h) representing the detected objects.
+
+Returns\+: list\+: A list of object bounding boxes (x, y, w, h, id) that have been updated. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/seb/ros2\+\_\+ws/src/detection\+\_\+node/detection\+\_\+node/tracker.\+py\end{DoxyCompactItemize}

@@ -48,7 +48,7 @@ def convertToRos(IdPosTime, id, posx, posy, time):
 
     return IdPosTime
 
-class ObjektDetektion(Node):
+class ObjectDetection(Node):
     def __init__(self):
         super().__init__('detector')
         self.image_subscriber = self.create_subscription(Image, 'preprocessed_stream', self.image_callback, 10)
@@ -106,7 +106,7 @@ class ObjektDetektion(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    objekt_detektion = ObjektDetektion()
+    objekt_detektion = ObjectDetection()
     rclpy.spin(objekt_detektion)
     objekt_detektion.destroy_node()
     rclpy.shutdown()

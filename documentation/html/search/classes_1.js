@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['modeler_28',['Modeler',['../classmodeling_1_1modeling_1_1Modeler.html',1,'modeling::modeling']]]
+  ['euclideandisttracker_34',['EuclideanDistTracker',['../classdetection__node_1_1tracker_1_1EuclideanDistTracker.html',1,'detection_node::tracker']]]
 ];

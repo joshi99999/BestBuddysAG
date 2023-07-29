@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['scaledetector_31',['ScaleDetector',['../classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html',1,'image_preprocessor::scaleDetection']]]
+  ['preprocessor_38',['Preprocessor',['../classimage__preprocessor_1_1preprocessing_1_1Preprocessor.html',1,'image_preprocessor::preprocessing']]]
 ];

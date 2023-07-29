@@ -22,12 +22,12 @@ class EuclideanDistTracker:
     ## Initializes a new EuclideanDistTracker instance.
     def __init__(self):
         # Store the center positions of the objects
-        self.center_points = {}
+        self.__center_points = {}
 
-        self.id_count = 0
-        self.id_prev = -1
+        self.__id_count = 0
+        self.__id_prev = -1
 
-        self.cv_bridge = CvBridge()
+        self.__cv_bridge = CvBridge()
 
     ## Updates the euclideandisttracker to track objects
     # @param objects_rect A list which contains the x and y coordinates and the width and heigth of the bounding boxes 
@@ -55,30 +55,30 @@ class EuclideanDistTracker:
             # CHECK IF OBJECT IS DETECTED ALREADY
             same_object_detected = False
 
-            for id, pt in self.center_points.items():
+            for id, pt in self.__center_points.items():
                 dist = math.hypot(cx - pt[0], cy - pt[1])
 
                 if dist < 100:
-                    self.center_points[id] = (cx, cy)
+                    self.__center_points[id] = (cx, cy)
                     objects_bbs_ids.append([x, y, w, h, id])
                     same_object_detected = True
 
 
             # NEW OBJECT DETECTION
             if same_object_detected is False:
-                self.center_points[self.id_count] = (cx, cy)
-                objects_bbs_ids.append([x, y, w, h, self.id_count])
-                self.id_count += 1
+                self.__center_points[self.__id_count] = (cx, cy)
+                objects_bbs_ids.append([x, y, w, h, self.__id_count])
+                self.__id_count += 1
                 
 
         # ASSIGN NEW ID to OBJECT
         new_center_points = {}
         for obj_bb_id in objects_bbs_ids:
             _, _, _, _, object_id = obj_bb_id
-            center = self.center_points[object_id]
+            center = self.__center_points[object_id]
             new_center_points[object_id] = center
 
-        self.center_points = new_center_points.copy()
+        self.__center_points = new_center_points.copy()
         return objects_bbs_ids
 
 
@@ -103,17 +103,17 @@ class EuclideanDistTracker:
 
 
             # Object is in Range and is diffrent from previous object
-            if (center_x >= minRange and center_x <= maxRange) and (id != self.id_prev):
+            if (center_x >= minRange and center_x <= maxRange) and (id != self.__id_prev):
                 # Create sample
                 sample = frame[topBelt:bottomBelt, center_x-halfSampleResolution:center_x+halfSampleResolution]
-                self.id_prev = id
+                self.__id_prev = id
 
                 #cv2.imwrite("src/Samples/Miau/Katze_sample_"+str(id+189)+".jpg", sample)
 
                 # Set all the data for ros message
                 num1.data = id
                 id_img.id = num1
-                ros_image = self.cv_bridge.cv2_to_imgmsg(sample, encoding='8UC1')
+                ros_image = self.__cv_bridge.cv2_to_imgmsg(sample, encoding='8UC1')
                 id_img.image = ros_image
                 publish = True
                 return publish, id_img
