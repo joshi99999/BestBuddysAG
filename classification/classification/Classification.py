@@ -13,7 +13,10 @@ import joblib
 from joblib import dump , load
 from sklearn import svm
 
-## A Objektclassification is used to classifier a objekt . 
+## @package classification This package contains object classification tools.
+
+## An ObjectClassification instance is used to create a ROS2 node for object classification. 
+
 class ObjectClassification(Node):
     
     ##Initializes the object classification.

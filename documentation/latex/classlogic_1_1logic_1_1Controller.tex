@@ -1,0 +1,102 @@
+\hypertarget{classlogic_1_1logic_1_1Controller}{}\doxysection{logic.\+logic.\+Controller Class Reference}
+\label{classlogic_1_1logic_1_1Controller}\index{logic.logic.Controller@{logic.logic.Controller}}
+
+
+A logic controller to control the robot\textquotesingle{}s movements based on received messages and data.  
+
+
+
+
+Inheritance diagram for logic.\+logic.\+Controller\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{classlogic_1_1logic_1_1Controller__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for logic.\+logic.\+Controller\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{classlogic_1_1logic_1_1Controller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classlogic_1_1logic_1_1Controller_aad8d9319cb5460758a8982ec88fdad89}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Initializes a new Logic \mbox{\hyperlink{classlogic_1_1logic_1_1Controller}{Controller}} instance. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classlogic_1_1logic_1_1Controller_a6a21c8523b2a67b4e75756510f5e5e97}{error\+\_\+callback}} (self, msg)
+\begin{DoxyCompactList}\small\item\em Error callback function to get the error message and set the error variable to true if the function gets called. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classlogic_1_1logic_1_1Controller_a021fc3633915f43d94fad0e797e91d39}{object\+\_\+callback}} (self, msg)
+\begin{DoxyCompactList}\small\item\em Object callback function to get the object message and set the velocity in x direction to the negative value of the object velocity. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classlogic_1_1logic_1_1Controller_ab98931a0c7ac62034cc7e33e04fa37d3}\label{classlogic_1_1logic_1_1Controller_ab98931a0c7ac62034cc7e33e04fa37d3}} 
+def \mbox{\hyperlink{classlogic_1_1logic_1_1Controller_ab98931a0c7ac62034cc7e33e04fa37d3}{robot\+Position\+\_\+callback}} (self, msg\+\_\+in)
+\begin{DoxyCompactList}\small\item\em Robot position callback function to get the robot position message and set the robot position in dependence of the current state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A logic controller to control the robot\textquotesingle{}s movements based on received messages and data. 
+
+The \mbox{\hyperlink{classlogic_1_1logic_1_1Controller}{Controller}} class is responsible for controling the robot\textquotesingle{}s behavior, which includes fetching and picking up objects from a conveyor belt, moving to specific positions, and handling error states. It subscribes to several ROS2 messages to receive information about the robot\textquotesingle{}s state, the velocity of the conveyor belt, and the current position of the robot. It also publishes ROS2 messages to command the robot\textquotesingle{}s movements.
+
+The Logic \mbox{\hyperlink{classlogic_1_1logic_1_1Controller}{Controller}} class represents the main logic for controlling the robot\textquotesingle{}s movements. It is initialized with specific parameters that define the positions of boxes, waiting positions, pickup height, and axis movement enabling thresholds. The class subscribes to ROS2 messages for error states, object information, and the robot\textquotesingle{}s position. It publishes a ROS2 message to the controller with the desired robot positions.
+
+Subscribes to the ROS2 message topics\+:
+\begin{DoxyItemize}
+\item \textquotesingle{}error\textquotesingle{} \+: Error state messages
+\item \textquotesingle{}pos\+\_\+vel\+\_\+class\textquotesingle{} \+: Object information (position, velocity, and type)
+\item \textquotesingle{}robot\+\_\+position\textquotesingle{} \+: Current robot position
+\end{DoxyItemize}
+
+Publishes to the ROS2 message topic\+:
+\begin{DoxyItemize}
+\item \textquotesingle{}controller\+\_\+command\textquotesingle{} \+: Desired robot position commands. 
+\end{DoxyItemize}
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classlogic_1_1logic_1_1Controller_aad8d9319cb5460758a8982ec88fdad89}\label{classlogic_1_1logic_1_1Controller_aad8d9319cb5460758a8982ec88fdad89}} 
+\index{logic.logic.Controller@{logic.logic.Controller}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!logic.logic.Controller@{logic.logic.Controller}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def logic.\+logic.\+Controller.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Initializes a new Logic \mbox{\hyperlink{classlogic_1_1logic_1_1Controller}{Controller}} instance. 
+
+The constructor sets up the \mbox{\hyperlink{classlogic_1_1logic_1_1Controller}{Controller}} instance with default values and initializes the ROS2 communication. It subscribes to the named topics and creates a publisher to send the robot position to the controller file. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classlogic_1_1logic_1_1Controller_a6a21c8523b2a67b4e75756510f5e5e97}\label{classlogic_1_1logic_1_1Controller_a6a21c8523b2a67b4e75756510f5e5e97}} 
+\index{logic.logic.Controller@{logic.logic.Controller}!error\_callback@{error\_callback}}
+\index{error\_callback@{error\_callback}!logic.logic.Controller@{logic.logic.Controller}}
+\doxysubsubsection{\texorpdfstring{error\_callback()}{error\_callback()}}
+{\footnotesize\ttfamily def logic.\+logic.\+Controller.\+error\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{msg }\end{DoxyParamCaption})}
+
+
+
+Error callback function to get the error message and set the error variable to true if the function gets called. 
+
+This function gets called when an error message gets called and sets the error value to True. With the ROS2 logger the error message gets displayed on the terminal. \mbox{\Hypertarget{classlogic_1_1logic_1_1Controller_a021fc3633915f43d94fad0e797e91d39}\label{classlogic_1_1logic_1_1Controller_a021fc3633915f43d94fad0e797e91d39}} 
+\index{logic.logic.Controller@{logic.logic.Controller}!object\_callback@{object\_callback}}
+\index{object\_callback@{object\_callback}!logic.logic.Controller@{logic.logic.Controller}}
+\doxysubsubsection{\texorpdfstring{object\_callback()}{object\_callback()}}
+{\footnotesize\ttfamily def logic.\+logic.\+Controller.\+object\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{msg }\end{DoxyParamCaption})}
+
+
+
+Object callback function to get the object message and set the velocity in x direction to the negative value of the object velocity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em time} & Variable to save the time of the object callback. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/seb/ros2\+\_\+ws/src/logic/logic/\mbox{\hyperlink{logic_8py}{logic.\+py}}\end{DoxyCompactItemize}

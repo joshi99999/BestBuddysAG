@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['scaledetector_19',['ScaleDetector',['../classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html',1,'image_preprocessor::scaleDetection']]],
-  ['scanarea_20',['scanArea',['../classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#a675ad39fc47886157b555d8fdcdbd3c0',1,'image_preprocessor::scaleDetection::ScaleDetector']]]
+  ['object_5fcallback_18',['object_callback',['../classlogic_1_1logic_1_1Controller.html#a021fc3633915f43d94fad0e797e91d39',1,'logic::logic::Controller']]],
+  ['objectclassification_19',['ObjectClassification',['../classclassification_1_1Classification_1_1ObjectClassification.html',1,'classification::Classification']]]
 ];

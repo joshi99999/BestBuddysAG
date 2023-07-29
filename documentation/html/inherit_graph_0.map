@@ -1,7 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,97,61,124"/>
-<area shape="rect" id="node2" href="$classcamera_1_1camera_1_1Camera.html" title="A Camera instance is used to create a ROS2 node for image caprturing." alt="" coords="146,5,325,32"/>
-<area shape="rect" id="node3" href="$classclassification_1_1Classification_1_1ObjectClassification.html" title="A Objektclassification is used to classifier a objekt ." alt="" coords="134,57,337,98"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,129,61,156"/>
+<area shape="rect" id="node2" href="$classcamera_1_1camera_1_1Camera.html" title="A Camera instance is used to create a ROS2 node for image capturing." alt="" coords="146,5,325,32"/>
+<area shape="rect" id="node3" href="$classclassification_1_1Classification_1_1ObjectClassification.html" title="An ObjectClassification instance is used to create a ROS2 node for object classification." alt="" coords="134,57,337,98"/>
 <area shape="rect" id="node4" href="$classimage__preprocessor_1_1preprocessing_1_1Preprocessor.html" title="A Preprocessor instance is used to create a ROS2 node for image preprocessing." alt="" coords="109,122,361,163"/>
-<area shape="rect" id="node5" href="$classmodeling_1_1modeling_1_1Modeler.html" title="A Modeler is used to determine the speed of the objket on the conveyor belt." alt="" coords="133,188,338,215"/>
+<area shape="rect" id="node5" href="$classlogic_1_1logic_1_1Controller.html" title="A logic controller to control the robot&#39;s movements based on received messages and data." alt="" coords="157,188,313,215"/>
+<area shape="rect" id="node6" href="$classmodeling_1_1modeling_1_1Modeler.html" title="A Modeler instance is used to create a ROS2 node for movement modeling." alt="" coords="133,239,338,265"/>
 </map>

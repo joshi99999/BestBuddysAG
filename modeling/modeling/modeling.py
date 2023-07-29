@@ -5,7 +5,9 @@ from ro45_portalrobot_interfaces.msg import IdPosVelTime, IdPosTime
 import numpy as np
 import cv2
 
-## A Modeler is used to determine the speed of the objket on the conveyor belt.
+## @package modeling This package contains movement modeling tools.
+
+## A Modeler instance is used to create a ROS2 node for movement modeling.
 
 class Modeler(Node):
     

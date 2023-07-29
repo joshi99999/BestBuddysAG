@@ -5,34 +5,18 @@ from rclpy.node import Node
 from ro45_portalrobot_interfaces.msg import PosVelClass, RobotPos, ConCmd, Error
 from time import time
 
-## \file
-# \brief A logic controller to control the robot's movements based on received messages and data.
+## @package logic This package contains tools to control the movement.
+
+## A logic controller to control the robot's movements based on received messages and data.
 #
 # The Controller class is responsible for controling the robot's behavior, which includes fetching and picking up objects from a conveyor belt,
 # moving to specific positions, and handling error states. It subscribes to several ROS2 messages to receive information about the robot's
 # state, the velocity of the conveyor belt, and the current position of the robot. It also publishes ROS2 messages to command the robot's movements.
 #
-# \class Controller
-# \brief Initializes a new Logic Controller instance.
 # The Logic Controller class represents the main logic for controlling the robot's movements. It is initialized with specific parameters
 # that define the positions of boxes, waiting positions, pickup height, and axis movement enabling thresholds.
 # The class subscribes to ROS2 messages for error states, object information, and the robot's position.
 # It publishes a ROS2 message to the controller with the desired robot positions.
-#
-# \param box_cat_x X position of the box for the cat.
-# \param box_unicorn_x X position of the box for the unicorn.
-# \param box_y Y position of the box, which is the same for both the unicorn and the cat.
-# \param wait Array with three values for the waiting position of the robot, which is central over the conveyor belt.
-# \param pickup_z Z position for the object pickup position from the conveyor belt.
-# \param y_enabled_z Z height to enable the y-axis movement if the z value is equal to or higher than this height.
-# \param error Variable to check if an error occurred.
-# \param time Variable to save the time of the object callback.
-# \param type Variable to save the type of the object callback. For a cat, the value is 0, and for a unicorn, the value is 1.
-# \param state Variable to save the current state and robot movement of the controller.
-# \param init_time Variable to save the time of the init state.
-# \param init_duration Variable to save the duration of the init state. This is set to 10 seconds, allowing enough time for every motor to drive to the init position.
-# \param position Array to store the robot's current x and y positions.
-# \param reference Array to store the current reference positions for x, y, and z axes.
 #
 # Subscribes to the ROS2 message topics:
 #   - 'error' : Error state messages
@@ -41,96 +25,90 @@ from time import time
 #
 # Publishes to the ROS2 message topic:
 #   - 'controller_command' : Desired robot position commands.
-#
+
 
 class Controller(Node):
 
-    ## \brief Initializes a new Logic Controller instance.
+    ## Initializes a new Logic Controller instance.
     #
     # The constructor sets up the Controller instance with default values and initializes the ROS2 communication.
     # It subscribes to the named topics and creates a publisher to send the robot position to the controller file.
-    #
-    # \param self The current instance of the class.
-    # \return None
   
     def __init__(self):
         super().__init__('logic')
 
-        self.box_cat_x = 0.0
-        self.box_unicorn_x = 0.1
-        self.box_y = 0.1
-        self.wait = [0.1, 0.02, 0.06]
-        self.pickup_z = 0.074
-        self.y_enabled_z = 0.04
+        self.__box_cat_x = 0.0
+        self.__box_unicorn_x = 0.1
+        self.__box_y = 0.1
+        self.__wait = [0.1, 0.02, 0.06]
+        self.__pickup_z = 0.074
+        self.__y_enabled_z = 0.04
 
-        self.error_subscriber = self.create_subscription(Error, 'error', self.error_callback, 10)
-        self.object_subscriber = self.create_subscription(PosVelClass, 'pos_vel_class', self.object_callback, 10)
-        self.position_subscriber = self.create_subscription(RobotPos, 'robot_position', self.robotPosition_callback, 10)
-        self.publisher = self.create_publisher(ConCmd, 'controller_command', 10)    
+        self.__error_subscriber = self.create_subscription(Error, 'error', self.error_callback, 10)
+        self.__object_subscriber = self.create_subscription(PosVelClass, 'pos_vel_class', self.object_callback, 10)
+        self.__position_subscriber = self.create_subscription(RobotPos, 'robot_position', self.robotPosition_callback, 10)
+        self.__publisher = self.create_publisher(ConCmd, 'controller_command', 10)    
 
-        self.error = False
+        self.__error = False
 
-        self.msg_out = ConCmd()
-        self.msg_out.vel_x, self.msg_out.grip = 0.0, False
+        self.__msg_out = ConCmd()
+        self.__msg_out.vel_x, self.__msg_out.grip = 0.0, False
 
-        self.time = 0.0
-        self.type = None    #id: 0= Katze, 1 = Einhorn
-        self.state = 'init'
+        self.__time = 0.0
+        self.__type = None    #id: 0= Katze, 1 = Einhorn
+        self.__state = 'init'
 
-        self.init_time = None
-        self.init_duration = 10
-        self.position = np.zeros(2, dtype=np.float64)
-        self.reference = np.zeros(3, dtype=np.float64)
+        self.__init_time = None
+        self.__init_duration = 10
+        self.__position = np.zeros(2, dtype=np.float64)
+        self.__reference = np.zeros(3, dtype=np.float64)
 
     ## Error callback function to get the error message and set the error variable to true if the function gets called.
     #
     # This function gets called when an error message gets called and sets the error value to True.
     # With the ROS2 logger the error message gets displayed on the terminal.
-    @staticmethod
     def error_callback(self, msg):
-        self.error = True
+        self.__error = True
         self.get_logger().error('An error occured: "%s"' % msg)
-        if self.state != 'init' and self.state != 'reference_z':
-            self.state = 'error_z'
+        if self.__state != 'init' and self.__state != 'reference_z':
+            self.__state = 'error_z'
         
     ## Object callback function to get the object message and set the velocity in x direction to the negative value of the object velocity.
     # @param time Variable to save the time of the object callback.
-    @staticmethod
     def object_callback(self, msg):
-        if 0 < self.msg_out.vel_x or self.error or self.state == 'init' or self.state == 'reference_z':
+        if 0 < self.__msg_out.vel_x or self.__error or self.__state == 'init' or self.__state == 'reference_z':
             return
-        self.msg_out.vel_x = -msg.vel_x
-        self.time = msg.time.data / 1000
-        self.type = msg.result.data
-        self.position[:] = self.reference[0] + msg.pos_x, self.reference[1] + msg.pos_y
+        self.__msg_out.vel_x = -msg.vel_x
+        self.__time = msg.time.data / 1000
+        self.__type = msg.result.data
+        self.__position[:] = self.__reference[0] + msg.pos_x, self.__reference[1] + msg.pos_y
     
     ## Robot position callback function to get the robot position message and set the robot position in dependence of the current state.
-    @staticmethod
     def robotPosition_callback(self, msg_in):
-        self.get_logger().info(self.state)
+        self.get_logger().info(self.__state)
 
-        match self.state:
+        match self.__state:
 
             ## \brief Case 'init' to move the step motor from the z-axis to the initialize position.
             #
             # The case publishes an updated new robot position that moves the robot for 10 seconds straight to the minimum border of the z-axis.
             # After the 10 seconds, the z position is 0.0, and the next case 'reference_z' is called.
             case 'init':
-                if self.init_time is None:
-                    self.msg_out.pos_x, self.msg_out.pos_y = msg_in.pos_x, msg_in.pos_y
-                    self.init_time = time()
+                if self.__init_time is None:
+                    self.__msg_out.pos_x, self.__msg_out.pos_y = msg_in.pos_x, msg_in.pos_y
+                    self.__init_time = time()
                 
-                if time() - self.init_time < self.init_duration:
-                    self.msg_out.pos_z = msg_in.pos_z - 0.01
-                    self.publisher.publish(self.msg_out)
+                if time() - self.__init_time < self.__init_duration:
+                    self.__msg_out.pos_z = msg_in.pos_z - 0.01
+                    self.__publisher.publish(self.__msg_out)
                 ## \brief Continuously moves the robot towards the minimum z-axis border until the init_duration is reached.    
                 else:
-                    self.init_time = None
-                    self.reference[2] = msg_in.pos_z
-                    self.wait[2] += msg_in.pos_z
-                    self.pickup_z += msg_in.pos_z
-                    self.y_enabled_z += msg_in.pos_z
-                    self.state = 'reference_z'
+                    self.__init_time = None
+                    self.__reference[2] = msg_in.pos_z
+                    self.__wait[2] += msg_in.pos_z
+                    self.__pickup_z += msg_in.pos_z
+                    self.__y_enabled_z += msg_in.pos_z
+                    self.__state = 'reference_z'
 
             ## \brief Case 'reference_z' to move the step motors from the x and y-axis to the initialize position.
             #
@@ -138,23 +116,23 @@ class Controller(Node):
             # After the 10 seconds, the x and y positions are set to 0.0, and a new robot position is published with the defined wait position, which gets called after that.
             case 'reference_z':
                 ## \brief Initializes the case 'reference_z' and sets the z-position.
-                if self.init_time is None:
-                    self.msg_out.pos_z = msg_in.pos_z
-                    self.init_time = time()
+                if self.__init_time is None:
+                    self.__msg_out.pos_z = msg_in.pos_z
+                    self.__init_time = time()
                 ## \brief Continuously moves the robot towards the minimum x and y-axis borders until the init_duration is reached.    
-                if time() - self.init_time < self.init_duration:
-                    self.msg_out.pos_x, self.msg_out.pos_y = msg_in.pos_x - 0.01, msg_in.pos_y - 0.01
-                    self.publisher.publish(self.msg_out)
+                if time() - self.__init_time < self.__init_duration:
+                    self.__msg_out.pos_x, self.__msg_out.pos_y = msg_in.pos_x - 0.01, msg_in.pos_y - 0.01
+                    self.__publisher.publish(self.__msg_out)
                 else:
-                    self.reference[0:2] = msg_in.pos_x, msg_in.pos_y
-                    self.box_cat_x += msg_in.pos_x
-                    self.box_unicorn_x += msg_in.pos_x
-                    self.box_y += msg_in.pos_y
-                    self.wait[0] += msg_in.pos_x
-                    self.wait[1] += msg_in.pos_y
-                    self.msg_out.pos_x, self.msg_out.pos_y, self.msg_out.pos_z = self.wait
-                    self.publisher.publish(self.msg_out)
-                    self.state = 'dead' if self.error else 'wait'
+                    self.__reference[0:2] = msg_in.pos_x, msg_in.pos_y
+                    self.__box_cat_x += msg_in.pos_x
+                    self.__box_unicorn_x += msg_in.pos_x
+                    self.__box_y += msg_in.pos_y
+                    self.__wait[0] += msg_in.pos_x
+                    self.__wait[1] += msg_in.pos_y
+                    self.__msg_out.pos_x, self.__msg_out.pos_y, self.__msg_out.pos_z = self.__wait
+                    self.__publisher.publish(self.__msg_out)
+                    self.__state = 'dead' if self.__error else 'wait'
 
             ## \brief Case 'wait' to move the robot to the defined robot waiting position.
             #
@@ -162,10 +140,10 @@ class Controller(Node):
             # The robot waits until a new object is detected, and the vel_x is unequal to zero.
             # After a new object is detected, the y and z values of the robot get updated, and the next case 'fetch_x' gets called.
             case 'wait':
-                if 0 != self.msg_out.vel_x:
-                    self.msg_out.pos_y, self.msg_out.pos_z = self.position[1], self.wait[2]
-                    self.get_logger().info(str(self.position[1]))
-                    self.state = 'fetch_x'
+                if 0 != self.__msg_out.vel_x:
+                    self.__msg_out.pos_y, self.__msg_out.pos_z = self.__position[1], self.__wait[2]
+                    self.get_logger().info(str(self.__position[1]))
+                    self.__state = 'fetch_x'
 
             ## \brief Case 'fetch_x' to move the robot along the x-axis to a target position.
             #
@@ -183,19 +161,19 @@ class Controller(Node):
             # \param msg_in The input message containing information about the robot's current position.
             # \return None
             case 'fetch_x':
-                self.msg_out.pos_x = self.position[0] + (time() - self.time) * self.msg_out.vel_x
-                if self.msg_out.pos_x < self.reference[0]:
-                    self.msg_out.pos_x, self.msg_out.pos_y, self.msg_out.pos_z = self.wait[0], self.wait[1], self.wait[2]
-                    self.msg_out.vel_x = 0.0
-                    self.publisher.publish(self.msg_out)
-                    self.state = 'wait'
-                elif np.linalg.norm([msg_in.pos_x - self.msg_out.pos_x, msg_in.pos_y - self.msg_out.pos_y]) < 0.004 and abs(msg_in.pos_z - self.msg_out.pos_z) < 0.001:   
-                    if self.msg_out.pos_z < self.pickup_z:
-                        self.msg_out.pos_z, self.msg_out.pos_y = self.pickup_z, msg_in.pos_y
+                self.__msg_out.pos_x = self.__position[0] + (time() - self.__time) * self.__msg_out.vel_x
+                if self.__msg_out.pos_x < self.__reference[0]:
+                    self.__msg_out.pos_x, self.__msg_out.pos_y, self.__msg_out.pos_z = self.__wait[0], self.__wait[1], self.__wait[2]
+                    self.__msg_out.vel_x = 0.0
+                    self.__publisher.publish(self.__msg_out)
+                    self.__state = 'wait'
+                elif np.linalg.norm([msg_in.pos_x - self.__msg_out.pos_x, msg_in.pos_y - self.__msg_out.pos_y]) < 0.004 and abs(msg_in.pos_z - self.__msg_out.pos_z) < 0.001:   
+                    if self.__msg_out.pos_z < self.__pickup_z:
+                        self.__msg_out.pos_z, self.__msg_out.pos_y = self.__pickup_z, msg_in.pos_y
                     else:
-                        self.msg_out.grip, self.msg_out.vel_x, self.msg_out.pos_x, self.msg_out.pos_z = True, 0.0, msg_in.pos_x, self.wait[2]
-                        self.state = 'lifting'
-                self.publisher.publish(self.msg_out)
+                        self.__msg_out.grip, self.__msg_out.vel_x, self.__msg_out.pos_x, self.__msg_out.pos_z = True, 0.0, msg_in.pos_x, self.__wait[2]
+                        self.__state = 'lifting'
+                self.__publisher.publish(self.__msg_out)
 
  
             ## \brief Case 'lifting' to pick up the reached object and move the z-axis up.
@@ -206,11 +184,11 @@ class Controller(Node):
             # After publishing the new positions, the case 'y_enabling' is called.
             case 'lifting':
                 ## \brief Check if the robot's z position is close enough to the wait position.
-                if abs(msg_in.pos_z - self.wait[2]) < 0.001:
-                    self.msg_out.pos_x = self.box_cat_x if self.type == 0 else self.box_unicorn_x
-                    self.msg_out.pos_z = self.y_enabled_z
-                    self.publisher.publish(self.msg_out)
-                    self.state = 'y_enabling'
+                if abs(msg_in.pos_z - self.__wait[2]) < 0.001:
+                    self.__msg_out.pos_x = self.__box_cat_x if self.__type == 0 else self.__box_unicorn_x
+                    self.__msg_out.pos_z = self.__y_enabled_z
+                    self.__publisher.publish(self.__msg_out)
+                    self.__state = 'y_enabling'
 
             ## \brief Case 'y_enabling' moves the y position of the robot to the y position of the boxes.
             #
@@ -219,10 +197,10 @@ class Controller(Node):
             # After the publish, the next case 'xy_moving' is called.
             case 'y_enabling':
                 ## \brief Check if the robot's z position is close enough to the y-enabled z position.
-                if abs(msg_in.pos_z - self.y_enabled_z) < 0.001:
-                    self.msg_out.pos_y, self.msg_out.pos_z = self.box_y, msg_in.pos_z
-                    self.publisher.publish(self.msg_out)
-                    self.state = 'xy_moving'
+                if abs(msg_in.pos_z - self.__y_enabled_z) < 0.001:
+                    self.__msg_out.pos_y, self.__msg_out.pos_z = self.__box_y, msg_in.pos_z
+                    self.__publisher.publish(self.__msg_out)
+                    self.__state = 'xy_moving'
 
             ## \brief Case 'xy_moving' moves the robot over the object box and releases the vacuum to sort the object in the box.
             #
@@ -231,46 +209,46 @@ class Controller(Node):
             # The next case 'y_disabling' is called after the position is published.
             case 'xy_moving':
                 # (Add implementation details here, if applicable)
-                if np.linalg.norm([msg_in.pos_x - self.msg_out.pos_x, msg_in.pos_y - self.msg_out.pos_y]) < 0.001:
-                    self.msg_out.grip, self.msg_out.pos_x, self.msg_out.pos_y = False, msg_in.pos_x, msg_in.pos_y
-                    self.publisher.publish(self.msg_out)
-                    self.msg_out.pos_x, self.msg_out.pos_y = self.wait[0], self.wait[1]
-                    self.publisher.publish(self.msg_out)
-                    self.state = 'y_disabling'
+                if np.linalg.norm([msg_in.pos_x - self.__msg_out.pos_x, msg_in.pos_y - self.__msg_out.pos_y]) < 0.001:
+                    self.__msg_out.grip, self.__msg_out.pos_x, self.__msg_out.pos_y = False, msg_in.pos_x, msg_in.pos_y
+                    self.__publisher.publish(self.__msg_out)
+                    self.__msg_out.pos_x, self.__msg_out.pos_y = self.__wait[0], self.__wait[1]
+                    self.__publisher.publish(self.__msg_out)
+                    self.__state = 'y_disabling'
             ## \brief Case y_disabling moves the z position to the wait position.
             #
             # After the robot is over the desired x and y position the z position is updated and published.
             # The next case 'wait' gets called after publishing the new z positon.
             case 'y_disabling':
-                if abs(msg_in.pos_y - self.wait[1]) < 0.001:
-                    self.msg_out.pos_z = self.wait[2]
-                    self.publisher.publish(self.msg_out)
-                    self.state = 'wait'
+                if abs(msg_in.pos_y - self.__wait[1]) < 0.001:
+                    self.__msg_out.pos_z = self.__wait[2]
+                    self.__publisher.publish(self.__msg_out)
+                    self.__state = 'wait'
             ## \brief Case 'error_z'
             # 
             # If there is an error, the gripper set to False and the z axis moves to the z reference position by publishing the updated robot position.
             # After publishing the case 'error_xy' gets called.
             case 'error_z':
-                self.msg_out.pos_x, self.msg_out.pos_y, self.msg_out.pos_z = msg_in.pos_x, msg_in.pos_y, self.reference[2]
-                self.msg_out.vel_x, self.msg_out.grip = 0.0, False
-                self.publisher.publish(self.msg_out)
-                self.state = 'error_xy'
+                self.__msg_out.pos_x, self.__msg_out.pos_y, self.__msg_out.pos_z = msg_in.pos_x, msg_in.pos_y, self.__reference[2]
+                self.__msg_out.vel_x, self.__msg_out.grip = 0.0, False
+                self.__publisher.publish(self.__msg_out)
+                self.__state = 'error_xy'
             ## \brief Case 'error_xy' moves the x and y axis to the reference position.
             #
             # After the z axis reaches the reference position the x and y position gets updated and the robot position is published.
             # The next error case 'error' gets called after publishing.
             case 'error_xy':
-                if abs(self.reference[2] - msg_in.pos_z) < 0.001:
-                    self.msg_out.pos_x, self.msg_out.pos_y = self.reference[0:2]
-                    self.msg_out.pos_z = msg_in.pos_z
-                    self.publisher.publish(self.msg_out)
-                    self.state = 'error'
+                if abs(self.__reference[2] - msg_in.pos_z) < 0.001:
+                    self.__msg_out.pos_x, self.__msg_out.pos_y = self.__reference[0:2]
+                    self.__msg_out.pos_z = msg_in.pos_z
+                    self.__publisher.publish(self.__msg_out)
+                    self.__state = 'error'
             ## \brief Case 'error' checks if the x and y position is reached and calls the next case 'dead'
             case 'error':
-                if np.linalg.norm([self.reference[0] - msg_in.pos_x, self.reference[1] - msg_in.pos_y]) < 0.001:
-                    self.msg_out.pos_x, self.msg_out.pos_y = self.reference[0], self.reference[1]
-                    self.publisher.publish(self.msg_out)
-                    self.state = 'dead'
+                if np.linalg.norm([self.__reference[0] - msg_in.pos_x, self.__reference[1] - msg_in.pos_y]) < 0.001:
+                    self.__msg_out.pos_x, self.__msg_out.pos_y = self.__reference[0], self.__reference[1]
+                    self.__publisher.publish(self.__msg_out)
+                    self.__state = 'dead'
 
             ## \brief Casse 'dead' 
             # 

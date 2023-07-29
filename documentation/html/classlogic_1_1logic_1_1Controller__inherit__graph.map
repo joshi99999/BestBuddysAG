@@ -1,0 +1,4 @@
+<map id="logic.logic.Controller" name="logic.logic.Controller">
+<area shape="rect" id="node1" title="A logic controller to control the robot&#39;s movements based on received messages and data." alt="" coords="5,80,161,107"/>
+<area shape="rect" id="node2" title=" " alt="" coords="55,5,111,32"/>
+</map>

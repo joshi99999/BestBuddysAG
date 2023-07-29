@@ -4,5 +4,6 @@ var searchData=
   ['calculateline_5',['calculateLine',['../classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#aa22cc80fe558c9de32ba69512bc89062',1,'image_preprocessor::scaleDetection::ScaleDetector']]],
   ['calculatelineends_6',['calculateLineEnds',['../classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#a9ec10f4584fcb9697296e19d60700b5b',1,'image_preprocessor::scaleDetection::ScaleDetector']]],
   ['camera_7',['Camera',['../classcamera_1_1camera_1_1Camera.html',1,'camera::camera']]],
-  ['capture_8',['capture',['../classcamera_1_1camera_1_1Camera.html#a768c20a1a9ad2f099807aee8b2890e75',1,'camera::camera::Camera']]]
+  ['capture_8',['capture',['../classcamera_1_1camera_1_1Camera.html#a768c20a1a9ad2f099807aee8b2890e75',1,'camera::camera::Camera']]],
+  ['controller_9',['Controller',['../classlogic_1_1logic_1_1Controller.html',1,'logic::logic']]]
 ];

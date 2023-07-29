@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['image_5fcallback_38',['image_callback',['../classclassification_1_1Classification_1_1ObjectClassification.html#a9b05126fd0d07bc4a49f01115f0b8ed3',1,'classification::Classification::ObjectClassification']]]
+  ['get_5fpositions_5fby_5fid_45',['get_positions_by_id',['../classmodeling_1_1modeling_1_1Modeler.html#a3705999089b1ba45f2fec21b87d62673',1,'modeling::modeling::Modeler']]]
 ];
