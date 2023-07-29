@@ -83,16 +83,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a6957be2bec02812d82df9c7ddd41a8e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new <a class="el" href="classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html" title="A ScaleDetector instance is used to find a scale, consisting of n alternating black and white squares...">ScaleDetector</a> instance.  <a href="classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#a6957be2bec02812d82df9c7ddd41a8e4">More...</a><br /></td></tr>
 <tr class="separator:a6957be2bec02812d82df9c7ddd41a8e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68ac8843555c1a30076adf93376f07ec"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#a68ac8843555c1a30076adf93376f07ec">analyseLine</a> (self, ends, anchor)</td></tr>
-<tr class="memdesc:a68ac8843555c1a30076adf93376f07ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the positions of the edges between black and white in the binary gray values of a line and checks on basis of the distances between them, if a line is likely to go through &lt;count&gt; squares of the scale.  <a href="classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#a68ac8843555c1a30076adf93376f07ec">More...</a><br /></td></tr>
+<tr class="memdesc:a68ac8843555c1a30076adf93376f07ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the positions of the edges between black and white in the binary gray values of a line and checks by the distances between them, if a line is likely to go through &lt;count&gt; squares of the scale.  <a href="classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#a68ac8843555c1a30076adf93376f07ec">More...</a><br /></td></tr>
 <tr class="separator:a68ac8843555c1a30076adf93376f07ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a675ad39fc47886157b555d8fdcdbd3c0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#a675ad39fc47886157b555d8fdcdbd3c0">scanArea</a> (self, center)</td></tr>
-<tr class="memdesc:a675ad39fc47886157b555d8fdcdbd3c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the nearby area of a valid line for another valid line, that is assumed to intersect an edge between a black and a white scale square further left in the image.  <a href="classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#a675ad39fc47886157b555d8fdcdbd3c0">More...</a><br /></td></tr>
+<tr class="memdesc:a675ad39fc47886157b555d8fdcdbd3c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the nearby area of the current valid line for another valid line, that is assumed to intersect an edge between a black and a white scale square further left in the image.  <a href="classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#a675ad39fc47886157b555d8fdcdbd3c0">More...</a><br /></td></tr>
 <tr class="separator:a675ad39fc47886157b555d8fdcdbd3c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dc4548f00d1eca8ebfaf624165fb33b"><td class="memItemLeft" align="right" valign="top"><a id="a6dc4548f00d1eca8ebfaf624165fb33b"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>adaptBorders</b> (self, left, right)</td></tr>
+<tr class="memitem:a6dc4548f00d1eca8ebfaf624165fb33b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#a6dc4548f00d1eca8ebfaf624165fb33b">adaptBorders</a> (self, left, right)</td></tr>
+<tr class="memdesc:a6dc4548f00d1eca8ebfaf624165fb33b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trys to find the upper and lower border of the scale by moving a valid line in small steps until it gets invalid.  <a href="classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#a6dc4548f00d1eca8ebfaf624165fb33b">More...</a><br /></td></tr>
 <tr class="separator:a6dc4548f00d1eca8ebfaf624165fb33b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa22ec6af6c57a7fbd9204a3048321b56"><td class="memItemLeft" align="right" valign="top"><a id="aa22ec6af6c57a7fbd9204a3048321b56"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>detectScale</b> (self, img)</td></tr>
+<tr class="memitem:aa22ec6af6c57a7fbd9204a3048321b56"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#aa22ec6af6c57a7fbd9204a3048321b56">detectScale</a> (self, img)</td></tr>
+<tr class="memdesc:aa22ec6af6c57a7fbd9204a3048321b56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trys to find the upper and lower border of a scale in the given image.  <a href="classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#aa22ec6af6c57a7fbd9204a3048321b56">More...</a><br /></td></tr>
 <tr class="separator:aa22ec6af6c57a7fbd9204a3048321b56"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -101,7 +101,7 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memdesc:a9ec10f4584fcb9697296e19d60700b5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the intersection points between some lines and the border of an image.  <a href="classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#a9ec10f4584fcb9697296e19d60700b5b">More...</a><br /></td></tr>
 <tr class="separator:a9ec10f4584fcb9697296e19d60700b5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa22cc80fe558c9de32ba69512bc89062"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#aa22cc80fe558c9de32ba69512bc89062">calculateLine</a> (ends, anchor)</td></tr>
-<tr class="memdesc:aa22cc80fe558c9de32ba69512bc89062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the indices of all pixels on a line between two end pixels.  <a href="classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#aa22cc80fe558c9de32ba69512bc89062">More...</a><br /></td></tr>
+<tr class="memdesc:aa22cc80fe558c9de32ba69512bc89062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the positions of all pixels on a line between two end points.  <a href="classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#aa22cc80fe558c9de32ba69512bc89062">More...</a><br /></td></tr>
 <tr class="separator:aa22cc80fe558c9de32ba69512bc89062"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -205,7 +205,6 @@ Static Public Member Functions</h2></td></tr>
     <tr><td class="paramname">m</td><td>Number of angle steps done in each direction while scanning the nearby area. </td></tr>
     <tr><td class="paramname">count</td><td>Number of gray value edges with minimum absolute distance and low varity in distance ratio in a row, the line must go trough so it is assumed to go through the scale. </td></tr>
     <tr><td class="paramname">accuracy</td><td>The maximum value the ratio between the distances from an edge to the previous edge and the next edge can deviate from one. </td></tr>
-    <tr><td class="paramname">min</td><td>The minimum distance between two edges. </td></tr>
   </table>
   </dd>
 </dl>
@@ -213,6 +212,50 @@ Static Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6dc4548f00d1eca8ebfaf624165fb33b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dc4548f00d1eca8ebfaf624165fb33b">&#9670;&nbsp;</a></span>adaptBorders()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def image_preprocessor.scaleDetection.ScaleDetector.adaptBorders </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>left</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>right</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Trys to find the upper and lower border of the scale by moving a valid line in small steps until it gets invalid. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">left</td><td>The left point of the valid line. </td></tr>
+    <tr><td class="paramname">right</td><td>The right point of the valid line. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Array of shape (2,&lt;count&gt;+1,2) with the positions where it was assumed that the borders intersect the edges between white and black squares. </dd></dl>
+
+</div>
+</div>
 <a id="a68ac8843555c1a30076adf93376f07ec"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a68ac8843555c1a30076adf93376f07ec">&#9670;&nbsp;</a></span>analyseLine()</h2>
 
@@ -245,10 +288,11 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Calculates the positions of the edges between black and white in the binary gray values of a line and checks on basis of the distances between them, if a line is likely to go through &lt;count&gt; squares of the scale. </p>
+<p>Calculates the positions of the edges between black and white in the binary gray values of a line and checks by the distances between them, if a line is likely to go through &lt;count&gt; squares of the scale. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">ends</td><td>The end points of the line. </td></tr>
+    <tr><td class="paramname">anchor</td><td>One determined position on the line, to which the output will be aligned. </td></tr>
   </table>
   </dd>
 </dl>
@@ -290,14 +334,15 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Calculates the indices of all pixels on a line between two end pixels. </p>
+<p>Calculates the positions of all pixels on a line between two end points. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ends</td><td>The end pixels of the line. </td></tr>
+    <tr><td class="paramname">ends</td><td>The end points of the line. </td></tr>
+    <tr><td class="paramname">anchor</td><td>One determined position, that will be in the output. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Array of pixel indices. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Array of pixel positions. </dd></dl>
 
 </div>
 </div>
@@ -354,6 +399,43 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="aa22ec6af6c57a7fbd9204a3048321b56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa22ec6af6c57a7fbd9204a3048321b56">&#9670;&nbsp;</a></span>detectScale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def image_preprocessor.scaleDetection.ScaleDetector.detectScale </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>img</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Trys to find the upper and lower border of a scale in the given image. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">img</td><td>The image to search in. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If a scale was detected, an array of shape (2,&lt;count&gt;+1,2) with the positions where it was assumed that the borders intersect the edges between white and black squares. </dd></dl>
+
+</div>
+</div>
 <a id="a675ad39fc47886157b555d8fdcdbd3c0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a675ad39fc47886157b555d8fdcdbd3c0">&#9670;&nbsp;</a></span>scanArea()</h2>
 
@@ -380,7 +462,13 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Checks the nearby area of a valid line for another valid line, that is assumed to intersect an edge between a black and a white scale square further left in the image. </p>
+<p>Checks the nearby area of the current valid line for another valid line, that is assumed to intersect an edge between a black and a white scale square further left in the image. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">The</td><td>center point of the current valid line. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>The positions where it was assumed that the line with the most left intersection, intersects the edges between white and black squares. </dd></dl>
 
 </div>

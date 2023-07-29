@@ -8,8 +8,17 @@ from cv_bridge import CvBridge
 from scaleDetection import ScaleDetector
 import numpy as np
 
+## @package image_preprocessor
+# 
+
 
 class Preprocessor(Node):
+
+    ## Initializes a new Preprocessor instance.
+    # @param queue The queue size of the camera subscription and the publishing of preprocessed images.
+    # @param length The length (witdh) of the preprocessed images in pixels.
+    # @param m Number of scale squares to the end of the belt area of interest, counted from the start of the scale.
+    # @param n Number of scale squares to the beginning of the belt area of interest, counted from the start of the scale.
 
     def __init__(self, queue, length, m, n):
         super().__init__('preprocessor')
@@ -22,6 +31,16 @@ class Preprocessor(Node):
         self.borders = None
         self.n = n
         self.l = length/(m-n)
+
+    ## Preprocesses incoming images from the camera. 
+    # + Detects the scale once and asks whether the detection was successful. 
+    #   Repeats the detection, if the detected area was declined.
+    #   For following images the detected area is kept.
+    # + Cuts out the belt area and transforms it to a rectangle.
+    # + Converts the transformed belt area to a binary image.
+    # + Publishes the preprocessed image on the topic preprocessed_stream.
+    # 
+    # @param input_msg Image to be preprocessed.
 
     def preprocess(self, input_msg):
         image = self.bridge.imgmsg_to_cv2(input_msg)

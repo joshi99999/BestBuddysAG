@@ -1,0 +1,151 @@
+\hypertarget{classmodeling_1_1modeling_1_1Modeler}{}\doxysection{modeling.\+modeling.\+Modeler Class Reference}
+\label{classmodeling_1_1modeling_1_1Modeler}\index{modeling.modeling.Modeler@{modeling.modeling.Modeler}}
+
+
+A \mbox{\hyperlink{classmodeling_1_1modeling_1_1Modeler}{Modeler}} is used to determine the speed of the objket on the conveyor belt.  
+
+
+
+
+Inheritance diagram for modeling.\+modeling.\+Modeler\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{classmodeling_1_1modeling_1_1Modeler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for modeling.\+modeling.\+Modeler\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{classmodeling_1_1modeling_1_1Modeler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classmodeling_1_1modeling_1_1Modeler_ab18abe5f6f7d0bec89b6c51fdab51ca2}\label{classmodeling_1_1modeling_1_1Modeler_ab18abe5f6f7d0bec89b6c51fdab51ca2}} 
+def \mbox{\hyperlink{classmodeling_1_1modeling_1_1Modeler_ab18abe5f6f7d0bec89b6c51fdab51ca2}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Initializes the Position\+Grouping node. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodeling_1_1modeling_1_1Modeler_aee028a6b0a7320c37e8231a3035abb5d}{position\+\_\+callback}} (self, msg\+\_\+in)
+\begin{DoxyCompactList}\small\item\em This callback function is called automatically when an Id\+Pos\+Time message is received. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodeling_1_1modeling_1_1Modeler_a3705999089b1ba45f2fec21b87d62673}{get\+\_\+positions\+\_\+by\+\_\+id}} (self, id)
+\begin{DoxyCompactList}\small\item\em Removes all items with the specified ID from a list and returns them as a separate list. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodeling_1_1modeling_1_1Modeler_a926ba643f4e75a2cf8919f9ff5d07768}{add\+\_\+position}} (self, id, timestamp, pos\+\_\+x, pos\+\_\+y)
+\begin{DoxyCompactList}\small\item\em Adds a newelement to the list , sorts the list by ID and timestamp and Checks if the object is still in the tracking area. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classmodeling_1_1modeling_1_1Modeler_a02fbf09f789ee0f64729bfbdd4d0912b}{calculate\+\_\+movement}} (list)
+\begin{DoxyCompactList}\small\item\em Calculates movement data from a list of points. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classmodeling_1_1modeling_1_1Modeler_a3894ca9153a1c83b6cb9ff7ef2652f30}\label{classmodeling_1_1modeling_1_1Modeler_a3894ca9153a1c83b6cb9ff7ef2652f30}} 
+{\bfseries old\+\_\+ids}
+\item 
+\mbox{\Hypertarget{classmodeling_1_1modeling_1_1Modeler_acc8437bc85213913f8c1968de6f46820}\label{classmodeling_1_1modeling_1_1Modeler_acc8437bc85213913f8c1968de6f46820}} 
+{\bfseries id\+\_\+list}
+\item 
+\mbox{\Hypertarget{classmodeling_1_1modeling_1_1Modeler_a79d48e95da99fd575a2c5aaf39d2051a}\label{classmodeling_1_1modeling_1_1Modeler_a79d48e95da99fd575a2c5aaf39d2051a}} 
+{\bfseries position\+\_\+lists}
+\item 
+\mbox{\Hypertarget{classmodeling_1_1modeling_1_1Modeler_a9afd96ac6491f97102cbb81ec5a02e5f}\label{classmodeling_1_1modeling_1_1Modeler_a9afd96ac6491f97102cbb81ec5a02e5f}} 
+{\bfseries subscriber}
+\item 
+\mbox{\Hypertarget{classmodeling_1_1modeling_1_1Modeler_aececdaca69520bd61c7a485d97c5fb78}\label{classmodeling_1_1modeling_1_1Modeler_aececdaca69520bd61c7a485d97c5fb78}} 
+{\bfseries publisher}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A \mbox{\hyperlink{classmodeling_1_1modeling_1_1Modeler}{Modeler}} is used to determine the speed of the objket on the conveyor belt. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classmodeling_1_1modeling_1_1Modeler_a926ba643f4e75a2cf8919f9ff5d07768}\label{classmodeling_1_1modeling_1_1Modeler_a926ba643f4e75a2cf8919f9ff5d07768}} 
+\index{modeling.modeling.Modeler@{modeling.modeling.Modeler}!add\_position@{add\_position}}
+\index{add\_position@{add\_position}!modeling.modeling.Modeler@{modeling.modeling.Modeler}}
+\doxysubsubsection{\texorpdfstring{add\_position()}{add\_position()}}
+{\footnotesize\ttfamily def modeling.\+modeling.\+Modeler.\+add\+\_\+position (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{id,  }\item[{}]{timestamp,  }\item[{}]{pos\+\_\+x,  }\item[{}]{pos\+\_\+y }\end{DoxyParamCaption})}
+
+
+
+Adds a newelement to the list , sorts the list by ID and timestamp and Checks if the object is still in the tracking area. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The ID of the new element. \\
+\hline
+{\em timestamp} & The timestamp of the new element. \\
+\hline
+{\em pos\+\_\+x} & The x-\/position of the new element. \\
+\hline
+{\em pos\+\_\+y} & The y-\/position of the new element. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodeling_1_1modeling_1_1Modeler_a02fbf09f789ee0f64729bfbdd4d0912b}\label{classmodeling_1_1modeling_1_1Modeler_a02fbf09f789ee0f64729bfbdd4d0912b}} 
+\index{modeling.modeling.Modeler@{modeling.modeling.Modeler}!calculate\_movement@{calculate\_movement}}
+\index{calculate\_movement@{calculate\_movement}!modeling.modeling.Modeler@{modeling.modeling.Modeler}}
+\doxysubsubsection{\texorpdfstring{calculate\_movement()}{calculate\_movement()}}
+{\footnotesize\ttfamily def modeling.\+modeling.\+Modeler.\+calculate\+\_\+movement (\begin{DoxyParamCaption}\item[{}]{list }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Calculates movement data from a list of points. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & (List)\+: A list of points, where each point is represented as a 3-\/tuple (x, y, t). Here, x denotes the horizontal position, y denotes the vertical position, and t denotes time. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tuple\+: A 4-\/tuple containing the calculated movement data\+: (shifted\+\_\+horizontal\+\_\+position, vertical\+\_\+position, velocity, shifted\+\_\+time) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodeling_1_1modeling_1_1Modeler_a3705999089b1ba45f2fec21b87d62673}\label{classmodeling_1_1modeling_1_1Modeler_a3705999089b1ba45f2fec21b87d62673}} 
+\index{modeling.modeling.Modeler@{modeling.modeling.Modeler}!get\_positions\_by\_id@{get\_positions\_by\_id}}
+\index{get\_positions\_by\_id@{get\_positions\_by\_id}!modeling.modeling.Modeler@{modeling.modeling.Modeler}}
+\doxysubsubsection{\texorpdfstring{get\_positions\_by\_id()}{get\_positions\_by\_id()}}
+{\footnotesize\ttfamily def modeling.\+modeling.\+Modeler.\+get\+\_\+positions\+\_\+by\+\_\+id (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{id }\end{DoxyParamCaption})}
+
+
+
+Removes all items with the specified ID from a list and returns them as a separate list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list\+\_\+for\+\_\+element} & (list)\+: The list to remove elements from. \\
+\hline
+{\em id} & The ID of the items to be removed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+list\+: A separate list containing the removed items. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodeling_1_1modeling_1_1Modeler_aee028a6b0a7320c37e8231a3035abb5d}\label{classmodeling_1_1modeling_1_1Modeler_aee028a6b0a7320c37e8231a3035abb5d}} 
+\index{modeling.modeling.Modeler@{modeling.modeling.Modeler}!position\_callback@{position\_callback}}
+\index{position\_callback@{position\_callback}!modeling.modeling.Modeler@{modeling.modeling.Modeler}}
+\doxysubsubsection{\texorpdfstring{position\_callback()}{position\_callback()}}
+{\footnotesize\ttfamily def modeling.\+modeling.\+Modeler.\+position\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{msg\+\_\+in }\end{DoxyParamCaption})}
+
+
+
+This callback function is called automatically when an Id\+Pos\+Time message is received. 
+
+It processes the received message, adding the position and time data to the internal storage. If the Id is new, it calculates the movement from stored positions and publishes the result. 
+\begin{DoxyParams}{Parameters}
+{\em msg\+\_\+in} & (Id\+Pos\+Time)\+: The received Id\+Pos\+Time message containing the Id, Position, and Time data. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/seb/ros2\+\_\+ws/src/modeling/modeling/modeling.\+py\end{DoxyCompactItemize}
