@@ -21,25 +21,6 @@ from time import time
 class Controller(Node):
 
     ## Initializes a new Controller instance.    
-    # @param __box_cat_x X position of the box for the cat.
-    # @param box_unicorn_x X position of the box for the unicorn.
-    # @param box_y Y position of the box, which is the same for both the unicorn and the cat.
-    # @param wait Array with three values for the waiting position of the robot, which is central over the conveyor belt.
-    # @param pickup_z Z position for the object pickup position from the conveyor belt.
-    # @param y_enabled_z Z height to enable the y-axis movement if the z value is equal to or higher than this height.
-    # @param error Variable to check if an error occurred.
-    # @param time Variable to save the time of the object callback.
-    # @param type Variable to save the type of the object callback. For a cat, the value is 0, and for a unicorn, the value is 1.
-    # @param state Variable to save the current state and robot movement of the controller.
-    # @param msg_out ROS2 message to publish the desired robot position.
-    # @param init_time Variable to save the time of the init state.
-    # @param init_duration Variable to save the duration of the init state. This is set to 10 seconds, allowing enough time for every motor to drive to the init position.
-    # @param position Array to store the robot's current x and y positions.
-    # @param reference Array to store the current reference positions for x, y, and z axes.
-    # @param error_subscriber ROS2 subscription for the error state messages from the Error topic.
-    # @param object_subscriber ROS2 subscription for the object information (position, velocity, and type) from the PosVelClass topic.
-    # @param position_subscriber ROS2 subscription for the current position of the robot from the RobotPos topic.
-    # @param publisher ROS2 publisher for the calculated velocity to the RobotCmd topic.
   
     def __init__(self):
         super().__init__('logic')
@@ -82,7 +63,6 @@ class Controller(Node):
             self.__state = 'error_z'
         
     ## Object callback function to get the object message and set the velocity in x direction to the negative value of the object velocity.
-    # @param time Variable to save the time of the object callback.
     # @param msg The object message.
     @staticmethod
     def object_callback(self, msg):
