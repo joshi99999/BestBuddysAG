@@ -1,9 +1,10 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,163,61,189"/>
-<area shape="rect" id="node2" href="$classcamera_1_1camera_1_1Camera.html" title="A Camera instance is used to create a ROS2 node for image capturing." alt="" coords="146,5,325,32"/>
-<area shape="rect" id="node3" href="$classclassification_1_1Classification_1_1ObjectClassification.html" title="An ObjectClassification instance is used to create a ROS2 node for object classification." alt="" coords="134,57,337,98"/>
-<area shape="rect" id="node4" href="$classdetection__node_1_1detection_1_1ObjectDetection.html" title=" " alt="" coords="140,122,331,163"/>
-<area shape="rect" id="node5" href="$classimage__preprocessor_1_1preprocessing_1_1Preprocessor.html" title="A Preprocessor instance is used to create a ROS2 node for image preprocessing." alt="" coords="109,187,361,229"/>
-<area shape="rect" id="node6" href="$classlogic_1_1logic_1_1Controller.html" title="A logic controller to control the robot&#39;s movements based on received messages and data." alt="" coords="157,253,313,280"/>
-<area shape="rect" id="node7" href="$classmodeling_1_1modeling_1_1Modeler.html" title="A Modeler instance is used to create a ROS2 node for movement modeling." alt="" coords="133,304,338,331"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,195,59,221"/>
+<area shape="rect" id="node2" href="$classcamera_1_1camera_1_1Camera.html" title="A Camera instance is used to create a ROS2 node for image capturing." alt="" coords="139,5,301,32"/>
+<area shape="rect" id="node3" href="$classclassification_1_1Classification_1_1ObjectClassification.html" title="An ObjectClassification instance is used to create a ROS2 node for object classification." alt="" coords="127,57,313,98"/>
+<area shape="rect" id="node4" href="$classdetection__node_1_1detection_1_1ObjectDetection.html" title=" " alt="" coords="135,122,305,163"/>
+<area shape="rect" id="node5" href="$classimage__preprocessor_1_1preprocessing_1_1Preprocessor.html" title="A Preprocessor instance is used to create a ROS2 node for image preprocessing." alt="" coords="107,187,333,229"/>
+<area shape="rect" id="node6" href="$classlogic_1_1logic_1_1Controller.html" title="A logic controller to control the robot&#39;s movements based on received messages and data." alt="" coords="150,253,290,280"/>
+<area shape="rect" id="node7" href="$classmodeling_1_1modeling_1_1Modeler.html" title="A Modeler instance is used to create a ROS2 node for movement modeling." alt="" coords="130,304,310,331"/>
+<area shape="rect" id="node8" href="$classposition__controller_1_1pos__control_1_1PositionController.html" title="A PositionController instance is used to create a ROS2 node for robot position control." alt="" coords="133,355,307,397"/>
 </map>
