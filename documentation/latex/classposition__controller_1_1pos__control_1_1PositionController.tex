@@ -1,0 +1,145 @@
+\hypertarget{classposition__controller_1_1pos__control_1_1PositionController}{}\doxysection{position\+\_\+controller.\+pos\+\_\+control.\+Position\+Controller Class Reference}
+\label{classposition__controller_1_1pos__control_1_1PositionController}\index{position\_controller.pos\_control.PositionController@{position\_controller.pos\_control.PositionController}}
+
+
+A \mbox{\hyperlink{classposition__controller_1_1pos__control_1_1PositionController}{Position\+Controller}} instance is used to create a ROS2 node for robot position control.  
+
+
+
+
+Inheritance diagram for position\+\_\+controller.\+pos\+\_\+control.\+Position\+Controller\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{classposition__controller_1_1pos__control_1_1PositionController__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for position\+\_\+controller.\+pos\+\_\+control.\+Position\+Controller\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{classposition__controller_1_1pos__control_1_1PositionController__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classposition__controller_1_1pos__control_1_1PositionController_aaa305640768a851274f5fcd0a919e80c}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Initializes a new \mbox{\hyperlink{classposition__controller_1_1pos__control_1_1PositionController}{Position\+Controller}} instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classposition__controller_1_1pos__control_1_1PositionController_a697aa8ff28f3b80beb3830290ceae60d}{controller\+Command\+\_\+callback}} (self, msg)
+\begin{DoxyCompactList}\small\item\em Callback function to get the desired X, Y and Z position and the offset for the x velocity. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classposition__controller_1_1pos__control_1_1PositionController_a1b82708e07c404c2da48a78fe6a676ec}{robot\+Postion\+\_\+callback}} (self, msg)
+\begin{DoxyCompactList}\small\item\em Callback function to get the current position X, Y and Z and print the velocity in the consol. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classposition__controller_1_1pos__control_1_1PositionController_a524fce8e0f9480b0b1bc5bc9b1c69931}{calculate\+\_\+control\+\_\+signal}} (self)
+\begin{DoxyCompactList}\small\item\em Calculates the new velocity for each step motor in dependence of the current position and the desired position. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A \mbox{\hyperlink{classposition__controller_1_1pos__control_1_1PositionController}{Position\+Controller}} instance is used to create a ROS2 node for robot position control. 
+
+The node subscribes the topic \char`\"{}robot\+\_\+position\char`\"{} and \char`\"{}controller\+\_\+command\char`\"{}, calculates the new velocity for each step motor in dependence of the current position and the desired position and publishes the calculated velocity on the topic \char`\"{}robot\+\_\+command\char`\"{}.
+
+The pos\+\_\+control includes\+:
+\begin{DoxyItemize}
+\item Calculation of the new velocity for each step motor in dependence of the current position and the desired position.
+\item Regulate the velocity to the maximum velocity.
+\item Regulate the velocity jump to the maximum acceleration.
+\item Publish the calculated velocity for each step motor and the grip value as a Robot\+Cmd message. 
+\end{DoxyItemize}
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classposition__controller_1_1pos__control_1_1PositionController_aaa305640768a851274f5fcd0a919e80c}\label{classposition__controller_1_1pos__control_1_1PositionController_aaa305640768a851274f5fcd0a919e80c}} 
+\index{position\_controller.pos\_control.PositionController@{position\_controller.pos\_control.PositionController}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!position\_controller.pos\_control.PositionController@{position\_controller.pos\_control.PositionController}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def position\+\_\+controller.\+pos\+\_\+control.\+Position\+Controller.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Initializes a new \mbox{\hyperlink{classposition__controller_1_1pos__control_1_1PositionController}{Position\+Controller}} instance. 
+
+~\newline
+ 
+\begin{DoxyParams}{Parameters}
+{\em k} & Proportional gain value for the velocity calculation. \\
+\hline
+{\em max\+\_\+vel} & Array with three values for the maximum velocity of each step motor. \\
+\hline
+{\em max\+\_\+acc} & Array with thee values for the maximum velocity of each step motor. \\
+\hline
+{\em desired\+\_\+pos} & Desired position for each step motor. \\
+\hline
+{\em current\+\_\+pos} & Current position for each step motor. \\
+\hline
+{\em velocity} & Current velocity for each step motor. \\
+\hline
+{\em vel\+\_\+x\+\_\+offset} & Offset for the x velocity. \\
+\hline
+{\em grip} & Boolean value to control the robot gripper. \\
+\hline
+{\em subscription\+Current} & ROS2 subscription for the current position of the robot from the Robot\+Pos topic. \\
+\hline
+{\em subscription\+Desired} & ROS2 subscription for the desired position of the robot from the Con\+Cmd topic. \\
+\hline
+{\em publisher} & ROS2 publisher for the calculated velocity to the Robot\+Cmd topic. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classposition__controller_1_1pos__control_1_1PositionController_a524fce8e0f9480b0b1bc5bc9b1c69931}\label{classposition__controller_1_1pos__control_1_1PositionController_a524fce8e0f9480b0b1bc5bc9b1c69931}} 
+\index{position\_controller.pos\_control.PositionController@{position\_controller.pos\_control.PositionController}!calculate\_control\_signal@{calculate\_control\_signal}}
+\index{calculate\_control\_signal@{calculate\_control\_signal}!position\_controller.pos\_control.PositionController@{position\_controller.pos\_control.PositionController}}
+\doxysubsubsection{\texorpdfstring{calculate\_control\_signal()}{calculate\_control\_signal()}}
+{\footnotesize\ttfamily def position\+\_\+controller.\+pos\+\_\+control.\+Position\+Controller.\+calculate\+\_\+control\+\_\+signal (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Calculates the new velocity for each step motor in dependence of the current position and the desired position. 
+
+For the velocity in x direction the offset has to be added because with this the system is in rest position. The velocity is set to the maximum velocity when the velocity is higher than the maximum velocity. The velocity is set to the maximum acceleration when the velocity jump is higher than the maximum acceleration. \begin{DoxyReturn}{Returns}
+robot\+\_\+command Returns the calculated velocity for each step motor and the grip value as a Robot\+Cmd message. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classposition__controller_1_1pos__control_1_1PositionController_a697aa8ff28f3b80beb3830290ceae60d}\label{classposition__controller_1_1pos__control_1_1PositionController_a697aa8ff28f3b80beb3830290ceae60d}} 
+\index{position\_controller.pos\_control.PositionController@{position\_controller.pos\_control.PositionController}!controllerCommand\_callback@{controllerCommand\_callback}}
+\index{controllerCommand\_callback@{controllerCommand\_callback}!position\_controller.pos\_control.PositionController@{position\_controller.pos\_control.PositionController}}
+\doxysubsubsection{\texorpdfstring{controllerCommand\_callback()}{controllerCommand\_callback()}}
+{\footnotesize\ttfamily def position\+\_\+controller.\+pos\+\_\+control.\+Position\+Controller.\+controller\+Command\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Callback function to get the desired X, Y and Z position and the offset for the x velocity. 
+
+The grip value is set to the desired grip value. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & The Con\+Cmd message containing the desired position and velocity offset. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classposition__controller_1_1pos__control_1_1PositionController_a1b82708e07c404c2da48a78fe6a676ec}\label{classposition__controller_1_1pos__control_1_1PositionController_a1b82708e07c404c2da48a78fe6a676ec}} 
+\index{position\_controller.pos\_control.PositionController@{position\_controller.pos\_control.PositionController}!robotPostion\_callback@{robotPostion\_callback}}
+\index{robotPostion\_callback@{robotPostion\_callback}!position\_controller.pos\_control.PositionController@{position\_controller.pos\_control.PositionController}}
+\doxysubsubsection{\texorpdfstring{robotPostion\_callback()}{robotPostion\_callback()}}
+{\footnotesize\ttfamily def position\+\_\+controller.\+pos\+\_\+control.\+Position\+Controller.\+robot\+Postion\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Callback function to get the current position X, Y and Z and print the velocity in the consol. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & The Robot\+Pos message containing the current position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+robot\+\_\+command returns the calculated velocity for each step motor and the grip value as a Robot\+Cmd message. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/juntj/\+Robotik\+Projekt3/ros2\+\_\+workspace/src/position\+\_\+controller/position\+\_\+controller/pos\+\_\+control.\+py\end{DoxyCompactItemize}
