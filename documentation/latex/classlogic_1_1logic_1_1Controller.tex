@@ -2,7 +2,7 @@
 \label{classlogic_1_1logic_1_1Controller}\index{logic.logic.Controller@{logic.logic.Controller}}
 
 
-A logic controller to control the robot\textquotesingle{}s movements based on received messages and data.  
+A logic \mbox{\hyperlink{classlogic_1_1logic_1_1Controller}{Controller}} to control the robot\textquotesingle{}s movements based on received messages and data.  
 
 
 
@@ -11,7 +11,7 @@ Inheritance diagram for logic.\+logic.\+Controller\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=197pt]{classlogic_1_1logic_1_1Controller__inherit__graph}
+\includegraphics[width=185pt]{classlogic_1_1logic_1_1Controller__inherit__graph}
 \end{center}
 \end{figure}
 
@@ -20,40 +20,33 @@ Collaboration diagram for logic.\+logic.\+Controller\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=197pt]{classlogic_1_1logic_1_1Controller__coll__graph}
+\includegraphics[width=185pt]{classlogic_1_1logic_1_1Controller__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 def \mbox{\hyperlink{classlogic_1_1logic_1_1Controller_aad8d9319cb5460758a8982ec88fdad89}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
-\begin{DoxyCompactList}\small\item\em Initializes a new Logic \mbox{\hyperlink{classlogic_1_1logic_1_1Controller}{Controller}} instance. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Initializes a new \mbox{\hyperlink{classlogic_1_1logic_1_1Controller}{Controller}} instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
 def \mbox{\hyperlink{classlogic_1_1logic_1_1Controller_a6a21c8523b2a67b4e75756510f5e5e97}{error\+\_\+callback}} (self, msg)
 \begin{DoxyCompactList}\small\item\em Error callback function to get the error message and set the error variable to true if the function gets called. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classlogic_1_1logic_1_1Controller_a021fc3633915f43d94fad0e797e91d39}{object\+\_\+callback}} (self, msg)
 \begin{DoxyCompactList}\small\item\em Object callback function to get the object message and set the velocity in x direction to the negative value of the object velocity. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classlogic_1_1logic_1_1Controller_ab98931a0c7ac62034cc7e33e04fa37d3}\label{classlogic_1_1logic_1_1Controller_ab98931a0c7ac62034cc7e33e04fa37d3}} 
 def \mbox{\hyperlink{classlogic_1_1logic_1_1Controller_ab98931a0c7ac62034cc7e33e04fa37d3}{robot\+Position\+\_\+callback}} (self, msg\+\_\+in)
 \begin{DoxyCompactList}\small\item\em Robot position callback function to get the robot position message and set the robot position in dependence of the current state. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-A logic controller to control the robot\textquotesingle{}s movements based on received messages and data. 
+A logic \mbox{\hyperlink{classlogic_1_1logic_1_1Controller}{Controller}} to control the robot\textquotesingle{}s movements based on received messages and data. 
 
-The \mbox{\hyperlink{classlogic_1_1logic_1_1Controller}{Controller}} class is responsible for controling the robot\textquotesingle{}s behavior, which includes fetching and picking up objects from a conveyor belt, moving to specific positions, and handling error states. It subscribes to several ROS2 messages to receive information about the robot\textquotesingle{}s state, the velocity of the conveyor belt, and the current position of the robot. It also publishes ROS2 messages to command the robot\textquotesingle{}s movements.
-
-The Logic \mbox{\hyperlink{classlogic_1_1logic_1_1Controller}{Controller}} class represents the main logic for controlling the robot\textquotesingle{}s movements. It is initialized with specific parameters that define the positions of boxes, waiting positions, pickup height, and axis movement enabling thresholds. The class subscribes to ROS2 messages for error states, object information, and the robot\textquotesingle{}s position. It publishes a ROS2 message to the controller with the desired robot positions.
-
-Subscribes to the ROS2 message topics\+:
+The Logic \mbox{\hyperlink{classlogic_1_1logic_1_1Controller}{Controller}} class represents the main logic for controlling the robot\textquotesingle{}s movements. The node is responsible for controling the robot\textquotesingle{}s behavior, which includes fetching and picking up objects from a conveyor belt, moving to specific positions, and handling error states. It subscribes to several ROS2 messages to receive information about the robot\textquotesingle{}s state, the velocity of the conveyor belt, and the current position of the robot. It also publishes ROS2 messages to command the robot\textquotesingle{}s movements. The logic includes\+:
 \begin{DoxyItemize}
-\item \textquotesingle{}error\textquotesingle{} \+: Error state messages
-\item \textquotesingle{}pos\+\_\+vel\+\_\+class\textquotesingle{} \+: Object information (position, velocity, and type)
-\item \textquotesingle{}robot\+\_\+position\textquotesingle{} \+: Current robot position
-\end{DoxyItemize}
-
-Publishes to the ROS2 message topic\+:
-\begin{DoxyItemize}
-\item \textquotesingle{}controller\+\_\+command\textquotesingle{} \+: Desired robot position commands. 
+\item Moving the robot to the initialize position after start.
+\item Moving the robot to the desired positions.
+\item Sorting the objects in the boxes. 
 \end{DoxyItemize}
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -65,26 +58,73 @@ Publishes to the ROS2 message topic\+:
 
 
 
-Initializes a new Logic \mbox{\hyperlink{classlogic_1_1logic_1_1Controller}{Controller}} instance. 
+Initializes a new \mbox{\hyperlink{classlogic_1_1logic_1_1Controller}{Controller}} instance. 
 
-The constructor sets up the \mbox{\hyperlink{classlogic_1_1logic_1_1Controller}{Controller}} instance with default values and initializes the ROS2 communication. It subscribes to the named topics and creates a publisher to send the robot position to the controller file. 
+~\newline
+ 
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+\+\_\+box\+\_\+cat\+\_\+x} & X position of the box for the cat. \\
+\hline
+{\em box\+\_\+unicorn\+\_\+x} & X position of the box for the unicorn. \\
+\hline
+{\em box\+\_\+y} & Y position of the box, which is the same for both the unicorn and the cat. \\
+\hline
+{\em wait} & Array with three values for the waiting position of the robot, which is central over the conveyor belt. \\
+\hline
+{\em pickup\+\_\+z} & Z position for the object pickup position from the conveyor belt. \\
+\hline
+{\em y\+\_\+enabled\+\_\+z} & Z height to enable the y-\/axis movement if the z value is equal to or higher than this height. \\
+\hline
+{\em error} & Variable to check if an error occurred. \\
+\hline
+{\em time} & Variable to save the time of the object callback. \\
+\hline
+{\em type} & Variable to save the type of the object callback. For a cat, the value is 0, and for a unicorn, the value is 1. \\
+\hline
+{\em state} & Variable to save the current state and robot movement of the controller. \\
+\hline
+{\em msg\+\_\+out} & ROS2 message to publish the desired robot position. \\
+\hline
+{\em init\+\_\+time} & Variable to save the time of the init state. \\
+\hline
+{\em init\+\_\+duration} & Variable to save the duration of the init state. This is set to 10 seconds, allowing enough time for every motor to drive to the init position. \\
+\hline
+{\em position} & Array to store the robot\textquotesingle{}s current x and y positions. \\
+\hline
+{\em reference} & Array to store the current reference positions for x, y, and z axes. \\
+\hline
+{\em error\+\_\+subscriber} & ROS2 subscription for the error state messages from the Error topic. \\
+\hline
+{\em object\+\_\+subscriber} & ROS2 subscription for the object information (position, velocity, and type) from the Pos\+Vel\+Class topic. \\
+\hline
+{\em position\+\_\+subscriber} & ROS2 subscription for the current position of the robot from the Robot\+Pos topic. \\
+\hline
+{\em publisher} & ROS2 publisher for the calculated velocity to the Robot\+Cmd topic. \\
+\hline
+\end{DoxyParams}
+
 
 \doxysubsection{Member Function Documentation}
 \mbox{\Hypertarget{classlogic_1_1logic_1_1Controller_a6a21c8523b2a67b4e75756510f5e5e97}\label{classlogic_1_1logic_1_1Controller_a6a21c8523b2a67b4e75756510f5e5e97}} 
 \index{logic.logic.Controller@{logic.logic.Controller}!error\_callback@{error\_callback}}
 \index{error\_callback@{error\_callback}!logic.logic.Controller@{logic.logic.Controller}}
 \doxysubsubsection{\texorpdfstring{error\_callback()}{error\_callback()}}
-{\footnotesize\ttfamily def logic.\+logic.\+Controller.\+error\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{msg }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily def logic.\+logic.\+Controller.\+error\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
 Error callback function to get the error message and set the error variable to true if the function gets called. 
 
-This function gets called when an error message gets called and sets the error value to True. With the ROS2 logger the error message gets displayed on the terminal. \mbox{\Hypertarget{classlogic_1_1logic_1_1Controller_a021fc3633915f43d94fad0e797e91d39}\label{classlogic_1_1logic_1_1Controller_a021fc3633915f43d94fad0e797e91d39}} 
+This function gets called when an error message gets called and sets the error value to True. With the ROS2 logger the error message gets displayed on the terminal. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & The error message. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classlogic_1_1logic_1_1Controller_a021fc3633915f43d94fad0e797e91d39}\label{classlogic_1_1logic_1_1Controller_a021fc3633915f43d94fad0e797e91d39}} 
 \index{logic.logic.Controller@{logic.logic.Controller}!object\_callback@{object\_callback}}
 \index{object\_callback@{object\_callback}!logic.logic.Controller@{logic.logic.Controller}}
 \doxysubsubsection{\texorpdfstring{object\_callback()}{object\_callback()}}
-{\footnotesize\ttfamily def logic.\+logic.\+Controller.\+object\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{msg }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily def logic.\+logic.\+Controller.\+object\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{msg }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -94,9 +134,41 @@ Object callback function to get the object message and set the velocity in x dir
 \begin{DoxyParams}{Parameters}
 {\em time} & Variable to save the time of the object callback. \\
 \hline
+{\em msg} & The object message. \\
+\hline
 \end{DoxyParams}
+\mbox{\Hypertarget{classlogic_1_1logic_1_1Controller_ab98931a0c7ac62034cc7e33e04fa37d3}\label{classlogic_1_1logic_1_1Controller_ab98931a0c7ac62034cc7e33e04fa37d3}} 
+\index{logic.logic.Controller@{logic.logic.Controller}!robotPosition\_callback@{robotPosition\_callback}}
+\index{robotPosition\_callback@{robotPosition\_callback}!logic.logic.Controller@{logic.logic.Controller}}
+\doxysubsubsection{\texorpdfstring{robotPosition\_callback()}{robotPosition\_callback()}}
+{\footnotesize\ttfamily def logic.\+logic.\+Controller.\+robot\+Position\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{msg\+\_\+in }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
+
+
+Robot position callback function to get the robot position message and set the robot position in dependence of the current state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg\+\_\+in} & The robot position message.\\
+\hline
+\end{DoxyParams}
+Cases\+: The robot moves to different positions in dependence of the current state.
+\begin{DoxyItemize}
+\item Case \textquotesingle{}init\textquotesingle{} to move the step motor from the z-\/axis to the initialize position. The case publishes an updated new robot position that moves the robot for 10 seconds straight to the minimum border of the z-\/axis. After the 10 seconds, the z position is 0.\+0, and the next case \textquotesingle{}reference\+\_\+z\textquotesingle{} is called.
+\item Case \textquotesingle{}reference\+\_\+z\textquotesingle{} to move the step motors from the x and y-\/axis to the initialize position. The case publishes an updated new robot position that moves the robot for 10 seconds straight to the minimum borders of the x and y-\/axis. After the 10 seconds, the x and y positions are set to 0.\+0, and a new robot position is published with the defined \+\_\+\+\_\+wait position, which gets called after that.
+\item Case \textquotesingle{}wait\textquotesingle{} to move the robot to the defined robot waiting position. Since the wait position is already being published in the case \textquotesingle{}reference\+\_\+z\textquotesingle{}, the robot moves without a new publish to the wait position. The robot waits until a new object is detected, and the vel\+\_\+x is unequal to zero. After a new object is detected, the y and z values of the robot get updated, and the next case \textquotesingle{}fetch\+\_\+x\textquotesingle{} gets called. ~\newline
+
+\item Case \textquotesingle{}fetch\+\_\+x\textquotesingle{} to move the robot along the x-\/axis to a target position. In the \textquotesingle{}fetch\+\_\+x\textquotesingle{} case, the robot is controlled to move along the x-\/axis to reach the object position. The robot trys to chatch the object on the conveyor belt by moving along the x-\/axis with the object velocity. If the robot can\textquotesingle{}t catch the object, the robot moves to the wait position. If the robot catches the object, the robot moves to the Case \textquotesingle{}lifting\textquotesingle{}.
+\item Case \textquotesingle{}lifting\textquotesingle{} to pick up the reached object and move the z-\/axis up. In the \textquotesingle{}lifting\textquotesingle{} case, the robot picks up the reached object by moving the z-\/axis upwards until the value is greater than or equal to the wait position. After reaching the desired z position, the x position gets updated to the x position of the unicorn or cat box, depending on the lifted object type. The z position gets updated to the value where the y-\/axis is free to move, and the updated x and z positions get published. After publishing the new positions, the case \textquotesingle{}y\+\_\+enabling\textquotesingle{} is called.
+\item Case \textquotesingle{}y\+\_\+enabling\textquotesingle{} moves the y position of the robot to the y position of the boxes. The y position gets updated after the z position reaches the position where y can move without any danger of crashing or losing the object. After that, the y and z positions are updated and published to the y and z positions of the object box. After the publish, the next case \textquotesingle{}xy\+\_\+moving\textquotesingle{} is called.
+\item Case \textquotesingle{}xy\+\_\+moving\textquotesingle{} moves the robot over the object box and releases the vacuum to sort the object in the box. After the x and y positions are close enough to the desired position, the gripper releases the vacuum, and the current position is published with the updated gripper value. The x and y positions are updated and published to the wait position. The next case \textquotesingle{}y\+\_\+disabling\textquotesingle{} is called after the position is published.
+\item Case y\+\_\+disabling moves the z position to the wait position. After the robot is over the desired x and y position the z position is updated and published. The next case \textquotesingle{}wait\textquotesingle{} gets called after publishing the new z positon.
+\item Case \textquotesingle{}error\+\_\+z\textquotesingle{} If there is an error, the gripper set to False and the z axis moves to the z reference position by publishing the updated robot position. After publishing the case \textquotesingle{}error\+\_\+xy\textquotesingle{} gets called.
+\item Case \textquotesingle{}error\+\_\+xy\textquotesingle{} moves the x and y axis to the reference position. After the z axis reaches the reference position the x and y position gets updated and the robot position is published. The next error case \textquotesingle{}error\textquotesingle{} gets called after publishing.
+\item Case \textquotesingle{}error\textquotesingle{} checks if the x and y position is reached and calls the next case \textquotesingle{}dead\textquotesingle{}
+\item Casse \textquotesingle{}dead\textquotesingle{} The placeholder pass gets called and after that the programm is in a dead state. 
+\end{DoxyItemize}
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-/home/juntj/\+Robotik\+Projekt3/ros2\+\_\+workspace/src/logic/logic/\mbox{\hyperlink{logic_8py}{logic.\+py}}\end{DoxyCompactItemize}
+/home/juntj/\+Robotik\+Projekt3/ros2\+\_\+workspace/src/logic/logic/logic.\+py\end{DoxyCompactItemize}

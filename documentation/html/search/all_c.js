@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['robotposition_5fcallback_30',['robotPosition_callback',['../classlogic_1_1logic_1_1Controller.html#ab98931a0c7ac62034cc7e33e04fa37d3',1,'logic::logic::Controller']]],
-  ['robotpostion_5fcallback_31',['robotPostion_callback',['../classposition__controller_1_1pos__control_1_1PositionController.html#a1b82708e07c404c2da48a78fe6a676ec',1,'position_controller::pos_control::PositionController']]]
+  ['scaledetector_31',['ScaleDetector',['../classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html',1,'image_preprocessor::scaleDetection']]],
+  ['scanarea_32',['scanArea',['../classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#a675ad39fc47886157b555d8fdcdbd3c0',1,'image_preprocessor::scaleDetection::ScaleDetector']]]
 ];

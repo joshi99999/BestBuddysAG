@@ -1,24 +1,21 @@
 var indexSectionsWithContent =
 {
-  0: "_acdefgilmoprstu",
+  0: "_acdefgimoprstu",
   1: "cemops",
-  2: "l",
-  3: "_acdefgioprstu"
+  2: "_acdefgioprstu"
 };
 
 var indexSectionNames =
 {
   0: "all",
   1: "classes",
-  2: "files",
-  3: "functions"
+  2: "functions"
 };
 
 var indexSectionLabels =
 {
   0: "All",
   1: "Classes",
-  2: "Files",
-  3: "Functions"
+  2: "Functions"
 };
 

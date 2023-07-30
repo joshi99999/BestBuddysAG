@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['scaledetector_32',['ScaleDetector',['../classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html',1,'image_preprocessor::scaleDetection']]],
-  ['scanarea_33',['scanArea',['../classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.html#a675ad39fc47886157b555d8fdcdbd3c0',1,'image_preprocessor::scaleDetection::ScaleDetector']]]
+  ['trackobject_33',['trackObject',['../classdetection__node_1_1tracker_1_1EuclideanDistTracker.html#af5cd5ca683e404783dfcd454b8136d62',1,'detection_node::tracker::EuclideanDistTracker']]]
 ];

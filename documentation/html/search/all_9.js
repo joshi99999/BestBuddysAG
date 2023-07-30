@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['modeler_22',['Modeler',['../classmodeling_1_1modeling_1_1Modeler.html',1,'modeling::modeling']]]
+  ['object_5fcallback_22',['object_callback',['../classlogic_1_1logic_1_1Controller.html#a021fc3633915f43d94fad0e797e91d39',1,'logic::logic::Controller']]],
+  ['objectclassification_23',['ObjectClassification',['../classclassification_1_1Classification_1_1ObjectClassification.html',1,'classification::Classification']]],
+  ['objectdetection_24',['ObjectDetection',['../classdetection__node_1_1detection_1_1ObjectDetection.html',1,'detection_node::detection']]]
 ];
