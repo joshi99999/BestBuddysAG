@@ -14,23 +14,20 @@ from cv_bridge import CvBridge, CvBridgeError
 import cv2
 import numpy as np
 
-# Create tracker object
+## Tracker instance
 tracker = tracker.EuclideanDistTracker()
 
+## @package detection_node
+# This package contains image detection tools.
+
+## Converts parameters into ROS2 format.
+# @param IdPosTime A ROS2 message that consists of id, x-position, y-position and current time.
+# @param id The ID of an object.
+# @param posx The x-position of an object.
+# @param posy The y-position of an object.
+# @param time The timestemp of the current image.
+# @return IdPosTime The converted ROS2 message.
 def convertToRos(IdPosTime, id, posx, posy, time):
-    """
-    Converts ID, position x, and position y values to a ROS message format.
-
-    Args:
-        IdPosTime: The ROS message object to populate.
-        id (int): The ID value.
-        posx (int): The x-position value.
-        posy (int): The y-position value.
-
-    Returns:
-        IdPosTime: The populated ROS message object.
-
-    """
     id_msg = Int32()
     position_x = Int32()
     position_y = Int32()
@@ -48,7 +45,18 @@ def convertToRos(IdPosTime, id, posx, posy, time):
 
     return IdPosTime
 
+## A Detection instance is used to create a ROS2 node for image detection.
+# The node subscribes the topic "preprocessed_stream", 
+# processes incoming images from that topic 
+# and publishes the processed images on the topic "id_sample" for classification
+# and publishes the processed images on the topic "id_pos_time" for modelling.
+#
+# The detection includes:
+# + Detecting objects in the image.
+# + Tracking the objects with their positions.
+# + Creating samples for classification.
 class ObjectDetection(Node):
+    ## Initializes a new ObjectDetection instance.
     def __init__(self):
         super().__init__('detector')
         self.image_subscriber = self.create_subscription(Image, 'preprocessed_stream', self.image_callback, 10)
@@ -56,6 +64,10 @@ class ObjectDetection(Node):
         self.id_pos_publisher = self.create_publisher(IdPosTime, 'id_pos_time', 10)
         self.cv_bridge = CvBridge()
 
+    ## Callback function for processing image messages.
+    # This function detects and tracks objects in the image.
+    # It also creats samples for the classification.
+    # @param msg The ROS2 message preprocessed_stream containing the binary image of the belt.
     def image_callback(self, msg):
         try:
             # Konvertiere das ROS-Bild zu einem OpenCV-Bild
