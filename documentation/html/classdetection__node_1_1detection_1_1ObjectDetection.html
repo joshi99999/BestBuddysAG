@@ -73,13 +73,16 @@ $(function() {
 <div class="title">detection_node.detection.ObjectDetection Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>A Detection instance is used to create a ROS2 node for image detection.  
+ <a href="classdetection__node_1_1detection_1_1ObjectDetection.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for detection_node.detection.ObjectDetection:</div>
 <div class="dyncontent">
 <div class="center"><img src="classdetection__node_1_1detection_1_1ObjectDetection__inherit__graph.png" border="0" usemap="#adetection__node_8detection_8ObjectDetection_inherit__map" alt="Inheritance graph"/></div>
 <map name="adetection__node_8detection_8ObjectDetection_inherit__map" id="adetection__node_8detection_8ObjectDetection_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,80,196,121"/>
-<area shape="rect" title=" " alt="" coords="73,5,129,32"/>
+<area shape="rect" title="A Detection instance is used to create a ROS2 node for image detection." alt="" coords="5,80,176,121"/>
+<area shape="rect" title=" " alt="" coords="64,5,117,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -87,18 +90,19 @@ Collaboration diagram for detection_node.detection.ObjectDetection:</div>
 <div class="dyncontent">
 <div class="center"><img src="classdetection__node_1_1detection_1_1ObjectDetection__coll__graph.png" border="0" usemap="#adetection__node_8detection_8ObjectDetection_coll__map" alt="Collaboration graph"/></div>
 <map name="adetection__node_8detection_8ObjectDetection_coll__map" id="adetection__node_8detection_8ObjectDetection_coll__map">
-<area shape="rect" title=" " alt="" coords="5,80,196,121"/>
-<area shape="rect" title=" " alt="" coords="73,5,129,32"/>
+<area shape="rect" title="A Detection instance is used to create a ROS2 node for image detection." alt="" coords="5,80,176,121"/>
+<area shape="rect" title=" " alt="" coords="64,5,117,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a39f7ea68fc2bff49e10fbaa8a1917d60"><td class="memItemLeft" align="right" valign="top"><a id="a39f7ea68fc2bff49e10fbaa8a1917d60"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b> (self)</td></tr>
+def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdetection__node_1_1detection_1_1ObjectDetection.html#a39f7ea68fc2bff49e10fbaa8a1917d60">__init__</a> (self)</td></tr>
+<tr class="memdesc:a39f7ea68fc2bff49e10fbaa8a1917d60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a new <a class="el" href="classdetection__node_1_1detection_1_1ObjectDetection.html" title="A Detection instance is used to create a ROS2 node for image detection.">ObjectDetection</a> instance. <br /></td></tr>
 <tr class="separator:a39f7ea68fc2bff49e10fbaa8a1917d60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e3d324d99bb0a26ee8862b7ec778dae"><td class="memItemLeft" align="right" valign="top"><a id="a4e3d324d99bb0a26ee8862b7ec778dae"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>image_callback</b> (self, msg)</td></tr>
+<tr class="memitem:a4e3d324d99bb0a26ee8862b7ec778dae"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdetection__node_1_1detection_1_1ObjectDetection.html#a4e3d324d99bb0a26ee8862b7ec778dae">image_callback</a> (self, msg)</td></tr>
+<tr class="memdesc:a4e3d324d99bb0a26ee8862b7ec778dae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for processing image messages.  <a href="classdetection__node_1_1detection_1_1ObjectDetection.html#a4e3d324d99bb0a26ee8862b7ec778dae">More...</a><br /></td></tr>
 <tr class="separator:a4e3d324d99bb0a26ee8862b7ec778dae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -116,6 +120,51 @@ Public Attributes</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>cv_bridge</b></td></tr>
 <tr class="separator:abb547dc30c923b01063a3f3fa7183674"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A Detection instance is used to create a ROS2 node for image detection. </p>
+<p>The node subscribes the topic "preprocessed_stream", processes incoming images from that topic and publishes the processed images on the topic "id_sample" for classification and publishes the processed images on the topic "id_pos_time" for modelling.</p>
+<p>The detection includes:</p><ul>
+<li>Detecting objects in the image.</li>
+<li>Tracking the objects with their positions.</li>
+<li>Creating samples for classification. </li>
+</ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4e3d324d99bb0a26ee8862b7ec778dae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e3d324d99bb0a26ee8862b7ec778dae">&#9670;&nbsp;</a></span>image_callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def detection_node.detection.ObjectDetection.image_callback </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>msg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback function for processing image messages. </p>
+<p>This function detects and tracks objects in the image. It also creats samples for the classification. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msg</td><td>The ROS2 message preprocessed_stream containing the binary image of the belt. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/juntj/RobotikProjekt3/ros2_workspace/src/detection_node/detection_node/detection.py</li>
 </ul>

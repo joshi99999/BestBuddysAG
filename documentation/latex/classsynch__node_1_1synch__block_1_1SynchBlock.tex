@@ -1,0 +1,181 @@
+\hypertarget{classsynch__node_1_1synch__block_1_1SynchBlock}{}\doxysection{synch\+\_\+node.\+synch\+\_\+block.\+Synch\+Block Class Reference}
+\label{classsynch__node_1_1synch__block_1_1SynchBlock}\index{synch\_node.synch\_block.SynchBlock@{synch\_node.synch\_block.SynchBlock}}
+
+
+A \mbox{\hyperlink{classsynch__node_1_1synch__block_1_1SynchBlock}{Synch\+Block}} instance is used to create a ROS2 node for synchronisation.  
+
+
+
+
+Inheritance diagram for synch\+\_\+node.\+synch\+\_\+block.\+Synch\+Block\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{classsynch__node_1_1synch__block_1_1SynchBlock__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for synch\+\_\+node.\+synch\+\_\+block.\+Synch\+Block\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{classsynch__node_1_1synch__block_1_1SynchBlock__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classsynch__node_1_1synch__block_1_1SynchBlock_af366093243f60a27b12bd20e69bdcbcc}\label{classsynch__node_1_1synch__block_1_1SynchBlock_af366093243f60a27b12bd20e69bdcbcc}} 
+def \mbox{\hyperlink{classsynch__node_1_1synch__block_1_1SynchBlock_af366093243f60a27b12bd20e69bdcbcc}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\begin{DoxyCompactList}\small\item\em Initializes a new \mbox{\hyperlink{classsynch__node_1_1synch__block_1_1SynchBlock}{Synch\+Block}} instance. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsynch__node_1_1synch__block_1_1SynchBlock_aa838f352dc5933b714a569b39e044572}{class\+\_\+callback}} (self, msg)
+\begin{DoxyCompactList}\small\item\em Callback function for processing classification messages. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsynch__node_1_1synch__block_1_1SynchBlock_a5f426e83d964d56717a44c6a1fba01ca}{pos\+\_\+callback}} (self, msg)
+\begin{DoxyCompactList}\small\item\em Callback function for processing modelling messages. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsynch__node_1_1synch__block_1_1SynchBlock_a26bff2fa24a1ce945eca6f08ff05dd70}{publish\+\_\+synch}} (self, pos\+\_\+x, pos\+\_\+y, vel, cl, time)
+\begin{DoxyCompactList}\small\item\em This function creates and publishes a Pos\+Vel\+Class message with the 4 given integers after converting them to int32. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsynch__node_1_1synch__block_1_1SynchBlock_a3fe8b86f136dac65ace07cc24e6beca0}{calculate\+Point}} (self, x1, y1, vector\+\_\+x, vector\+\_\+y)
+\begin{DoxyCompactList}\small\item\em Calculating the gripping point based on the given vector. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsynch__node_1_1synch__block_1_1SynchBlock_a6cbb8b638ec96d98c3a62de4686a5a25}{calculate\+Actual\+Coordinates}} (self, x, y)
+\begin{DoxyCompactList}\small\item\em Calculates the actual position of the object relativ to the gripper. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classsynch__node_1_1synch__block_1_1SynchBlock_a371f7e23c490d823711c73d5cdcc507c}\label{classsynch__node_1_1synch__block_1_1SynchBlock_a371f7e23c490d823711c73d5cdcc507c}} 
+{\bfseries class\+\_\+subscriber}
+\item 
+\mbox{\Hypertarget{classsynch__node_1_1synch__block_1_1SynchBlock_a79eec8f5a0eb1e467347de45d0fc605d}\label{classsynch__node_1_1synch__block_1_1SynchBlock_a79eec8f5a0eb1e467347de45d0fc605d}} 
+{\bfseries pos\+\_\+subscriber}
+\item 
+\mbox{\Hypertarget{classsynch__node_1_1synch__block_1_1SynchBlock_aa3cf2ce3a861402bf2863a239fd3960c}\label{classsynch__node_1_1synch__block_1_1SynchBlock_aa3cf2ce3a861402bf2863a239fd3960c}} 
+{\bfseries pos\+\_\+vel\+\_\+class\+\_\+publisher}
+\item 
+\mbox{\Hypertarget{classsynch__node_1_1synch__block_1_1SynchBlock_ab0a4d355c2c764729e0fa320fa64c9b6}\label{classsynch__node_1_1synch__block_1_1SynchBlock_ab0a4d355c2c764729e0fa320fa64c9b6}} 
+{\bfseries id\+\_\+classes}
+\item 
+\mbox{\Hypertarget{classsynch__node_1_1synch__block_1_1SynchBlock_a9f58269c2a73f5973af6cf6f71a9b541}\label{classsynch__node_1_1synch__block_1_1SynchBlock_a9f58269c2a73f5973af6cf6f71a9b541}} 
+{\bfseries ids\+\_\+to\+\_\+ignore}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A \mbox{\hyperlink{classsynch__node_1_1synch__block_1_1SynchBlock}{Synch\+Block}} instance is used to create a ROS2 node for synchronisation. 
+
+The node subscribes the topics \char`\"{}id\+\_\+class\+\_\+vec\char`\"{} from the classification and \char`\"{}id\+\_\+pos\+\_\+vel\+\_\+time\char`\"{} from the modelling. It processes incoming data from those topics and publishes the synchronised message on the topic \char`\"{}pos\+\_\+vel\+\_\+class\char`\"{} for the logic.
+
+The synchronisation includes\+:
+\begin{DoxyItemize}
+\item Data from the classification.
+\item Data from the modelling. 
+\end{DoxyItemize}
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classsynch__node_1_1synch__block_1_1SynchBlock_a6cbb8b638ec96d98c3a62de4686a5a25}\label{classsynch__node_1_1synch__block_1_1SynchBlock_a6cbb8b638ec96d98c3a62de4686a5a25}} 
+\index{synch\_node.synch\_block.SynchBlock@{synch\_node.synch\_block.SynchBlock}!calculateActualCoordinates@{calculateActualCoordinates}}
+\index{calculateActualCoordinates@{calculateActualCoordinates}!synch\_node.synch\_block.SynchBlock@{synch\_node.synch\_block.SynchBlock}}
+\doxysubsubsection{\texorpdfstring{calculateActualCoordinates()}{calculateActualCoordinates()}}
+{\footnotesize\ttfamily def synch\+\_\+node.\+synch\+\_\+block.\+Synch\+Block.\+calculate\+Actual\+Coordinates (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})}
+
+
+
+Calculates the actual position of the object relativ to the gripper. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The x-\/position of the object in the image. \\
+\hline
+{\em y} & The y-\/position of the object in the image. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+actual\+\_\+pos\+\_\+x The calculated x\+\_\+position of the object relativ to the gripper. 
+
+actual\+\_\+pos\+\_\+y The calculated y\+\_\+position of the object relativ to the gripper. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsynch__node_1_1synch__block_1_1SynchBlock_a3fe8b86f136dac65ace07cc24e6beca0}\label{classsynch__node_1_1synch__block_1_1SynchBlock_a3fe8b86f136dac65ace07cc24e6beca0}} 
+\index{synch\_node.synch\_block.SynchBlock@{synch\_node.synch\_block.SynchBlock}!calculatePoint@{calculatePoint}}
+\index{calculatePoint@{calculatePoint}!synch\_node.synch\_block.SynchBlock@{synch\_node.synch\_block.SynchBlock}}
+\doxysubsubsection{\texorpdfstring{calculatePoint()}{calculatePoint()}}
+{\footnotesize\ttfamily def synch\+\_\+node.\+synch\+\_\+block.\+Synch\+Block.\+calculate\+Point (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x1,  }\item[{}]{y1,  }\item[{}]{vector\+\_\+x,  }\item[{}]{vector\+\_\+y }\end{DoxyParamCaption})}
+
+
+
+Calculating the gripping point based on the given vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x1} & The x-\/positon of the center of mass. \\
+\hline
+{\em y1} & The y-\/positon of the center of mass. \\
+\hline
+{\em vector\+\_\+x} & The fist parameter of the vector. \\
+\hline
+{\em vector\+\_\+y} & The second parameter of the vector. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new\+\_\+x The x-\/postion of the gripping point. 
+
+new\+\_\+y The y-\/postion of the gripping point. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsynch__node_1_1synch__block_1_1SynchBlock_aa838f352dc5933b714a569b39e044572}\label{classsynch__node_1_1synch__block_1_1SynchBlock_aa838f352dc5933b714a569b39e044572}} 
+\index{synch\_node.synch\_block.SynchBlock@{synch\_node.synch\_block.SynchBlock}!class\_callback@{class\_callback}}
+\index{class\_callback@{class\_callback}!synch\_node.synch\_block.SynchBlock@{synch\_node.synch\_block.SynchBlock}}
+\doxysubsubsection{\texorpdfstring{class\_callback()}{class\_callback()}}
+{\footnotesize\ttfamily def synch\+\_\+node.\+synch\+\_\+block.\+Synch\+Block.\+class\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{msg }\end{DoxyParamCaption})}
+
+
+
+Callback function for processing classification messages. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em msg} & The ROS2 message Id\+Class containing the ID and the classification of an object. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsynch__node_1_1synch__block_1_1SynchBlock_a5f426e83d964d56717a44c6a1fba01ca}\label{classsynch__node_1_1synch__block_1_1SynchBlock_a5f426e83d964d56717a44c6a1fba01ca}} 
+\index{synch\_node.synch\_block.SynchBlock@{synch\_node.synch\_block.SynchBlock}!pos\_callback@{pos\_callback}}
+\index{pos\_callback@{pos\_callback}!synch\_node.synch\_block.SynchBlock@{synch\_node.synch\_block.SynchBlock}}
+\doxysubsubsection{\texorpdfstring{pos\_callback()}{pos\_callback()}}
+{\footnotesize\ttfamily def synch\+\_\+node.\+synch\+\_\+block.\+Synch\+Block.\+pos\+\_\+callback (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{msg }\end{DoxyParamCaption})}
+
+
+
+Callback function for processing modelling messages. 
+
+This function checks if the message can be ignoered because its neither a cat or unicorn if this is true it compares the id of the message with the id of the class-\/message, if they are the same it publishes the new message. 
+\begin{DoxyParams}{Parameters}
+{\em msg} & The ROS2 message Id\+Pos\+Vel containing the ID, position and the velocity of an object. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsynch__node_1_1synch__block_1_1SynchBlock_a26bff2fa24a1ce945eca6f08ff05dd70}\label{classsynch__node_1_1synch__block_1_1SynchBlock_a26bff2fa24a1ce945eca6f08ff05dd70}} 
+\index{synch\_node.synch\_block.SynchBlock@{synch\_node.synch\_block.SynchBlock}!publish\_synch@{publish\_synch}}
+\index{publish\_synch@{publish\_synch}!synch\_node.synch\_block.SynchBlock@{synch\_node.synch\_block.SynchBlock}}
+\doxysubsubsection{\texorpdfstring{publish\_synch()}{publish\_synch()}}
+{\footnotesize\ttfamily def synch\+\_\+node.\+synch\+\_\+block.\+Synch\+Block.\+publish\+\_\+synch (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{pos\+\_\+x,  }\item[{}]{pos\+\_\+y,  }\item[{}]{vel,  }\item[{}]{cl,  }\item[{}]{time }\end{DoxyParamCaption})}
+
+
+
+This function creates and publishes a Pos\+Vel\+Class message with the 4 given integers after converting them to int32. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pos\+\_\+x} & The x-\/position of an object. \\
+\hline
+{\em pos\+\_\+y} & The y-\/position of an object. \\
+\hline
+{\em vel} & The velocity of an object. \\
+\hline
+{\em cl} & The classification of an object. \\
+\hline
+{\em time} & The timestemp of the current object. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/juntj/\+Robotik\+Projekt3/ros2\+\_\+workspace/src/synch\+\_\+node/synch\+\_\+node/synch\+\_\+block.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,4 @@
+<map id="synch_node.synch_block.SynchBlock" name="synch_node.synch_block.SynchBlock">
+<area shape="rect" id="node1" title="A SynchBlock instance is used to create a ROS2 node for synchronisation." alt="" coords="5,80,216,121"/>
+<area shape="rect" id="node2" title=" " alt="" coords="84,5,137,32"/>
+</map>

@@ -1,4 +1,4 @@
 <map id="detection_node.detection.ObjectDetection" name="detection_node.detection.ObjectDetection">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,196,121"/>
-<area shape="rect" id="node2" title=" " alt="" coords="73,5,129,32"/>
+<area shape="rect" id="node1" title="A Detection instance is used to create a ROS2 node for image detection." alt="" coords="5,80,176,121"/>
+<area shape="rect" id="node2" title=" " alt="" coords="64,5,117,32"/>
 </map>
