@@ -21,12 +21,12 @@ class SynchBlock(Node):
     ## Initializes a new SynchBlock instance.
     def __init__(self):
         super().__init__('synchroniser')
-        self.class_subscriber = self.create_subscription(IdClassVec, 'id_class_vec', self.class_callback, 10)
-        self.pos_subscriber = self.create_subscription(IdPosVelTime, 'id_pos_vel_time', self.pos_callback, 10)
-        self.pos_vel_class_publisher = self.create_publisher(PosVelClass, 'pos_vel_class', 10)
+        self.__class_subscriber = self.create_subscription(IdClassVec, 'id_class_vec', self.class_callback, 10)
+        self.__pos_subscriber = self.create_subscription(IdPosVelTime, 'id_pos_vel_time', self.pos_callback, 10)
+        self.__pos_vel_class_publisher = self.create_publisher(PosVelClass, 'pos_vel_class', 10)
 
-        self.id_classes = []
-        self.ids_to_ignore = []
+        self.__id_classes = []
+        self.__ids_to_ignore = []
 
     ## Callback function for processing classification messages.
     # @param msg The ROS2 message IdClass containing the ID and the classification of an object.
@@ -40,9 +40,9 @@ class SynchBlock(Node):
 
         if cl != -1:
             id_classification = [id, cl, vector_x, vector_y]
-            self.id_classes.append(id_classification)
+            self.__id_classes.append(id_classification)
         else:
-            self.ids_to_ignore.append(id)
+            self.__ids_to_ignore.append(id)
     ## Callback function for processing modelling messages.
     # This function checks if the message can be ignoered because its neither a cat or unicorn 
     # if this is true it compares the id of the message with the id of the class-message, 
@@ -59,14 +59,14 @@ class SynchBlock(Node):
 
         print("RECIEVED object with id: "+str(id)+" and position: "+str(pos_x)+" / "+str(pos_y)+" and speed: "+str(velocity))
 
-        for ids in reversed(self.ids_to_ignore):
+        for ids in reversed(self.__ids_to_ignore):
             if ids == id:
-                self.ids_to_ignore.remove(id)
+                self.__ids_to_ignore.remove(id)
                 ignore = True
                 #print("ignored object with id: "+str(id))
                 break
         if not ignore:
-            for id_class in self.id_classes:
+            for id_class in self.__id_classes:
                 if id_class[0] == id:
 
                     vector_x = id_class[2]*0.0004
@@ -76,7 +76,7 @@ class SynchBlock(Node):
                     
                     self.publish_synch(pos_x, pos_y, velocity, classification, time)
 
-                    self.id_classes.remove(id_class)
+                    self.__id_classes.remove(id_class)
 
     ## This function creates and publishes a PosVelClass message with the 4 given integers after converting them to int32.
     # @param pos_x The x-position of an object.
@@ -110,7 +110,7 @@ class SynchBlock(Node):
 
         self.get_logger().info('Publishing: "%s"' % msg)
 
-        self.pos_vel_class_publisher.publish(msg)
+        self.__pos_vel_class_publisher.publish(msg)
          
     ## Calculating the gripping point based on the given vector.
     # @param x1 The x-positon of the center of mass.

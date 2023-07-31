@@ -45,7 +45,7 @@ def convertToRos(IdPosTime, id, posx, posy, time):
 
     return IdPosTime
 
-## A Detection instance is used to create a ROS2 node for image detection.
+## A ObjectDetection instance is used to create a ROS2 node for image detection.
 # The node subscribes the topic "preprocessed_stream", 
 # processes incoming images from that topic 
 # and publishes the processed images on the topic "id_sample" for classification
@@ -59,10 +59,10 @@ class ObjectDetection(Node):
     ## Initializes a new ObjectDetection instance.
     def __init__(self):
         super().__init__('detector')
-        self.image_subscriber = self.create_subscription(Image, 'preprocessed_stream', self.image_callback, 10)
-        self.id_sample_publisher = self.create_publisher(IdSample, 'id_sample', 10)
-        self.id_pos_publisher = self.create_publisher(IdPosTime, 'id_pos_time', 10)
-        self.cv_bridge = CvBridge()
+        self.__image_subscriber = self.create_subscription(Image, 'preprocessed_stream', self.image_callback, 10)
+        self.__id_sample_publisher = self.create_publisher(IdSample, 'id_sample', 10)
+        self.__id_pos_publisher = self.create_publisher(IdPosTime, 'id_pos_time', 10)
+        self.__cv_bridge = CvBridge()
 
     ## Callback function for processing image messages.
     # This function detects and tracks objects in the image.
@@ -71,7 +71,7 @@ class ObjectDetection(Node):
     def image_callback(self, msg):
         try:
             # Konvertiere das ROS-Bild zu einem OpenCV-Bild
-            cv_image = self.cv_bridge.imgmsg_to_cv2(msg, '8UC1')
+            cv_image = self.__cv_bridge.imgmsg_to_cv2(msg, '8UC1')
         except CvBridgeError as e:
             self.get_logger().error('Fehler beim Konvertieren des ROS-Bildes: %s' % str(e))
             return
@@ -100,14 +100,14 @@ class ObjectDetection(Node):
 
             IdPos = IdPosTime()
             IdPos = convertToRos(IdPos, id, int(cx), int(cy), time)
-            self.id_pos_publisher.publish(IdPos)
+            self.__id_pos_publisher.publish(IdPos)
             
             # 3. Create Image of Object
             publish, id_img = tracker.getSample(cv_image, center_x, center_y, id)
             if publish:
                 #self.get_logger().info('publishing sample with id: '+str(id))
                 print("sample with id: "+str(id))
-                self.id_sample_publisher.publish(id_img)
+                self.__id_sample_publisher.publish(id_img)
             # Draw center point
             cv2.circle(cv_image, (cx, cy), 5, (0, 0, 255), -1)
         
