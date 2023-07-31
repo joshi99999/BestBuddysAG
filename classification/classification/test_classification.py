@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import unittest
-from . import classification
+from . import Classification
 import joblib
 from joblib import dump , load
 from sklearn import svm
