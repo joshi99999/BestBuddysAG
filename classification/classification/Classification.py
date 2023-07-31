@@ -89,8 +89,8 @@ class ObjectClassification(Node):
     # @return  A tuple representing the vector from the center point to the gripping point. The tuple contains the x-component and y-component of the vector.             
     def find_gripping_point_vector(self, gripping_point, center_point):   
     # Calculate the vector components
-    vector = (gripping_point[0] - center_point[0], gripping_point[1] - center_point[1])
-    return vector
+        vector = (gripping_point[0] - center_point[0], gripping_point[1] - center_point[1])
+        return vector
 
     ##Classifies an image as a cat or unicorn.
     # @param image (str): Path to the image.
