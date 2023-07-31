@@ -5,8 +5,7 @@ from rclpy.node import Node
 from std_msgs.msg import Int32, Int64
 from ro45_portalrobot_interfaces.msg import IdClassVec, IdPosVelTime, PosVelClass
 
-## @package synch_node.
-# This package contains synchronising tools.
+## @package synch_node This package contains synchronising tools.
 
 ## A SynchBlock instance is used to create a ROS2 node for synchronisation.
 # The node subscribes the topics "id_class_vec" from the classification

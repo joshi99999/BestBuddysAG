@@ -45,7 +45,7 @@ def convertToRos(IdPosTime, id, posx, posy, time):
 
     return IdPosTime
 
-## A ObjectDetection instance is used to create a ROS2 node for image detection.
+## An ObjectDetection instance is used to create a ROS2 node for image detection.
 # The node subscribes the topic "preprocessed_stream", 
 # processes incoming images from that topic 
 # and publishes the processed images on the topic "id_sample" for classification

@@ -2,27 +2,25 @@
 \label{classdetection__node_1_1detection_1_1ObjectDetection}\index{detection\_node.detection.ObjectDetection@{detection\_node.detection.ObjectDetection}}
 
 
-A Detection instance is used to create a ROS2 node for image detection.  
+An \mbox{\hyperlink{classdetection__node_1_1detection_1_1ObjectDetection}{Object\+Detection}} instance is used to create a ROS2 node for image detection.  
 
 
 
 
-Inheritance diagram for detection\+\_\+node.\+detection.\+Object\+Detection\+:
-\nopagebreak
+Inheritance diagram for detection\+\_\+node.\+detection.\+Object\+Detection\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=208pt]{classdetection__node_1_1detection_1_1ObjectDetection__inherit__graph}
+\includegraphics[width=223pt]{classdetection__node_1_1detection_1_1ObjectDetection__inherit__graph}
 \end{center}
 \end{figure}
 
 
-Collaboration diagram for detection\+\_\+node.\+detection.\+Object\+Detection\+:
-\nopagebreak
+Collaboration diagram for detection\+\_\+node.\+detection.\+Object\+Detection\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=208pt]{classdetection__node_1_1detection_1_1ObjectDetection__coll__graph}
+\includegraphics[width=223pt]{classdetection__node_1_1detection_1_1ObjectDetection__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
@@ -33,25 +31,10 @@ def \mbox{\hyperlink{classdetection__node_1_1detection_1_1ObjectDetection_a39f7e
 \begin{DoxyCompactList}\small\item\em Initializes a new \mbox{\hyperlink{classdetection__node_1_1detection_1_1ObjectDetection}{Object\+Detection}} instance. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classdetection__node_1_1detection_1_1ObjectDetection_a4e3d324d99bb0a26ee8862b7ec778dae}{image\+\_\+callback}} (self, msg)
 \begin{DoxyCompactList}\small\item\em Callback function for processing image messages. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{classdetection__node_1_1detection_1_1ObjectDetection_aece5372f511201e1d6375c172a919ff4}\label{classdetection__node_1_1detection_1_1ObjectDetection_aece5372f511201e1d6375c172a919ff4}} 
-{\bfseries image\+\_\+subscriber}
-\item 
-\mbox{\Hypertarget{classdetection__node_1_1detection_1_1ObjectDetection_a99101d45e8ebcab065de43844bf40e0e}\label{classdetection__node_1_1detection_1_1ObjectDetection_a99101d45e8ebcab065de43844bf40e0e}} 
-{\bfseries id\+\_\+sample\+\_\+publisher}
-\item 
-\mbox{\Hypertarget{classdetection__node_1_1detection_1_1ObjectDetection_a2b423dda4c80546879bf35a52b9097b1}\label{classdetection__node_1_1detection_1_1ObjectDetection_a2b423dda4c80546879bf35a52b9097b1}} 
-{\bfseries id\+\_\+pos\+\_\+publisher}
-\item 
-\mbox{\Hypertarget{classdetection__node_1_1detection_1_1ObjectDetection_abb547dc30c923b01063a3f3fa7183674}\label{classdetection__node_1_1detection_1_1ObjectDetection_abb547dc30c923b01063a3f3fa7183674}} 
-{\bfseries cv\+\_\+bridge}
-\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-A Detection instance is used to create a ROS2 node for image detection. 
+An \mbox{\hyperlink{classdetection__node_1_1detection_1_1ObjectDetection}{Object\+Detection}} instance is used to create a ROS2 node for image detection. 
 
 The node subscribes the topic \char`\"{}preprocessed\+\_\+stream\char`\"{}, processes incoming images from that topic and publishes the processed images on the topic \char`\"{}id\+\_\+sample\char`\"{} for classification and publishes the processed images on the topic \char`\"{}id\+\_\+pos\+\_\+time\char`\"{} for modelling.
 
@@ -82,4 +65,4 @@ This function detects and tracks objects in the image. It also creats samples fo
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-/home/juntj/\+Robotik\+Projekt3/ros2\+\_\+workspace/src/detection\+\_\+node/detection\+\_\+node/detection.\+py\end{DoxyCompactItemize}
+/home/seb/ros2\+\_\+ws/src/detection\+\_\+node/detection\+\_\+node/detection.\+py\end{DoxyCompactItemize}

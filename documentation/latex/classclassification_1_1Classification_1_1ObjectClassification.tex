@@ -33,32 +33,10 @@ def \mbox{\hyperlink{classclassification_1_1Classification_1_1ObjectClassificati
 \begin{DoxyCompactList}\small\item\em Callback function for the input image. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classclassification_1_1Classification_1_1ObjectClassification_a0c907b5719e7e7a3f05e0cd7d125c1b7}{find\+\_\+center\+\_\+of\+\_\+mass}} (self, image)
 \begin{DoxyCompactList}\small\item\em Finds the centroid (center of mass) of the largest object in a binary image. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classclassification_1_1Classification_1_1ObjectClassification_a7e33d852e1fa12cbd78a900841390d01}\label{classclassification_1_1Classification_1_1ObjectClassification_a7e33d852e1fa12cbd78a900841390d01}} 
-def {\bfseries find\+\_\+gripping\+\_\+point\+\_\+vector} (self, gripping\+\_\+point, center\+\_\+point)
-\item 
+def \mbox{\hyperlink{classclassification_1_1Classification_1_1ObjectClassification_a7e33d852e1fa12cbd78a900841390d01}{find\+\_\+gripping\+\_\+point\+\_\+vector}} (self, gripping\+\_\+point, center\+\_\+point)
+\begin{DoxyCompactList}\small\item\em Calculates the vector between a gripping point and a center point. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classclassification_1_1Classification_1_1ObjectClassification_af0633a5b953821bbe02cf309757e0420}{feature\+\_\+extract}} (self, image)
 \begin{DoxyCompactList}\small\item\em Classifies an image as a cat or unicorn. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{classclassification_1_1Classification_1_1ObjectClassification_a10f3e01522a38d509b3f46fcbab86b69}\label{classclassification_1_1Classification_1_1ObjectClassification_a10f3e01522a38d509b3f46fcbab86b69}} 
-{\bfseries subscription}
-\item 
-\mbox{\Hypertarget{classclassification_1_1Classification_1_1ObjectClassification_a4b5c95b1e09179c3ee10d5a956b6077f}\label{classclassification_1_1Classification_1_1ObjectClassification_a4b5c95b1e09179c3ee10d5a956b6077f}} 
-{\bfseries publisher}
-\item 
-\mbox{\Hypertarget{classclassification_1_1Classification_1_1ObjectClassification_a0b9f65d38b7900e53116b8e68635e292}\label{classclassification_1_1Classification_1_1ObjectClassification_a0b9f65d38b7900e53116b8e68635e292}} 
-{\bfseries bridge}
-\item 
-\mbox{\Hypertarget{classclassification_1_1Classification_1_1ObjectClassification_a5983b37e44ad180341f250f58e0b83dc}\label{classclassification_1_1Classification_1_1ObjectClassification_a5983b37e44ad180341f250f58e0b83dc}} 
-{\bfseries svm\+\_\+model}
-\end{DoxyCompactItemize}
-\doxysubsection*{Static Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{classclassification_1_1Classification_1_1ObjectClassification_ac09f397c00c1738c545097ede2735532}\label{classclassification_1_1Classification_1_1ObjectClassification_ac09f397c00c1738c545097ede2735532}} 
-tuple {\bfseries vector} = (gripping\+\_\+point\mbox{[}0\mbox{]} -\/ center\+\_\+point\mbox{[}0\mbox{]}, gripping\+\_\+point\mbox{[}1\mbox{]} -\/ center\+\_\+point\mbox{[}1\mbox{]})
-\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -105,6 +83,27 @@ Finds the centroid (center of mass) of the largest object in a binary image.
 \begin{DoxyReturn}{Returns}
 tuple or None\+: A tuple representing the centroid coordinates (cx, cy) of the largest object. If no objects are found (no contours detected), it returns None. 
 \end{DoxyReturn}
+\mbox{\Hypertarget{classclassification_1_1Classification_1_1ObjectClassification_a7e33d852e1fa12cbd78a900841390d01}\label{classclassification_1_1Classification_1_1ObjectClassification_a7e33d852e1fa12cbd78a900841390d01}} 
+\index{classification.Classification.ObjectClassification@{classification.Classification.ObjectClassification}!find\_gripping\_point\_vector@{find\_gripping\_point\_vector}}
+\index{find\_gripping\_point\_vector@{find\_gripping\_point\_vector}!classification.Classification.ObjectClassification@{classification.Classification.ObjectClassification}}
+\doxysubsubsection{\texorpdfstring{find\_gripping\_point\_vector()}{find\_gripping\_point\_vector()}}
+{\footnotesize\ttfamily def classification.\+Classification.\+Object\+Classification.\+find\+\_\+gripping\+\_\+point\+\_\+vector (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{gripping\+\_\+point,  }\item[{}]{center\+\_\+point }\end{DoxyParamCaption})}
+
+
+
+Calculates the vector between a gripping point and a center point. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gripping\+\_\+point} & (tuple)\+: The coordinates of the gripping point. \\
+\hline
+{\em center\+\_\+point} & (tuple)\+: The coordinates of the center point. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A tuple representing the vector from the center point to the gripping point. The tuple contains the x-\/component and y-\/component of the vector. ~\newline
+ 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classclassification_1_1Classification_1_1ObjectClassification_a9b05126fd0d07bc4a49f01115f0b8ed3}\label{classclassification_1_1Classification_1_1ObjectClassification_a9b05126fd0d07bc4a49f01115f0b8ed3}} 
 \index{classification.Classification.ObjectClassification@{classification.Classification.ObjectClassification}!image\_callback@{image\_callback}}
 \index{image\_callback@{image\_callback}!classification.Classification.ObjectClassification@{classification.Classification.ObjectClassification}}
@@ -124,4 +123,4 @@ Callback function for the input image.
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 
-/home/juntj/\+Robotik\+Projekt3/ros2\+\_\+workspace/src/classification/classification/Classification.\+py\end{DoxyCompactItemize}
+/home/seb/ros2\+\_\+ws/src/classification/classification/Classification.\+py\end{DoxyCompactItemize}

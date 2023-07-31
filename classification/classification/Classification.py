@@ -13,27 +13,28 @@ import joblib
 from joblib import dump , load
 from sklearn import svm
 
-## @package This package contains object classification tools
-## A Objektclassification is used to classifier a objekt . 
+## @package classification This package contains object classification tools
+
+## An ObjectClassification instance is used to create a ROS2 node for object classification. 
 class ObjectClassification(Node):
     
     ##Initializes the object classification.
     def __init__(self):
         super().__init__('ObjectClassification')
-        self.subscription = self.create_subscription(IdSample, 'id_sample', self.image_callback, 10)
-        self.publisher = self.create_publisher(IdClassVec, 'id_class_vec', 10)
-        self.bridge = CvBridge()
+        self.__subscription = self.create_subscription(IdSample, 'id_sample', self.image_callback, 10)
+        self.__publisher = self.create_publisher(IdClassVec, 'id_class_vec', 10)
+        self.__bridge = CvBridge()
 
         model_file = 'src/classification/classification/svm_model.joblib'
-        self.svm_model = load(model_file)
+        self.__svm_model = load(model_file)
         
         
     ##Callback function for the input image.
     # @param Image: ROS image.
     def image_callback(self, IdSample):
-        cv_image = self.bridge.imgmsg_to_cv2(IdSample.image, desired_encoding='8UC1')
+        cv_image = self.__bridge.imgmsg_to_cv2(IdSample.image, desired_encoding='8UC1')
         features, vector = self.feature_extract(cv_image)
-        class_result = pred(features, self.svm_model)
+        class_result = pred(features, self.__svm_model)
         msg = IdClassVec()
         
         id_msg = Int32()
@@ -55,7 +56,7 @@ class ObjectClassification(Node):
 
         self.get_logger().info('Publishing: "%s"' % msg)
         
-        self.publisher.publish(msg)
+        self.__publisher.publish(msg)
     
     ##Finds the centroid (center of mass) of the largest object in a binary image.
     # @param image (ndarray): The binary image containing objects.
@@ -83,12 +84,12 @@ class ObjectClassification(Node):
         # Rückgabe des Schwerpunkts (Centroid)
         return cx, cy
     
-    #Calculates the vector between a gripping point and a center point.
+    ##Calculates the vector between a gripping point and a center point.
     # @param gripping_point (tuple): The coordinates of the gripping point.
     # @param center_point (tuple): The coordinates of the center point.
-    # @return  A tuple representing the vector from the center point to the gripping point. The tuple contains the x-component and y-component of the vector.             
+    # @return A tuple representing the vector from the center point to the gripping point. The tuple contains the x-component and y-component of the vector.             
     def find_gripping_point_vector(self, gripping_point, center_point):   
-    # Calculate the vector components
+        # Calculate the vector components
         vector = (gripping_point[0] - center_point[0], gripping_point[1] - center_point[1])
         return vector
 

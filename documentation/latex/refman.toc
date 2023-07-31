@@ -1,13 +1,77 @@
 \@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
-\contentsline {chapter}{\numberline {1}Class Index}{1}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Class List}{1}{section.1.1}%
-\contentsline {chapter}{\numberline {2}Class Documentation}{3}{chapter.2}%
-\contentsline {section}{\numberline {2.1}image\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}preprocessor.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}scale\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Detection.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Scale\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Detector Class Reference}{3}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Detailed Description}{3}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Constructor \& Destructor Documentation}{4}{subsection.2.1.2}%
-\contentsline {subsubsection}{\numberline {2.1.2.1}\_\_init\_\_()}{4}{subsubsection.2.1.2.1}%
-\contentsline {subsection}{\numberline {2.1.3}Member Function Documentation}{4}{subsection.2.1.3}%
-\contentsline {subsubsection}{\numberline {2.1.3.1}analyseLine()}{4}{subsubsection.2.1.3.1}%
-\contentsline {subsubsection}{\numberline {2.1.3.2}calculateLine()}{5}{subsubsection.2.1.3.2}%
-\contentsline {subsubsection}{\numberline {2.1.3.3}calculateLineEnds()}{5}{subsubsection.2.1.3.3}%
-\contentsline {subsubsection}{\numberline {2.1.3.4}scanArea()}{6}{subsubsection.2.1.3.4}%
+\contentsline {chapter}{\numberline {1}Hierarchical Index}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Class Hierarchy}{1}{section.1.1}%
+\contentsline {chapter}{\numberline {2}Class Index}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Class List}{3}{section.2.1}%
+\contentsline {chapter}{\numberline {3}Class Documentation}{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}camera.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}camera.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Camera Class Reference}{5}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Detailed Description}{6}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Constructor \& Destructor Documentation}{6}{subsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.2.1}\_\_init\_\_()}{6}{subsubsection.3.1.2.1}%
+\contentsline {section}{\numberline {3.2}logic.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}logic.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Controller Class Reference}{6}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Detailed Description}{8}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Constructor \& Destructor Documentation}{8}{subsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.2.1}\_\_init\_\_()}{8}{subsubsection.3.2.2.1}%
+\contentsline {subsection}{\numberline {3.2.3}Member Function Documentation}{8}{subsection.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.2.3.1}error\_callback()}{8}{subsubsection.3.2.3.1}%
+\contentsline {subsubsection}{\numberline {3.2.3.2}object\_callback()}{9}{subsubsection.3.2.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.3.3}robotPosition\_callback()}{9}{subsubsection.3.2.3.3}%
+\contentsline {section}{\numberline {3.3}detection\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}node.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}tracker.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Euclidean\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Dist\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Tracker Class Reference}{10}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Detailed Description}{11}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Member Function Documentation}{11}{subsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.2.1}detectObject()}{11}{subsubsection.3.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.3.2.2}find\_center\_of\_mass()}{11}{subsubsection.3.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.3.2.3}getSample()}{12}{subsubsection.3.3.2.3}%
+\contentsline {subsubsection}{\numberline {3.3.2.4}trackObject()}{12}{subsubsection.3.3.2.4}%
+\contentsline {subsubsection}{\numberline {3.3.2.5}update()}{13}{subsubsection.3.3.2.5}%
+\contentsline {section}{\numberline {3.4}modeling.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}modeling.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Modeler Class Reference}{13}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Detailed Description}{14}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Member Function Documentation}{14}{subsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {3.4.2.1}add\_position()}{14}{subsubsection.3.4.2.1}%
+\contentsline {subsubsection}{\numberline {3.4.2.2}calculate\_movement()}{15}{subsubsection.3.4.2.2}%
+\contentsline {subsubsection}{\numberline {3.4.2.3}get\_positions\_by\_id()}{15}{subsubsection.3.4.2.3}%
+\contentsline {subsubsection}{\numberline {3.4.2.4}position\_callback()}{16}{subsubsection.3.4.2.4}%
+\contentsline {section}{\numberline {3.5}classification.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Classification.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Object\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Classification Class Reference}{16}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Detailed Description}{17}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Member Function Documentation}{17}{subsection.3.5.2}%
+\contentsline {subsubsection}{\numberline {3.5.2.1}feature\_extract()}{17}{subsubsection.3.5.2.1}%
+\contentsline {subsubsection}{\numberline {3.5.2.2}find\_center\_of\_mass()}{18}{subsubsection.3.5.2.2}%
+\contentsline {subsubsection}{\numberline {3.5.2.3}find\_gripping\_point\_vector()}{18}{subsubsection.3.5.2.3}%
+\contentsline {subsubsection}{\numberline {3.5.2.4}image\_callback()}{19}{subsubsection.3.5.2.4}%
+\contentsline {section}{\numberline {3.6}detection\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}node.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}detection.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Object\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Detection Class Reference}{19}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Detailed Description}{20}{subsection.3.6.1}%
+\contentsline {subsection}{\numberline {3.6.2}Member Function Documentation}{20}{subsection.3.6.2}%
+\contentsline {subsubsection}{\numberline {3.6.2.1}image\_callback()}{20}{subsubsection.3.6.2.1}%
+\contentsline {section}{\numberline {3.7}position\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}controller.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}pos\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}control.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Position\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Controller Class Reference}{20}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Detailed Description}{22}{subsection.3.7.1}%
+\contentsline {subsection}{\numberline {3.7.2}Constructor \& Destructor Documentation}{22}{subsection.3.7.2}%
+\contentsline {subsubsection}{\numberline {3.7.2.1}\_\_init\_\_()}{22}{subsubsection.3.7.2.1}%
+\contentsline {subsection}{\numberline {3.7.3}Member Function Documentation}{22}{subsection.3.7.3}%
+\contentsline {subsubsection}{\numberline {3.7.3.1}calculate\_control\_signal()}{23}{subsubsection.3.7.3.1}%
+\contentsline {subsubsection}{\numberline {3.7.3.2}controllerCommand\_callback()}{23}{subsubsection.3.7.3.2}%
+\contentsline {subsubsection}{\numberline {3.7.3.3}robotPostion\_callback()}{23}{subsubsection.3.7.3.3}%
+\contentsline {section}{\numberline {3.8}image\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}preprocessor.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}preprocessing.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Preprocessor Class Reference}{24}{section.3.8}%
+\contentsline {subsection}{\numberline {3.8.1}Detailed Description}{25}{subsection.3.8.1}%
+\contentsline {subsection}{\numberline {3.8.2}Constructor \& Destructor Documentation}{25}{subsection.3.8.2}%
+\contentsline {subsubsection}{\numberline {3.8.2.1}\_\_init\_\_()}{25}{subsubsection.3.8.2.1}%
+\contentsline {subsection}{\numberline {3.8.3}Member Function Documentation}{25}{subsection.3.8.3}%
+\contentsline {subsubsection}{\numberline {3.8.3.1}preprocess()}{25}{subsubsection.3.8.3.1}%
+\contentsline {section}{\numberline {3.9}image\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}preprocessor.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}scale\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Detection.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Scale\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Detector Class Reference}{26}{section.3.9}%
+\contentsline {subsection}{\numberline {3.9.1}Detailed Description}{26}{subsection.3.9.1}%
+\contentsline {subsection}{\numberline {3.9.2}Constructor \& Destructor Documentation}{27}{subsection.3.9.2}%
+\contentsline {subsubsection}{\numberline {3.9.2.1}\_\_init\_\_()}{27}{subsubsection.3.9.2.1}%
+\contentsline {subsection}{\numberline {3.9.3}Member Function Documentation}{27}{subsection.3.9.3}%
+\contentsline {subsubsection}{\numberline {3.9.3.1}adaptBorders()}{27}{subsubsection.3.9.3.1}%
+\contentsline {subsubsection}{\numberline {3.9.3.2}analyseLine()}{28}{subsubsection.3.9.3.2}%
+\contentsline {subsubsection}{\numberline {3.9.3.3}calculateLine()}{28}{subsubsection.3.9.3.3}%
+\contentsline {subsubsection}{\numberline {3.9.3.4}calculateLineEnds()}{29}{subsubsection.3.9.3.4}%
+\contentsline {subsubsection}{\numberline {3.9.3.5}detectScale()}{29}{subsubsection.3.9.3.5}%
+\contentsline {subsubsection}{\numberline {3.9.3.6}scanArea()}{30}{subsubsection.3.9.3.6}%
+\contentsline {section}{\numberline {3.10}synch\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}node.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}synch\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}block.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Synch\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Block Class Reference}{30}{section.3.10}%
+\contentsline {subsection}{\numberline {3.10.1}Detailed Description}{31}{subsection.3.10.1}%
+\contentsline {subsection}{\numberline {3.10.2}Member Function Documentation}{31}{subsection.3.10.2}%
+\contentsline {subsubsection}{\numberline {3.10.2.1}calculateActualCoordinates()}{32}{subsubsection.3.10.2.1}%
+\contentsline {subsubsection}{\numberline {3.10.2.2}calculatePoint()}{32}{subsubsection.3.10.2.2}%
+\contentsline {subsubsection}{\numberline {3.10.2.3}class\_callback()}{33}{subsubsection.3.10.2.3}%
+\contentsline {subsubsection}{\numberline {3.10.2.4}pos\_callback()}{33}{subsubsection.3.10.2.4}%
+\contentsline {subsubsection}{\numberline {3.10.2.5}publish\_synch()}{33}{subsubsection.3.10.2.5}%

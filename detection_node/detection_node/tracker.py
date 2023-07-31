@@ -9,7 +9,7 @@ from ro45_portalrobot_interfaces.msg import IdSample, IdPosTime
 
 from cv_bridge import CvBridge
 
-## A EuclideanDistTracker instance is used to track and detected Objects, in an image.
+## An EuclideanDistTracker instance is used to track and detected Objects, in an image.
 #
 #  To work properly the following conditions must be met.
 #  + The given image must be a binary image.

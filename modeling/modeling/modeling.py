@@ -15,20 +15,20 @@ class Modeler(Node):
     def __init__(self):
         super().__init__('modeler')
 
-        self.old_ids = []        
-        self.id_list = []
-        self.position_lists = []
+        self.__old_ids = []        
+        self.__id_list = []
+        self.__position_lists = []
 
 
-        self.subscriber= self.create_subscription(IdPosTime, 'id_pos_time', self.position_callback, 10)
-        self.publisher = self.create_publisher(IdPosVelTime, 'id_pos_vel_time', 10)
+        self.__subscriber= self.create_subscription(IdPosTime, 'id_pos_time', self.position_callback, 10)
+        self.__publisher = self.create_publisher(IdPosVelTime, 'id_pos_vel_time', 10)
     
     ##This callback function is called automatically when an IdPosTime message is received. It processes the received message, adding the position and time data to the internal storage. If the Id is new, it calculates the movement from stored positions and publishes the result.
     # @param  msg_in (IdPosTime): The received IdPosTime message containing the Id, Position, and Time data.
     # @return none
     def position_callback(self, msg_in):
         try:
-            if msg_in.id.data in self.old_ids:
+            if msg_in.id.data in self.__old_ids:
                 return
 
             id = self.add_position(msg_in.id.data, msg_in.time.data, msg_in.pos_x.data, msg_in.pos_y.data)
@@ -41,7 +41,7 @@ class Modeler(Node):
                     msg_out.id = id
                     msg_out.pos_x, msg_out.pos_y, msg_out.vel_x, msg_out.time = ret
                     self.get_logger().info('Publishing: "%s"' % msg_out)
-                    self.publisher.publish(msg_out)
+                    self.__publisher.publish(msg_out)
         except Exception as e:
             # Catch any unexpected exceptions that may occur within the method
             print(f"An unexpected error occurred in position_callback: {e}")
@@ -74,10 +74,10 @@ class Modeler(Node):
     # @return list: A separate list containing the removed items.
     def get_positions_by_id(self, id):
         try:
-            index = self.id_list.index(id)
-            positions = self.position_lists.pop(index)
-            self.id_list.remove(id)
-            self.old_ids.append(id)
+            index = self.__id_list.index(id)
+            positions = self.__position_lists.pop(index)
+            self.__id_list.remove(id)
+            self.__old_ids.append(id)
             return positions
         except ValueError as e :
             # Catch the ValueError if the specified ID is not found in the id_list
@@ -100,11 +100,11 @@ class Modeler(Node):
             # Validate other parameters if needed
             # For example, you might want to check if the provided timestamp, pos_x, or pos_y are valid.
 
-            if id not in self.id_list:
-                self.id_list.append(id)
-                self.position_lists.append([[timestamp, pos_x, pos_y]])
+            if id not in self.__id_list:
+                self.__id_list.append(id)
+                self.__position_lists.append([[timestamp, pos_x, pos_y]])
             else:
-                self.position_lists[self.id_list.index(id)].append([timestamp, pos_x, pos_y])
+                self.__position_lists[self.__id_list.index(id)].append([timestamp, pos_x, pos_y])
 
         except ValueError as e:
             # Catch the ValueError and handle it within the method

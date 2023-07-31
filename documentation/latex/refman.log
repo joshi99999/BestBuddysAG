@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.7.25)  26 JUL 2023 19:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.7.25)  31 JUL 2023 21:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -830,7 +830,7 @@ Package hyperref Info: Option `unicode' set `true' on input line 156.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 12.9599pt on input line 161.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 10.79993pt on input line 163.
+(Font)              scaled to size 10.79993pt on input line 165.
  [1
 
 
@@ -842,91 +842,162 @@ AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}] [2
 \openout6 = `refman.toc'.
 
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 8.99994pt on input line 169.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 169
+(Font)              scaled to size 8.99994pt on input line 173.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 173
 .
 
 (C:\Users\rise\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 169
+LaTeX Font Info:    Trying to load font information for U+msb on input line 173
 .
 
 (C:\Users\rise\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+wasy on input line 16
-9.
+LaTeX Font Info:    Trying to load font information for U+wasy on input line 17
+3.
 
 (C:\Users\rise\AppData\Local\Programs\MiKTeX\tex/latex/wasysym\uwasy.fd
 File: uwasy.fd 2020/01/19 v2.4 Wasy-2 symbol font definitions
 )
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 6.29996pt on input line 169.
+(Font)              scaled to size 6.29996pt on input line 173.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 6.29996pt on input line 169.
+(Font)              scaled to size 6.29996pt on input line 173.
 
-[1] [2
-
-]
-Package hyperref Info: Option `pageanchor' set `true' on input line 171.
+[1] [2]
+Package hyperref Info: Option `pageanchor' set `true' on input line 175.
 
 Chapter 1.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 18.66588pt on input line 174.
+(Font)              scaled to size 18.66588pt on input line 178.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 18.66588pt on input line 174.
+(Font)              scaled to size 18.66588pt on input line 178.
 LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
-(Font)              scaled to size 18.66588pt on input line 174.
+(Font)              scaled to size 18.66588pt on input line 178.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 22.39185pt on input line 174.
+(Font)              scaled to size 22.39185pt on input line 178.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 22.39185pt on input line 174.
+(Font)              scaled to size 22.39185pt on input line 178.
 LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
-(Font)              scaled to size 22.39185pt on input line 174.
-(annotated.tex
+(Font)              scaled to size 22.39185pt on input line 178.
+(hierarchy.tex
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 12.9599pt on input line 1.
 ) [1
+
 
 ] [2
 
 ]
 Chapter 2.
-(classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.tex
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 10.79993pt on input line 8.
-LaTeX Font Info:    Trying to load font information for TS1+phv on input line 1
-1.
+(annotated.tex
+LaTeX Font Info:    Trying to load font information for TS1+phv on input line 4
+.
 
 (C:\Users\rise\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1phv.fd
 File: ts1phv.fd 2020/03/25 scalable font definitions for TS1/phv.
 )
 LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
-(Font)              scaled to size 8.99994pt on input line 11.
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 8.09995pt on input line 12.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 12.
-LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 8.09995pt on input line 12.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 12.
-LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 6.29996pt on input line 12.
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.19995pt on input line 47.
-LaTeX Font Info:    Trying to load font information for T1+pcr on input line 47
-.
+(Font)              scaled to size 8.99994pt on input line 4.
+)
+[3] [4
 
-(C:\Users\rise\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
+]
+Chapter 3.
+(classcamera_1_1camera_1_1Camera.tex <./classcamera_1_1camera_1_1Camera__inheri
+t__graph.pdf
+
+pdfTeX warning: pdflatex (file ./classcamera_1_1camera_1_1Camera__inherit__grap
+h.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+>
+<classcamera_1_1camera_1_1Camera__inherit__graph.pdf, id=468, 214.8025pt x 156.
+585pt>
+File: classcamera_1_1camera_1_1Camera__inherit__graph.pdf Graphic file (type pd
+f)
+<use classcamera_1_1camera_1_1Camera__inherit__graph.pdf>
+Package pdftex.def Info: classcamera_1_1camera_1_1Camera__inherit__graph.pdf  u
+sed on input line 15.
+(pdftex.def)             Requested size: 214.0pt x 156.00162pt.
+ <./classcamera_1_1camera_1_1Camera__coll__graph.pdf
+
+pdfTeX warning: pdflatex (file ./classcamera_1_1camera_1_1Camera__coll__graph.p
+df): PDF inclusion: multiple pdfs with page group included in a single page
+>
+<classcamera_1_1camera_1_1Camera__coll__graph.pdf, id=476, 214.8025pt x 156.585
+pt>
+File: classcamera_1_1camera_1_1Camera__coll__graph.pdf Graphic file (type pdf)
+<use classcamera_1_1camera_1_1Camera__coll__graph.pdf>
+Package pdftex.def Info: classcamera_1_1camera_1_1Camera__coll__graph.pdf  used
+ on input line 25.
+(pdftex.def)             Requested size: 214.0pt x 156.00162pt.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 10.79993pt on input line 28.
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 8.09995pt on input line 32.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 32.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 8.09995pt on input line 32.
+ [5]
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 7.19995pt on input line 48.
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 48
+.
+ (C:\Users\rise\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <8> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 47.
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 48.
+)
+(classlogic_1_1logic_1_1Controller.tex <./classlogic_1_1logic_1_1Controller__in
+herit__graph.pdf>
+<classlogic_1_1logic_1_1Controller__inherit__graph.pdf, id=497, 197.73875pt x 1
+56.585pt>
+File: classlogic_1_1logic_1_1Controller__inherit__graph.pdf Graphic file (type 
+pdf)
+<use classlogic_1_1logic_1_1Controller__inherit__graph.pdf>
+Package pdftex.def Info: classlogic_1_1logic_1_1Controller__inherit__graph.pdf 
+ used on input line 15.
+(pdftex.def)             Requested size: 197.0pt x 156.00162pt.
+ [6] <./classlogic_1_1logic_1_1Controller__coll__graph.pdf
 
-[3] [4]
-Underfull \hbox (badness 10000) detected at line 96
+pdfTeX warning: pdflatex (file ./classlogic_1_1logic_1_1Controller__coll__graph
+.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+>
+<classlogic_1_1logic_1_1Controller__coll__graph.pdf, id=516, 197.73875pt x 156.
+585pt>
+File: classlogic_1_1logic_1_1Controller__coll__graph.pdf Graphic file (type pdf
+)
+<use classlogic_1_1logic_1_1Controller__coll__graph.pdf>
+Package pdftex.def Info: classlogic_1_1logic_1_1Controller__coll__graph.pdf  us
+ed on input line 25.
+(pdftex.def)             Requested size: 197.0pt x 156.00162pt.
+ [7]
+Underfull \hbox (badness 10000) in paragraph at lines 65--66
+
+ []
+
+[8]
+LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <7> not available
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 103.
+
+Underfull \hbox (badness 10000) in paragraph at lines 118--119
+
+ []
+
+[9]) (classdetection__node_1_1tracker_1_1EuclideanDistTracker.tex [10]
+Underfull \hbox (badness 10000) detected at line 53
+[][][]
+ []
+
+
+Overfull \vbox (19.85124pt too high) has occurred while \output is active []
+
+
+[11]
+Underfull \hbox (badness 10000) detected at line 94
 [][][]
  []
 
@@ -935,42 +1006,321 @@ Underfull \hbox (badness 10000) detected at line 114
 [][][]
  []
 
-[5]
+[12]
 Underfull \hbox (badness 10000) detected at line 136
 [][][]
  []
 
+) (classmodeling_1_1modeling_1_1Modeler.tex <./classmodeling_1_1modeling_1_1Mod
+eler__inherit__graph.pdf
 
-Underfull \hbox (badness 10000) detected at line 149
+pdfTeX warning: pdflatex (file ./classmodeling_1_1modeling_1_1Modeler__inherit_
+_graph.pdf): PDF inclusion: multiple pdfs with page group included in a single 
+page
+>
+<classmodeling_1_1modeling_1_1Modeler__inherit__graph.pdf, id=592, 234.8775pt x
+ 156.585pt>
+File: classmodeling_1_1modeling_1_1Modeler__inherit__graph.pdf Graphic file (ty
+pe pdf)
+<use classmodeling_1_1modeling_1_1Modeler__inherit__graph.pdf>
+Package pdftex.def Info: classmodeling_1_1modeling_1_1Modeler__inherit__graph.p
+df  used on input line 15.
+(pdftex.def)             Requested size: 234.0pt x 155.99922pt.
+ <./classmodeling_1_1modeling_1_1Modeler__coll__graph.pdf
+
+pdfTeX warning: pdflatex (file ./classmodeling_1_1modeling_1_1Modeler__coll__gr
+aph.pdf): PDF inclusion: multiple pdfs with page group included in a single pag
+e
+>
+<classmodeling_1_1modeling_1_1Modeler__coll__graph.pdf, id=600, 234.8775pt x 15
+6.585pt>
+File: classmodeling_1_1modeling_1_1Modeler__coll__graph.pdf Graphic file (type 
+pdf)
+<use classmodeling_1_1modeling_1_1Modeler__coll__graph.pdf>
+Package pdftex.def Info: classmodeling_1_1modeling_1_1Modeler__coll__graph.pdf 
+ used on input line 25.
+(pdftex.def)             Requested size: 234.0pt x 155.99922pt.
+ [13] [14]
+Underfull \hbox (badness 10000) detected at line 72
 [][][]
  []
 
-) [6]
+
+Underfull \hbox (badness 10000) detected at line 90
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 110
+[][][]
+ []
+
+[15]
+Underfull \hbox (badness 10000) detected at line 128
+[][][]
+ []
+
+) (classclassification_1_1Classification_1_1ObjectClassification.tex <./classcl
+assification_1_1Classification_1_1ObjectClassification__inherit__graph.pdf
+
+pdfTeX warning: pdflatex (file ./classclassification_1_1Classification_1_1Objec
+tClassification__inherit__graph.pdf): PDF inclusion: multiple pdfs with page gr
+oup included in a single page
+>
+<classclassification_1_1Classification_1_1ObjectClassification__inherit__graph.
+pdf, id=643, 232.87pt x 167.62625pt>
+File: classclassification_1_1Classification_1_1ObjectClassification__inherit__g
+raph.pdf Graphic file (type pdf)
+<use classclassification_1_1Classification_1_1ObjectClassification__inherit__gr
+aph.pdf>
+Package pdftex.def Info: classclassification_1_1Classification_1_1ObjectClassif
+ication__inherit__graph.pdf  used on input line 15.
+(pdftex.def)             Requested size: 232.0pt x 167.00684pt.
+ <./classclassification_1_1Classification_1_1ObjectClassification__coll__graph.
+pdf
+
+pdfTeX warning: pdflatex (file ./classclassification_1_1Classification_1_1Objec
+tClassification__coll__graph.pdf): PDF inclusion: multiple pdfs with page group
+ included in a single page
+>
+<classclassification_1_1Classification_1_1ObjectClassification__coll__graph.pdf
+, id=658, 232.87pt x 167.62625pt>
+File: classclassification_1_1Classification_1_1ObjectClassification__coll__grap
+h.pdf Graphic file (type pdf)
+<use classclassification_1_1Classification_1_1ObjectClassification__coll__graph
+.pdf>
+Package pdftex.def Info: classclassification_1_1Classification_1_1ObjectClassif
+ication__coll__graph.pdf  used on input line 25.
+(pdftex.def)             Requested size: 232.0pt x 167.00684pt.
+ [16]
+Overfull \vbox (9.45824pt too high) has occurred while \output is active []
+
+
+[17]
+Underfull \hbox (badness 10000) detected at line 63
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 85
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 105
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+
+ []
+
+[18]) (classdetection__node_1_1detection_1_1ObjectDetection.tex <./classdetecti
+on__node_1_1detection_1_1ObjectDetection__inherit__graph.pdf
+
+pdfTeX warning: pdflatex (file ./classdetection__node_1_1detection_1_1ObjectDet
+ection__inherit__graph.pdf): PDF inclusion: multiple pdfs with page group inclu
+ded in a single page
+>
+<classdetection__node_1_1detection_1_1ObjectDetection__inherit__graph.pdf, id=7
+06, 223.83624pt x 167.62625pt>
+File: classdetection__node_1_1detection_1_1ObjectDetection__inherit__graph.pdf 
+Graphic file (type pdf)
+<use classdetection__node_1_1detection_1_1ObjectDetection__inherit__graph.pdf>
+Package pdftex.def Info: classdetection__node_1_1detection_1_1ObjectDetection__
+inherit__graph.pdf  used on input line 15.
+(pdftex.def)             Requested size: 223.0pt x 167.00427pt.
+ <./classdetection__node_1_1detection_1_1ObjectDetection__coll__graph.pdf
+
+pdfTeX warning: pdflatex (file ./classdetection__node_1_1detection_1_1ObjectDet
+ection__coll__graph.pdf): PDF inclusion: multiple pdfs with page group included
+ in a single page
+>
+<classdetection__node_1_1detection_1_1ObjectDetection__coll__graph.pdf, id=714,
+ 223.83624pt x 167.62625pt>
+File: classdetection__node_1_1detection_1_1ObjectDetection__coll__graph.pdf Gra
+phic file (type pdf)
+<use classdetection__node_1_1detection_1_1ObjectDetection__coll__graph.pdf>
+Package pdftex.def Info: classdetection__node_1_1detection_1_1ObjectDetection__
+coll__graph.pdf  used on input line 25.
+(pdftex.def)             Requested size: 223.0pt x 167.00427pt.
+ [19]) (classposition__controller_1_1pos__control_1_1PositionController.tex <./
+classposition__controller_1_1pos__control_1_1PositionController__inherit__graph
+.pdf>
+<classposition__controller_1_1pos__control_1_1PositionController__inherit__grap
+h.pdf, id=735, 226.8475pt x 167.62625pt>
+File: classposition__controller_1_1pos__control_1_1PositionController__inherit_
+_graph.pdf Graphic file (type pdf)
+<use classposition__controller_1_1pos__control_1_1PositionController__inherit__
+graph.pdf>
+Package pdftex.def Info: classposition__controller_1_1pos__control_1_1PositionC
+ontroller__inherit__graph.pdf  used on input line 15.
+(pdftex.def)             Requested size: 226.0pt x 167.00172pt.
+ [20] <./classposition__controller_1_1pos__control_1_1PositionController__coll_
+_graph.pdf
+
+pdfTeX warning: pdflatex (file ./classposition__controller_1_1pos__control_1_1P
+ositionController__coll__graph.pdf): PDF inclusion: multiple pdfs with page gro
+up included in a single page
+>
+<classposition__controller_1_1pos__control_1_1PositionController__coll__graph.p
+df, id=751, 226.8475pt x 167.62625pt>
+File: classposition__controller_1_1pos__control_1_1PositionController__coll__gr
+aph.pdf Graphic file (type pdf)
+<use classposition__controller_1_1pos__control_1_1PositionController__coll__gra
+ph.pdf>
+Package pdftex.def Info: classposition__controller_1_1pos__control_1_1PositionC
+ontroller__coll__graph.pdf  used on input line 25.
+(pdftex.def)             Requested size: 226.0pt x 167.00172pt.
+ [21]
+Underfull \hbox (badness 10000) in paragraph at lines 68--69
+
+ []
+
+[22]
+Underfull \hbox (badness 10000) detected at line 107
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 140
+[][][]
+ []
+
+[23]) (classimage__preprocessor_1_1preprocessing_1_1Preprocessor.tex <./classim
+age__preprocessor_1_1preprocessing_1_1Preprocessor__inherit__graph.pdf
+
+pdfTeX warning: pdflatex (file ./classimage__preprocessor_1_1preprocessing_1_1P
+reprocessor__inherit__graph.pdf): PDF inclusion: multiple pdfs with page group 
+included in a single page
+>
+<classimage__preprocessor_1_1preprocessing_1_1Preprocessor__inherit__graph.pdf,
+ id=792, 270.00874pt x 167.62625pt>
+File: classimage__preprocessor_1_1preprocessing_1_1Preprocessor__inherit__graph
+.pdf Graphic file (type pdf)
+<use classimage__preprocessor_1_1preprocessing_1_1Preprocessor__inherit__graph.
+pdf>
+Package pdftex.def Info: classimage__preprocessor_1_1preprocessing_1_1Preproces
+sor__inherit__graph.pdf  used on input line 15.
+(pdftex.def)             Requested size: 269.0pt x 167.00427pt.
+ <./classimage__preprocessor_1_1preprocessing_1_1Preprocessor__coll__graph.pdf
+
+pdfTeX warning: pdflatex (file ./classimage__preprocessor_1_1preprocessing_1_1P
+reprocessor__coll__graph.pdf): PDF inclusion: multiple pdfs with page group inc
+luded in a single page
+>
+<classimage__preprocessor_1_1preprocessing_1_1Preprocessor__coll__graph.pdf, id
+=800, 270.00874pt x 167.62625pt>
+File: classimage__preprocessor_1_1preprocessing_1_1Preprocessor__coll__graph.pd
+f Graphic file (type pdf)
+<use classimage__preprocessor_1_1preprocessing_1_1Preprocessor__coll__graph.pdf
+>
+Package pdftex.def Info: classimage__preprocessor_1_1preprocessing_1_1Preproces
+sor__coll__graph.pdf  used on input line 25.
+(pdftex.def)             Requested size: 269.0pt x 167.00427pt.
+ [24] [25]) (classimage__preprocessor_1_1scaleDetection_1_1ScaleDetector.tex
+[26] [27]
+Underfull \hbox (badness 10000) detected at line 94
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 114
+[][][]
+ []
+
+[28]
+Underfull \hbox (badness 10000) detected at line 134
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 156
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 174
+[][][]
+ []
+
+[29]
+Underfull \hbox (badness 10000) detected at line 192
+[][][]
+ []
+
+) (classsynch__node_1_1synch__block_1_1SynchBlock.tex <./classsynch__node_1_1sy
+nch__block_1_1SynchBlock__inherit__graph.pdf
+
+pdfTeX warning: pdflatex (file ./classsynch__node_1_1synch__block_1_1SynchBlock
+__inherit__graph.pdf): PDF inclusion: multiple pdfs with page group included in
+ a single page
+>
+<classsynch__node_1_1synch__block_1_1SynchBlock__inherit__graph.pdf, id=875, 25
+0.9375pt x 167.62625pt>
+File: classsynch__node_1_1synch__block_1_1SynchBlock__inherit__graph.pdf Graphi
+c file (type pdf)
+<use classsynch__node_1_1synch__block_1_1SynchBlock__inherit__graph.pdf>
+Package pdftex.def Info: classsynch__node_1_1synch__block_1_1SynchBlock__inheri
+t__graph.pdf  used on input line 15.
+(pdftex.def)             Requested size: 250.0pt x 167.0094pt.
+ <./classsynch__node_1_1synch__block_1_1SynchBlock__coll__graph.pdf
+
+pdfTeX warning: pdflatex (file ./classsynch__node_1_1synch__block_1_1SynchBlock
+__coll__graph.pdf): PDF inclusion: multiple pdfs with page group included in a 
+single page
+>
+<classsynch__node_1_1synch__block_1_1SynchBlock__coll__graph.pdf, id=883, 250.9
+375pt x 167.62625pt>
+File: classsynch__node_1_1synch__block_1_1SynchBlock__coll__graph.pdf Graphic f
+ile (type pdf)
+<use classsynch__node_1_1synch__block_1_1SynchBlock__coll__graph.pdf>
+Package pdftex.def Info: classsynch__node_1_1synch__block_1_1SynchBlock__coll__
+graph.pdf  used on input line 25.
+(pdftex.def)             Requested size: 250.0pt x 167.0094pt.
+ [30] [31]
+Underfull \hbox (badness 10000) detected at line 75
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 101
+[][][]
+ []
+
+[32]
+Overfull \vbox (22.45377pt too high) has occurred while \output is active []
+
+
+[33]) [34]
 No file refman.ind.
 (refman.aux)
 Package rerunfilecheck Info: File `refman.out' has not changed.
-(rerunfilecheck)             Checksum: 3EDBE8AC5E91FF18C6B5CFE28E519CE1;2487.
+(rerunfilecheck)             Checksum: 8358F69AA368D8D9792C5A9536239D69;17632.
  ) 
 Here is how much of TeX's memory you used:
- 17512 strings out of 476331
- 286885 string characters out of 5788237
- 1868660 words of memory out of 5000000
- 37593 multiletter control sequences out of 15000+600000
- 568607 words of font info for 97 fonts, out of 8000000 for 9000
+ 18034 strings out of 476331
+ 310108 string characters out of 5788237
+ 1869660 words of memory out of 5000000
+ 37898 multiletter control sequences out of 15000+600000
+ 568982 words of font info for 98 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 101i,15n,117p,567b,740s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 101i,15n,117p,759b,740s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/rise/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
 mmi10.pfb><C:/Users/rise/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfo
-nts/cm/cmmi9.pfb><C:/Users/rise/AppData/Local/Programs/MiKTeX/fonts/type1/urw/c
-ourier/ucrr8a.pfb><C:/Users/rise/AppData/Local/Programs/MiKTeX/fonts/type1/urw/
-courier/ucrro8a.pfb><C:/Users/rise/AppData/Local/Programs/MiKTeX/fonts/type1/ur
-w/helvetic/uhvb8a.pfb><C:/Users/rise/AppData/Local/Programs/MiKTeX/fonts/type1/
-urw/helvetic/uhvb8ac.pfb><C:/Users/rise/AppData/Local/Programs/MiKTeX/fonts/typ
-e1/urw/helvetic/uhvr8a.pfb><C:/Users/rise/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/urw/helvetic/uhvro8a.pfb>
-Output written on refman.pdf (10 pages, 106537 bytes).
+nts/cm/cmmi7.pfb><C:/Users/rise/AppData/Local/Programs/MiKTeX/fonts/type1/publi
+c/amsfonts/cm/cmmi9.pfb><C:/Users/rise/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmsy7.pfb><C:/Users/rise/AppData/Local/Programs/MiKTeX/fon
+ts/type1/urw/courier/ucrr8a.pfb><C:/Users/rise/AppData/Local/Programs/MiKTeX/fo
+nts/type1/urw/courier/ucrro8a.pfb><C:/Users/rise/AppData/Local/Programs/MiKTeX/
+fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Users/rise/AppData/Local/Programs/MiKTe
+X/fonts/type1/urw/helvetic/uhvb8ac.pfb><C:/Users/rise/AppData/Local/Programs/Mi
+KTeX/fonts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/rise/AppData/Local/Programs/
+MiKTeX/fonts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on refman.pdf (38 pages, 373471 bytes).
 PDF statistics:
- 180 PDF objects out of 1000 (max. 8388607)
- 34 named destinations out of 1000 (max. 500000)
- 97 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1033 PDF objects out of 1200 (max. 8388607)
+ 230 named destinations out of 1000 (max. 500000)
+ 689 words of extra memory for PDF output out of 10000 (max. 10000000)
 
