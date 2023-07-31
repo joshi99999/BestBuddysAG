@@ -13,6 +13,7 @@ import joblib
 from joblib import dump , load
 from sklearn import svm
 
+## @package This package contains object classification tools
 ## A Objektclassification is used to classifier a objekt . 
 class ObjectClassification(Node):
     
