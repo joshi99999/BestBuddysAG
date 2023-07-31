@@ -13,10 +13,7 @@ import joblib
 from joblib import dump , load
 from sklearn import svm
 
-## @package classification This package contains object classification tools.
-
-## An ObjectClassification instance is used to create a ROS2 node for object classification. 
-
+## A Objektclassification is used to classifier a objekt . 
 class ObjectClassification(Node):
     
     ##Initializes the object classification.
@@ -35,11 +32,7 @@ class ObjectClassification(Node):
     def image_callback(self, IdSample):
         cv_image = self.bridge.imgmsg_to_cv2(IdSample.image, desired_encoding='8UC1')
         features, vector = self.feature_extract(cv_image)
-        """print(features)
-        print(vector)"""
         class_result = pred(features, self.svm_model)
-        #print(class_result)
-        #print(IdSample.id.data)
         msg = IdClassVec()
         
         id_msg = Int32()
